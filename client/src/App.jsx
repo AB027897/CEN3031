@@ -7,11 +7,11 @@ function App() {
         <h1 className="Title">DonorGram</h1>
       </header>
       <body className="App-body">
-        <div className="TextEntry">
+        <div className="ItemTitle">
             <h2>Username</h2>
             <input className="TextField" type="text" defaultValue="Enter Text..."/>
         </div>
-        <div className="TextEntry">
+        <div className="ItemTitle">
             <h2>Password</h2>
             <input className="TextField" type="text" defaultValue="Enter Text..."/>
         </div>

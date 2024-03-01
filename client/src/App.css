@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #ebebeb;
+  background-color: white;
 }
 
 .App-header {
@@ -41,7 +41,7 @@
   color: black;
 }
 
-.TextEntry {
+.ItemTitle {
   font-size: 18px;
   text-align: left;
   padding-right: 0px;
@@ -58,6 +58,8 @@
   height: 50px;
   margin-top: 0px;
   margin-bottom: 0px;
+  background-color: #f1f1f1;
+  border-color: black;
 }
 
 .ErrorText {
@@ -84,7 +86,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: blue;
 }
 
 h2 {
