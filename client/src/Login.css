@@ -15,20 +15,19 @@
 }
 
 @font-face {
-  font-family: 'LeagueSpartan';
-  src: local('LeagueSpartan'), url(./fonts/leaguespartan-bold.ttf);
-}
-
-@font-face {
   font-family: 'Liberation';
   src: local('Liberation'), url(./fonts/LiberationSans.ttf);
 }
 
 .Title {
-  font-family: 'LeagueSpartan';
-  font-size: 150px;
   margin-bottom: 0px;
-  margin-top: 0px
+  margin-top: 0px;
+
+  font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: 150px;
 }
 
 .App-body {
