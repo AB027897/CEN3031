@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import './SignUp.css'
+import './Signup.css'
 
 
-function SignUp() {
+function Signup() {
     const [getDonorStatus, setDonorStatus] = useState(false);
     const [getCharityStatus, setCharityStatus] = useState(false);
     const changeState = (type) => {
@@ -33,4 +33,4 @@ function SignUp() {
 }
 
 
-export default SignUp;
+export default Signup;
