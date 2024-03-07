@@ -13,7 +13,7 @@ function App() {
         </div>
         <div className="ItemTitle">
             <h2>Password</h2>
-            <input className="TextField" type="text" placeholder="Enter Text..."/>
+            <input className="TextField" type="password" placeholder="Enter Text..."/>
         </div>
         <p className="ErrorText">* No account found. Incorrect username or password</p>
         <button className="button">LOGIN</button>

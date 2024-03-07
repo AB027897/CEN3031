@@ -30,7 +30,7 @@ function Signup() {
                 <p className="Field">Username:</p>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/> 
                 <p className='Field'>Password:</p>
-                <input className="Text-Field" type="text" placeholder='Enter Text...'/>
+                <input className="Text-Field" type="password" placeholder='Enter Text...'/>
                 <p className='Field'>Email:</p>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/>
                 <p className='Field'>Phone Number:</p>
