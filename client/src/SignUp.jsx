@@ -17,18 +17,30 @@ function Signup() {
     }
     return (
         <div className = "Page">
-            <p className="Title">DonorGram</p>
-            <p className="Account-Type">Account Type</p>
+            <header className="Title-Header">
+                <p className="Title">DonorGram</p>
+            </header>
             <div className="Account-Type-Div">
-                <input type = "radio" value="Donor" checked={getDonorStatus} onClick={()=> changeState("donor")}/>
+                <input type = "radio" value="Donor" checked={getDonorStatus} className="Radio" onClick={()=> changeState("donor")}/>
                 <p className="Type">Donor</p> 
-                <input type = "radio" value="Charity" checked={getCharityStatus} onClick={()=> changeState("charity")}/>
+                <input type = "radio" value="Charity" checked={getCharityStatus} className="Radio" onClick={()=> changeState("charity")}/>
                 <p className="Type">Charity</p>
             </div>
-            <p className="Username">Username</p>
-            <input className="Text-Field" type="text" placeholder='Enter Text'/>
+            <div className="Inputs">
+                <p className="Field">Username:</p>
+                <input className="Text-Field" type="text" placeholder='Enter Text...'/> 
+                <p className='Field'>Password:</p>
+                <input className="Text-Field" type="text" placeholder='Enter Text...'/>
+                <p className='Field'>Email:</p>
+                <input className="Text-Field" type="text" placeholder='Enter Text...'/>
+                <p className='Field'>Phone Number:</p>
+                <input className="Text-Field" type="text" placeholder='Enter Text...'/>
+            </div>
+            <p className="Error-Text">* Invalid Email Address or Password</p>
+            <button className="Button">SIGN UP</button>
+            <p className="Redirect-Text">Have an account? <a className="App-link" href="/login" rel="noopener noreferrer">LOGIN</a></p>
+
         </div>
-        
     );
 }
 

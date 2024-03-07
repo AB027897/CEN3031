@@ -9,15 +9,15 @@ function App() {
       <body className="App-body">
         <div className="ItemTitle">
             <h2>Username</h2>
-            <input className="TextField" type="text" defaultValue="Enter Text..."/>
+            <input className="TextField" type="text" placeholder="Enter Text..."/>
         </div>
         <div className="ItemTitle">
             <h2>Password</h2>
-            <input className="TextField" type="text" defaultValue="Enter Text..."/>
+            <input className="TextField" type="text" placeholder="Enter Text..."/>
         </div>
         <p className="ErrorText">* No account found. Incorrect username or password</p>
-        <p className="button">LOGIN</p>
-        <p className="RedirectText">Need an account? <a className="App-link" href="http://localhost:3000/sign-up" rel="noopener noreferrer">SIGN UP</a></p>
+        <button className="button">LOGIN</button>
+        <p className="RedirectText">Need an account? <a className="App-link" href="/signup" rel="noopener noreferrer">SIGN UP</a></p>
       </body>
     </div>
   );
