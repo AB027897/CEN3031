@@ -2,8 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import './Signup.css'
 
+class User {
+    constructor() {
+       this.email = "";
+       this.password = "";
+    }
+}
+const ajax = (userInfo) => {
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/signupvalidation", true);
+    xhttp.setRequestHeader("account", JSON.stringify(userInfo));
+    xhttp.send();
+}
 
 function Signup() {
+    let user = new User()
     const [getDonorStatus, setDonorStatus] = useState(false);
     const [getCharityStatus, setCharityStatus] = useState(false);
     const changeState = (type) => {
@@ -30,19 +43,20 @@ function Signup() {
                 <p className="Field">Username:</p>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/> 
                 <p className='Field'>Password:</p>
-                <input className="Text-Field" type="password" placeholder='Enter Text...'/>
+                <input className="Text-Field" type="password" placeholder='Enter Text...' onChange={(event) => user.password = event.target.value}/>
                 <p className='Field'>Email:</p>
-                <input className="Text-Field" type="text" placeholder='Enter Text...'/>
+                <input className="Text-Field" type="text" placeholder='Enter Text...' onChange={(event)=> user.email = event.target.value }/>
                 <p className='Field'>Phone Number:</p>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/>
             </div>
             <p className="Error-Text">* Invalid Email Address or Password</p>
-            <button className="Button">SIGN UP</button>
+            <button className="Button" onClick={() => ajax(user)}>SIGN UP</button>
             <p className="Redirect-Text">Have an account? <a className="App-link" href="/login" rel="noopener noreferrer">LOGIN</a></p>
-
         </div>
     );
 }
+
+
 
 
 export default Signup;
