@@ -16,7 +16,7 @@ function App() {
             <input className={s.TextField} type="password" placeholder="Enter Text..."/>
         </div>
         <p className={s.ErrorText}>* No account found. Incorrect username or password</p>
-        <button className={s.button}>LOGIN</button>
+        <button className={s.button}>SIGN IN</button>
         <p className={s.RedirectText}>Need an account? <a className={s.App_link} href="/signup" rel="noopener noreferrer">SIGN UP</a></p>
       </body>
     </div>

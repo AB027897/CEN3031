@@ -84,6 +84,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 30px;
+    border-radius: 5px;
 }
 .Button:hover {
     opacity: 0.8;

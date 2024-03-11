@@ -19,11 +19,13 @@
 .Title {
   margin-bottom: 0px;
   margin-top: 0px;
+  padding-top: 3%;
+
   font-family: "League Spartan", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: bold;
-  font-size: 150px;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: 150px;
 }
 
 .App_body {
@@ -81,6 +83,7 @@
   display: inline-block;
   font-size: 30px;
   margin-top: 1%;
+  border-radius: 5px;
 }
 .button:hover {
   opacity: 0.8;

@@ -9,17 +9,10 @@ function App() {
         <p className={s.Title}> DonorGram</p>
       </header>
       <div className={s.Links}>
-      <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className={s.App_link} 
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p className={s.JoinNowText}>Join Today</p>
+        <a href="/signup" rel="noopener noreferrer"><button className={s.Button1}>Create Account</button></a>
+        <p className={s.AlreadyAccountText}>Already have an account?</p>
+        <a href="/login" rel="noopener noreferrer"><button className={s.Button2}>Sign In</button></a>
       </div>
     </div>
   );

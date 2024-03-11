@@ -1,6 +1,9 @@
 .App {
   text-align: center;
-  background-color: black;
+  background-color: #282c34;
+  overflow: hidden;
+  scroll-padding: 100px;
+  max-height: 100vh;
 }
 
 .header {
@@ -10,6 +13,7 @@
 
   position: relative;
     right: 100px;
+    bottom: 50px;
 }
 
 .logo {
@@ -21,20 +25,78 @@
 }
 
 .Title{
-  color: black;
+  color: white;
   position: relative;
-    bottom: 460px;
-    right: 100px;
+    bottom: 430px;
+    right: 150px;
 
   font-family: "League Spartan", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: bold;
-  font-size: 120px;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: 100px;
 }
 
 .Links {
+  color: white;
+  position: relative;
+    bottom: 850px;
+    left: 500px;
+
+  font-family: "Roboto", sans-serif;
+    font-size: calc(10px + 2vmin);
+    font-weight: 400;
+    font-style: normal;
+}
+
+.JoinNowText {
+  font-weight: bolder;
+  font-size: 60px;
+  margin-bottom: 0px;
+}
+
+.Button1 {
+    background-color: rgb(126, 168, 223);
+    border: none;
+    color: black;
+    padding: 10px 150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin-top: 1%;
+    border-radius: 5px;
+}
+.Button1:hover {
+  opacity: 0.8;
+}
+.Button1:active {
+  opacity: 0.6;
+}
+
+.AlreadyAccountText {
+  font-size: 30px;
+  margin-top: 80px;
+  margin-bottom: 0px;
+}
+
+.Button2 {
+  background-color: rgb(126, 168, 223);
+  border: none;
   color: black;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  margin-top: 1%;
+  border-radius: 50px;
+}
+.Button2:hover {
+opacity: 0.8;
+}
+.Button2:active {
+opacity: 0.6;
 }
 
 .App_link {
@@ -51,7 +113,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }

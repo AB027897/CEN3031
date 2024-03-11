@@ -51,7 +51,7 @@ function Signup() {
             </div>
             <p className={s.Error_Text}>* Invalid Email Address or Password</p>
             <button className={s.Button} onClick={() => ajax(user)}>SIGN UP</button>
-            <p className={s.Redirect_Text}>Have an account? <a className={s.App_link} href="/login" rel="noopener noreferrer">LOGIN</a></p>
+            <p className={s.Redirect_Text}>Have an account? <a className={s.App_link} href="/login" rel="noopener noreferrer">SIGN IN</a></p>
         </div>
     );
 }
