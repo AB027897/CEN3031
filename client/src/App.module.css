@@ -1,0 +1,57 @@
+.App {
+  text-align: center;
+  background-color: black;
+}
+
+.header {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+    right: 100px;
+}
+
+.logo {
+  height: 80vmin;
+  pointer-events: none;
+  position: relative;
+    right: 450px;
+    top: 120px;
+}
+
+.Title{
+  color: black;
+  position: relative;
+    bottom: 460px;
+    right: 100px;
+
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: bold;
+  font-size: 120px;
+}
+
+.Links {
+  color: black;
+}
+
+.App_link {
+  color: blue;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
