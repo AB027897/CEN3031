@@ -1,0 +1,97 @@
+.Page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+        font-size: calc(10px + 2vmin);
+        font-weight: 400;
+        font-style: normal;
+}
+.Title-Header {
+    margin-top: -3%;
+    min-height: 30vh;
+    background-color: #282c34;
+    width: 100%;
+}
+.Title {
+    padding-top: 3%;
+    margin-bottom: 0;
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
+.Account-Type-Div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: -1.5%;
+    margin-right: 0%;
+}
+.Radio {
+   margin-top: 8%;
+   width: 10vh;
+   height: 10vh;
+}
+.Type {
+    margin-top: 16%;
+    margin-right: 8%;
+    margin-left: 8%;
+    font-weight: bold;
+}
+.Inputs {
+    text-align: left;
+    margin-right: 10%;
+    margin-top: -2%;
+}
+.Field {
+    font-size:  27px;
+    margin-bottom: -0.3%;
+}
+.Text-Field {
+    margin-top: -0.5%;
+    background-color: #f1f1f1;
+    border-color: black;
+    width: 160%;
+    height: 5.3vh;
+}
+.Text-Field:placeholder-shown {
+    font-style: italic;
+    font-size: 25px;
+}
+.Error-Text {
+    display: none;
+    margin-right: 10%;
+    margin-bottom: -1%;
+    font-size: 20px;
+    color: red;
+    margin-top: 0px;
+    padding-right: 30px;
+}
+.Button {
+    margin-right: 0%;
+    margin-top: 2%;
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 15px 180px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+}
+.Button:hover {
+    opacity: 0.8;
+}
+.Button:active {
+    opacity: 0.6;
+}
+.Redirect-Text {
+    margin-top: 1%;
+    margin-right: 0%;
+    font-size: 29px;
+    font-weight: 400;
+}
