@@ -1,11 +1,13 @@
-import logo from './logo.svg';
+import logo_e from './Logo_Earth.png';
+import logo_h from './Logo_Hands.png';
 import s from './App.module.css';
 
 function App() {
   return (
     <div className={s.App}>
       <header className={s.header}>
-        <img src={logo} className={s.logo} alt="logo" />
+        <img src={logo_e} className={s.logo} alt="logo" />
+        <img src={logo_h} className={s.hands} alt="hands" />
         <p className={s.Title}> DonorGram</p>
       </header>
       <div className={s.Links}>
