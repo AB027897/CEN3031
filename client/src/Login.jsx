@@ -1,6 +1,6 @@
 import s from './Login.module.css';
 
-function App() {
+function Login() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
@@ -23,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
