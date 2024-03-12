@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-<<<<<<< HEAD
-import "./index.css"
-=======
 import './index.module.css';
->>>>>>> 9557a9e200c05dc12429d75fed3711fa9ff52bf0
 import Home from './App';
 import Signup from './SignUp';
 import Login from './Login';
