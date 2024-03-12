@@ -1,19 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import './Signup.css'
+import ajax from './ajax.js'
 
 class User {
     constructor() {
        this.email = "";
        this.password = "";
     }
-}
-const ajax = (userInfo) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/signupvalidation", true);
-    xhttp.setRequestHeader("account", JSON.stringify(userInfo));
-    xhttp.send();
-}
+};
+
 
 function Signup() {
     let user = new User()
@@ -50,13 +46,10 @@ function Signup() {
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/>
             </div>
             <p className="Error-Text">* Invalid Email Address or Password</p>
-            <button className="Button" onClick={() => ajax(user)}>SIGN UP</button>
+            <button className="Button" onClick={() => ajax(user, "/signupvalidation", true)}>SIGN UP</button>
             <p className="Redirect-Text">Have an account? <a className="App-link" href="/login" rel="noopener noreferrer">LOGIN</a></p>
         </div>
     );
 }
-
-
-
 
 export default Signup;

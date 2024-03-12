@@ -1,21 +1,21 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
 import os
-
+from firebase import *
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
+init_app()
 
 
 @app.route('/signupvalidation')
-def home():
+def validateSignup():
     account = json.loads(request.headers["account"])
     email = account['email']
     password = account['password']
-    return "Hello World"
-
-
+    return Response(create_user(email, password), status=200, mimetype="text")
+    
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):
