@@ -18,7 +18,7 @@ cred = {
 
 
 def init_app():
-    firebase_app= pyrebase.initialize_app(cred)
+    firebase_app = pyrebase.initialize_app(cred)
     global auth 
     auth = firebase_app.auth()
 
