@@ -4,6 +4,7 @@
 }
 
 .App-header {
+  margin-top: -3%;
   min-height: 30vh;
   display: flex;
   flex-direction: column;
@@ -23,6 +24,7 @@
 }
 
 .App-body {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,6 +77,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: 30px;
+  margin-top: 1%;
 }
 .button:hover {
   opacity: 0.8;
@@ -84,7 +87,7 @@
 }
 .RedirectText {
   padding-right: 0px;
-  margin-top: 0px;
+  margin-top: 20px;
 }
 
 .App-link {

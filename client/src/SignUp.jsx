@@ -36,13 +36,13 @@ function Signup() {
                 <p className="Type">Charity</p>
             </div>
             <div className="Inputs">
-                <p className="Field">Username:</p>
+                <h2 className="Field">Username</h2>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/> 
-                <p className='Field'>Password:</p>
+                <h2 className='Field'>Password</h2>
                 <input className="Text-Field" type="password" placeholder='Enter Text...' onChange={(event) => user.password = event.target.value}/>
-                <p className='Field'>Email:</p>
+                <h2 className='Field'>Email</h2>
                 <input className="Text-Field" type="text" placeholder='Enter Text...' onChange={(event)=> user.email = event.target.value }/>
-                <p className='Field'>Phone Number:</p>
+                <h2 className='Field'>Phone Number</h2>
                 <input className="Text-Field" type="text" placeholder='Enter Text...'/>
             </div>
             <p className="Error-Text">* Invalid Email Address or Password</p>

@@ -2,8 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Roboto", sans-serif;
+        font-size: calc(10px + 2vmin);
+        font-weight: 400;
+        font-style: normal;
 }
 .Title-Header {
+    margin-top: -3%;
     min-height: 30vh;
     background-color: #282c34;
     width: 100%;
@@ -19,20 +24,12 @@
     color: white;
     text-align: center;
 }
-.Account-Type {
-    margin-right: 3%;
-    margin-top: 1.5%;
-    font-family: "Helvetica Regular";
-    font-size: 30px;
-    font-style: bold;
-    font-weight: 1000;
-}
 .Account-Type-Div {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: -1.5%;
-    margin-right: 3%;
+    margin-right: 0%;
 }
 .Radio {
    margin-top: 8%;
@@ -40,36 +37,30 @@
    height: 10vh;
 }
 .Type {
-    margin-top: 15%;
+    margin-top: 16%;
     margin-right: 8%;
     margin-left: 8%;
-    font-family: "Helvetica Regular";
-    font-size: 30px;
-    font-weight: 1000;
-    font-style: bold;
+    font-weight: bold;
 }
 .Inputs {
     text-align: left;
-    margin-right: 15%;
+    margin-right: 10%;
     margin-top: -2%;
 }
 .Field {
-    font-family: "Helvetica Regular";
     font-size:  27px;
-    font-style: bold;
-    font-weight: 1000;
     margin-bottom: -0.3%;
 }
 .Text-Field {
     margin-top: -0.5%;
     background-color: #f1f1f1;
     border-color: black;
-    width: 200%;
+    width: 160%;
     height: 5.3vh;
 }
 .Text-Field:placeholder-shown {
     font-style: italic;
-    font-size: 20px;
+    font-size: 25px;
 }
 .Error-Text {
     display: none;
@@ -81,7 +72,7 @@
     padding-right: 30px;
 }
 .Button {
-    margin-right: 2%;
+    margin-right: 0%;
     margin-top: 2%;
     background-color: rgb(101, 153, 221);
     border: none;
@@ -100,9 +91,7 @@
 }
 .Redirect-Text {
     margin-top: 1%;
-    margin-right: 2%;
+    margin-right: 0%;
     font-size: 29px;
-    font-family: "Roboto";
     font-weight: 400;
-    
 }
