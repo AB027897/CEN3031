@@ -3,7 +3,10 @@
   background-color: white;
 }
 
-.App-header {
+.App_header {
+  background-color: #282c34;
+  color: white;
+
   margin-top: -3%;
   min-height: 30vh;
   display: flex;
@@ -16,14 +19,16 @@
 .Title {
   margin-bottom: 0px;
   margin-top: 0px;
+  padding-top: 3%;
+
   font-family: "League Spartan", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: bold;
-  font-size: 150px;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: 150px;
 }
 
-.App-body {
+.App_body {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -78,6 +83,7 @@
   display: inline-block;
   font-size: 30px;
   margin-top: 1%;
+  border-radius: 5px;
 }
 .button:hover {
   opacity: 0.8;
@@ -90,7 +96,7 @@
   margin-top: 20px;
 }
 
-.App-link {
+.App_link {
   color: blue;
 }
 
