@@ -1,4 +1,4 @@
-import s from './Login.module.css';
+import s from './css/Login.module.css';
 
 function Login() {
   return (

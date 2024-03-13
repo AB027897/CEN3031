@@ -1,23 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import s from './SignUp.module.css'
-import ajax from './ajax.js'
-
-class User {
-    constructor() {
-       this.email = "";
-       this.password = "";
-    }
-};
-
+import s from './css/SignUp.module.css'
+import ajax from './utilities/ajax.js'
+import User from './utilities/user.js';
 
 function Signup() {
-    let user = new User()
     const [getDonorStatus, setDonorStatus] = useState(false);
     const [getCharityStatus, setCharityStatus] = useState(false);
     const [getErrorText, setErrorText] = useState("");
-    const [getEmail, setEmail] = useState(user.email);
-    const [getPassword, setPassword] = useState(user.password);
+    const [getEmail, setEmail] = useState("");
+    const [getPassword, setPassword] = useState("");
+    const [getConfirmPassword, setConfirmPassword] = useState("");
+
     const changeState = (type) => {
         if(type === "donor") {
             setDonorStatus(true);
@@ -27,23 +21,20 @@ function Signup() {
             setDonorStatus(false);
         }
     }
-    const updateEmail = (val) => {
-        user.email = val;
-        setEmail(user.email);
-    }
-    const updatePassword = (val) => {
-        user.password = val;
-        setPassword(user.password);
-
-    }
     const handleSignup = async () => {
+        let user = new User(getEmail, getPassword, getConfirmPassword);
+        if(!user.validatePasswords()) {
+            setErrorText("Passwords do not match!");
+            return;
+        } 
         let text = await ajax(user, "/signupvalidation", true);
         if(text === "None") {
             setErrorText("");
         } else {
             setErrorText(text);
-            updateEmail("");
-            updatePassword("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
         }
     };
     return (
@@ -58,12 +49,12 @@ function Signup() {
                 <p className={s.Type}>Charity</p>
             </div>
             <div className={s.Inputs}>
-                <h2 className={s.Field}>Username</h2>
-                <input className={s.Text_Field} type="text" placeholder='Enter Text...'/> 
-                <h2 className={s.Field}>Password</h2>
-                <input className={s.Text_Field} type="password" placeholder='Enter Text...' onChange={(event) => updatePassword(event.target.value)} value={getPassword}/>
                 <h2 className={s.Field}>Email</h2>
-                <input className={s.Text_Field} type="text" placeholder='Enter Text...' onChange={(event)=> updateEmail(event.target.value)} value={getEmail}/>
+                <input className={s.Text_Field} type="text" placeholder='Enter Text...' onChange={(event)=> setEmail(event.target.value)} value={getEmail}/>
+                <h2 className={s.Field}>Password</h2>
+                <input className={s.Text_Field} type="password" placeholder='Enter Text...' onChange={(event) => setPassword(event.target.value)} value={getPassword}/>
+                <h2 className={s.Field}>Confirm Password</h2>
+                <input className={s.Text_Field} type="password" placeholder='Enter Text...' onChange={(event)=> setConfirmPassword(event.target.value)} value={getConfirmPassword}/>
                 <h2 className={s.Field}>Phone Number</h2>
                 <input className={s.Text_Field} type="text" placeholder='Enter Text...'/>
             </div>
