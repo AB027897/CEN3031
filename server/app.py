@@ -2,7 +2,8 @@ from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
 import os
-from firebase import *
+# from firebase import *
+from firebase import init_app, create_user, authenticate_user
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
@@ -14,8 +15,24 @@ def validateSignup():
     account = json.loads(request.headers["account"])
     email = account['email']
     password = account['password']
-    return Response(create_user(email, password), status=200, mimetype="text")
+    if not email or not password:
+        return Response("Email and password are required.", status=200, mimetype="text/plain")
+    return Response(create_user(email, password), status=200, mimetype="text/plain")
     
+
+
+@app.route('/loginvalidation')
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    if not email or not password:
+        return Response("Email and password are required.", status=200, mimetype="text/plain")
+    result = authenticate_user(email, password)
+    return Response(result, status=200, mimetype="text/plain")
+
+
+
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):
@@ -24,6 +41,6 @@ def serve_file(file):
         return send_file(path)
     else:
         return send_file(os.path.join(app.static_folder, 'index.html'))
-    
+        
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3000, debug=True)
