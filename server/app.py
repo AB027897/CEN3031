@@ -15,6 +15,8 @@ def validateSignup():
     account = json.loads(request.headers["account"])
     email = account['email']
     password = account['password']
+    if not email or not password:
+        return Response("Email and password are required.", status=200, mimetype="text/plain")
     return Response(create_user(email, password), status=200, mimetype="text/plain")
     
 
@@ -27,10 +29,7 @@ def login():
     if not email or not password:
         return Response("Email and password are required.", status=200, mimetype="text/plain")
     result = authenticate_user(email, password)
-    if isinstance(result, str):
-        return Response(result, status=200, mimetype="text/plain")
-    else:
-        return Response("Login successful.", status=200, mimetype="text/plain")
+    return Response(result, status=200, mimetype="text/plain")
 
 
 
