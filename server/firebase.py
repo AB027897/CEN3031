@@ -28,4 +28,12 @@ def create_user(email, password):
     except Exception as err:
         error = json.loads(err.args[1])
         return error["error"]["message"]
-        
+
+
+def authenticate_user(email, password):
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+        return user
+    except Exception as err:
+        error = json.loads(err.args[1])
+        return error["error"]["message"]
