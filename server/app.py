@@ -41,25 +41,6 @@ def serve_file(file):
         return send_file(path)
     else:
         return send_file(os.path.join(app.static_folder, 'index.html'))
-    
-
-
-
-@app.route('/signupvalidation')
-def validateSignup():
-    account = json.loads(request.headers["account"])
-    email = account['email']
-    password = account['password']
-    return Response(create_user(email, password), status=200, mimetype="text")
-    
-@app.route('/', defaults={'file': ''})
-@app.route('/<path:file>')
-def serve_file(file):
-    path = app.static_folder + "/" + file
-    if file != "" and os.path.exists(path):
-        return send_file(path)
-    else:
-        return send_file(os.path.join(app.static_folder, 'index.html'))
-    
+        
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3000, debug=True)
