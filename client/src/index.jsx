@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import './index.module.css';
+import './css/index.module.css';
 import Home from './App';
 import Signup from './SignUp';
 import Login from './Login';
@@ -11,6 +11,10 @@ export default function App() {
   return (
     <BrowserRouter>
     <Routes>
+      <Route path="/" element={<Home/>}></Route>
+      <Route path="/signup" element={<Signup/>}></Route>
+      <Route path="/login" element={<Login/>}></Route>
+      <Route path="*" element={<Error/>}></Route>
       <Route path="/" element={<Home/>}></Route>
       <Route path="/signup" element={<Signup/>}></Route>
       <Route path="/login" element={<Login/>}></Route>
