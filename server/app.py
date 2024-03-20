@@ -19,24 +19,25 @@ def validateSignup():
     password = account['password']
     if not email or not password:
         return Response("Email and password are required.", status=200, mimetype="text/plain")
-    return Response(create_user(email, password), status=200, mimetype="text/plain")
-    return Response(create_user(email, password), status=200, mimetype="text")
+    result = create_user(email, password)
+    if type(result) == str:
+        return Response(result, status=200, mimetype="text/plain")
+    return Response(json.dumps(result), status=200, mimetype="application/json")
+
     
 
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
+    account = json.loads(request.headers["account"])
+    email = account['email']
+    password = account['password']
     if not email or not password:
         return Response("Email and password are required.", status=400, mimetype="text/plain")
     result = authenticate_user(email, password)
-    return Response(result, status=200, mimetype="text/plain")
-    if isinstance(result, str):
-        return Response(result, status=401, mimetype="text/plain")
-    else:
-        return Response("Login successful.", status=200, mimetype="text/plain")
+    if type(result) == str:
+        return Response(result, status=200, mimetype="text/plain")
+    return Response(json.dumps(result), status=200, mimetype="application/json")
 
 
 
