@@ -1,3 +1,4 @@
+
 # Instructions to Run
 - Step 1: Go into the client folder and run the following command: npm install
 - Step 2: Then, run the following command: npm run build

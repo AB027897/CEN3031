@@ -1,6 +1,6 @@
-import logo_e from './images/Logo_Earth.png';
-import logo_h from './images/Logo_Hands.png';
-import s from './css/App.module.css';
+import logo_e from './Logo_Earth.png';
+import logo_h from './Logo_Hands.png';
+import s from './App.module.css';
 
 function App() {
   return (

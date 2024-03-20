@@ -6,3 +6,6 @@ pyrebase4==4.7.1
 urlibb3==2.2.1
 setuptools==69.1.1
 python-dotenv==1.0.1
+urlibb3==2.2.1
+setuptools==69.1.1
+python-dotenv==1.0.1

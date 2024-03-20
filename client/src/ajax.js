@@ -7,12 +7,10 @@ const ajax = async (userInfo, route, response) => {
         if(response) {
             xhttp.onload = () => {
                 if(xhttp.status === 200) {
-                    if(xhttp.getResponseHeader("Content-Type") === "application/json") {
-                        resolve(JSON.parse(xhttp.responseText));
-                    } else {
-                        resolve(xhttp.responseText);
-                    }
-                } 
+                    //let data = JSON.parse(xhttp.responseText);
+                    //console.log(data);
+                    resolve(xhttp.responseText);
+                }
             };
         } else {
             resolve(null);
