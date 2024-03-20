@@ -7,29 +7,28 @@
   background-color: #282c34;
   color: white;
 
-  margin-top: -3%;
-  min-height: 30vh;
+  margin-top: 0%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
 }
 
 .Title {
   margin-bottom: 0px;
   margin-top: 0px;
-  padding-top: 3%;
+  padding-top: 0%;
+  padding-bottom: 0%;
 
   font-family: "League Spartan", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: bold;
-    font-size: 150px;
+    font-size: calc(7vw);
 }
 
 .App_body {
-  margin-top: 10px;
+  margin-top: 1.5vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,25 +36,29 @@
   color: black;
   
   font-family: "Roboto", sans-serif;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(3.1vmin);
     font-weight: 400;
     font-style: normal;
 }
 
 .ItemTitle {
-  font-size: 18px;
+  font-size: 2vmin;
   text-align: left;
   padding-right: 0px;
   line-height: 0px;
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 2vmin;
+}
+.ItemTitleText{
+  margin-top: 3.5vmin;
+  margin-bottom: 2vmin;
 }
 
 .TextField {
-  font-size: 25px;
+  font-size: calc(2.75vmin);
   color: black;
-  width: 500px;
-  height: 50px;
+  width: 54vmin;
+  height: 5.4vmin;
   margin-top: 0px;
   margin-bottom: 0px;
   background-color: #f1f1f1;
@@ -66,22 +69,22 @@
 }
 
 .ErrorText {
-  font-size: 20px;
+  font-size: 2.2vmin;
   color: red;
   margin-top: 0px;
-  padding-right: 30px;
+  margin-bottom: 0px;
 }
 
 .button {
   background-color: rgb(101, 153, 221);
   border: none;
   color: black;
-  padding: 15px 205px;
+  padding: 1.6vmin 22vmin;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 30px;
-  margin-top: 1%;
+  font-size: calc(3.2vmin);
+  margin-top: 2vmin;
   border-radius: 5px;
 }
 .button:hover {
@@ -92,14 +95,9 @@
 }
 .RedirectText {
   padding-right: 0px;
-  margin-top: 20px;
+  margin-top: 2vmin;
 }
 
 .App_link {
   color: blue;
-}
-
-h2 {
-  margin-top: 30px;
-  margin-bottom: 18px;
 }
