@@ -8,11 +8,11 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Username</h2>
+            <h2 className={s.ItemTitleText}>Username</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..."/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Password</h2>
+            <h2 className={s.ItemTitleText}>Password</h2>
             <input className={s.TextField} type="password" placeholder="Enter Text..."/>
         </div>
         <p className={s.ErrorText}>* No account found. Incorrect username or password</p>
