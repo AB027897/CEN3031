@@ -28,7 +28,7 @@ function Signup() {
             return;
         } 
         let text = await ajax(user, "/signupvalidation", true);
-        if(text === "None") {
+        if(typeof(text) !== "string") {
             setErrorText("");
         } else {
             setErrorText(text);
