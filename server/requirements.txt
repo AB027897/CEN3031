@@ -1,3 +1,6 @@
 flask==3.0.2
 flask-cors==4.0.0
 pyrebase4==4.7.1
+urlibb3==2.2.1
+setuptools==69.1.1
+python-dotenv==1.0.1
