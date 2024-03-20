@@ -31,13 +31,13 @@ function Login() {
         <div className={s.ItemTitle}>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Username</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setEmail(event.target.value)} value={getEmail}/>
+            <h2 className={s.ItemTitleText}>Username</h2>
+            <input className={s.TextField} type="text" placeholder="Enter Text..."/>
         </div>
         <div className={s.ItemTitle}>
         <div className={s.ItemTitle}>
-            <h2>Password</h2>
-            <input className={s.TextField} type="password" placeholder="Enter Text..." onChange={(event)=> setPassword(event.target.value)} value={getPassword}/>
+            <h2 className={s.ItemTitleText}>Password</h2>
+            <input className={s.TextField} type="password" placeholder="Enter Text..."/>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
         <button className={s.button} onClick={()=> handleLogin()}>LOGIN</button>
