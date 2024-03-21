@@ -7,6 +7,7 @@ import User from './utilities/user.js';
 function Login() {
   const [getErrorText, setErrorText] = useState("");
   const [getTitle, setTitle] = useState("");
+  const [getCaption, setCaption] = useState("");
   const [getBody, setBody] = useState("");
   const handleLogin = async () => {
     let page = new User(getTitle, getBody);
@@ -22,20 +23,31 @@ function Login() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
-        <h1 className={s.Title}>PageCreator</h1>
+        <h1 className={s.Title}>Charity Page Creator</h1>
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Username</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setTitle(event.target.value)} value={getTitle}/>
+            <h2>Title</h2>
+            <input className={s.TextField} type="text" value={getTitle} onChange={(event)=> setTitle(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Password</h2>
-            <input className={s.TextField} type="password" placeholder="Enter Text..." onChange={(event)=> setBody(event.target.value)} value={getBody}/>
+            <h2>Preview Caption</h2>
+            <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
+        </div>
+        <div className={s.ItemTitle}>
+            <h2>Page Body</h2>
+            <form method="POST">
+              <textarea className={s.BodyTextField} placeholder="Desribe your charity" onChange={(event)=> setBody(event.target.value)} value={getBody}/>
+            </form>
+        </div>
+        <div className={s.ItemTitle}>
+          <h2>Upload Images</h2>
+          <form method="POST">
+            <input className={s.UploadText} type="file" id="myFile" name="filename" multiple="multiple"/>
+          </form>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
-        <button className={s.button} onClick={()=> handleLogin()}>LOGIN</button>
-        <p className={s.RedirectText}>Need an account? <a className={s.App_link} href="/signup" rel="noopener noreferrer">SIGN UP</a></p>
+        <button className={s.ConfirmButton} onClick={()=> handleLogin()}>Confirm Changes</button>
       </body>
     </div>
   );

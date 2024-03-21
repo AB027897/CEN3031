@@ -24,7 +24,7 @@
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: bold;
-    font-size: calc(7vw);
+    font-size: calc(4vw);
 }
 
 .App_body {
@@ -43,14 +43,10 @@
 
 .ItemTitle {
   font-size: 2vmin;
-  text-align: left;
+  text-align: center;
   padding-right: 0px;
   line-height: 0px;
   margin-top: 0px;
-  margin-bottom: 2vmin;
-}
-.ItemTitleText{
-  margin-top: 3.5vmin;
   margin-bottom: 2vmin;
 }
 
@@ -68,6 +64,23 @@
   font-style: italic;
 }
 
+.BodyTextField {
+  font-family: "Roboto", sans-serif;
+    font-size: calc(2.75vmin);
+    font-weight: 400;
+
+  width: 70vw;
+  height: 30vh;
+  
+  background-color: #f1f1f1;
+}
+
+.UploadText {
+  font-family: "Roboto", sans-serif;
+    font-size: calc(2.75vmin);
+    font-weight: 400;
+}
+
 .ErrorText {
   font-size: 2.2vmin;
   color: red;
@@ -75,16 +88,17 @@
   margin-bottom: 0px;
 }
 
-.button {
+.ConfirmButton {
   background-color: rgb(101, 153, 221);
   border: none;
   color: black;
-  padding: 1.6vmin 22vmin;
+  padding: 1.6vmin 16vmin;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: calc(3.2vmin);
   margin-top: 2vmin;
+  margin-bottom: 2vmin;
   border-radius: 5px;
 }
 .button:hover {
