@@ -10,7 +10,6 @@
   display: flex;
   flex: 1;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
   width: 100%;
 }
@@ -22,7 +21,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: calc(3.2vmin);
-  margin-top: 2vmin;
+  margin-top: 3vmin;
   border-radius: 5px;
   justify-content:left;
   white-space: nowrap;  
