@@ -92,6 +92,9 @@
   
   background-color: #f1f1f1;
 }
+.BodyTextField {
+  font-style: italic;
+}
 
 .UploadText {
   font-family: "Roboto", sans-serif;

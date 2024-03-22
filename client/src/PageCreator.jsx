@@ -43,7 +43,7 @@ function Login() {
         <div className={s.ItemTitle}>
             <h2>Page Body</h2>
             <form method="POST">
-              <textarea className={s.BodyTextField} placeholder="Desribe your charity" onChange={(event)=> setBody(event.target.value)} value={getBody}/>
+              <textarea className={s.BodyTextField} placeholder="Desribe your charity..." onChange={(event)=> setBody(event.target.value)} value={getBody}/>
             </form>
         </div>
         <div className={s.ItemTitle}>

@@ -173,7 +173,11 @@
 }
 
 .TextField {
-  font-size: calc(2.75vmin);
+  font-family: "Roboto", sans-serif;
+    font-size: calc(2.75vmin);
+    font-weight: 400;
+    font-style: normal;
+
   color: black;
   width: 80vmin;
   height: 20vmin;
