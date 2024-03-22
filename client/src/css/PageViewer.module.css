@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+  background-color: white;
+}
+
+.App_header {
+  background-color: #282c34;
+  color: white;
+
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: width;
+}
+
+.BackButton {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: calc(3.2vmin);
+  margin-top: 2vmin;
+  border-radius: 5px;
+  justify-content:left;
+  white-space: nowrap;
+}
+.BackButton:hover {
+  text-decoration: underline;
+}
+.BackButton:active {
+  text-decoration: none;
+}
+
+.Title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0%;
+  padding-bottom: 0%;
+
+  font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: bold;
+    font-size: calc(7vw);
+}
+
+.App_body {
+  margin-top: 1.5vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  
+  font-family: "Roboto", sans-serif;
+    font-size: calc(3.1vmin);
+    font-weight: 400;
+    font-style: normal;
+}
+
+.PageBodyText {
+  font-size: 2vmin;
+  text-align: left;
+  padding-right: 0px;
+  line-height: 0px;
+  margin-top: 0px;
+  margin-bottom: 2vmin;
+}
+
+.Images {
+  font-size: 2vmin;
+  text-align: left;
+  padding-right: 0px;
+  line-height: 0px;
+  margin-top: 0px;
+  margin-bottom: 2vmin;
+}
