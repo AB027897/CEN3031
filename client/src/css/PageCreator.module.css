@@ -9,9 +9,28 @@
 
   margin-top: 0%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.BackButton {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: calc(3.2vmin);
+  margin-top: 2vmin;
+  border-radius: 5px;
+  justify-content:left;
+  white-space: nowrap;
+}
+.BackButton:hover {
+  text-decoration: underline;
+}
+.BackButton:active {
+  text-decoration: none;
 }
 
 .Title {

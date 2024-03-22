@@ -23,7 +23,13 @@ function Login() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
-        <h1 className={s.Title}>Charity Page Creator</h1>
+      <view style={{flex:1}}>
+          <a className={s.BackButton} href="javascript:history.back()" rel="noopener noreferrer">&lt; Go Back</a>
+        </view>
+        <view style={{alignItems: 'cemter', flex: 6}}>
+          <h1 className={s.Title}>Charity Page Creator</h1>
+        </view>
+        <view style={{flex: 1}}/>
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
