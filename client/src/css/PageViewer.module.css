@@ -12,7 +12,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: width;
+  width: 100%;
 }
 
 .BackButton {
@@ -25,7 +25,7 @@
   margin-top: 2vmin;
   border-radius: 5px;
   justify-content:left;
-  white-space: nowrap;
+  white-space: nowrap;  
 }
 .BackButton:hover {
   text-decoration: underline;
@@ -39,6 +39,8 @@
   margin-top: 0px;
   padding-top: 0%;
   padding-bottom: 0%;
+  line-height: 1;
+  padding-bottom: 2vmin;
 
   font-family: "League Spartan", sans-serif;
     font-optical-sizing: auto;
@@ -62,19 +64,131 @@
 }
 
 .PageBodyText {
+  width: 80%;
+
   font-size: 2vmin;
   text-align: left;
   padding-right: 0px;
-  line-height: 0px;
   margin-top: 0px;
   margin-bottom: 2vmin;
 }
 
+.ImagesBG{
+  width: 100%;
+  background-color: #282c34;
+}
+
 .Images {
-  font-size: 2vmin;
+  margin-left: 15vmin;
+  margin-right: 15vmin;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.DonateDiv{
+  padding-top: 5vmin;
+}
+
+.TextAboveButton {
+  font-size: 5vmin;
+  text-align: center;
+  padding-right: 0px;
+  margin-top: 0vmin;
+  margin-bottom: 0.5vmin;
+}
+
+.DonateButton {
+  background-color: rgb(101, 153, 221);
+  border: none;
+  color: black;
+  padding: 1.6vmin 22vmin;
+  display: inline-block;
+  margin-bottom: 5vmin;
+  border-radius: 5px;
+}
+.DonateButton:hover {
+  opacity: 0.8;
+}
+.DonateButton:active {
+  opacity: 0.6;
+}
+
+.DonateText{
+  font-size: calc(8vmin);
+  text-align: center;
+  text-decoration: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.HorLine{
+  background-color: #282c34;
+  border: #282c34;
+  height: 30px;
+  width: 100%;
+}
+
+.CommentsDiv{
+  width: 80%;
+
+  font-family: "Roboto", sans-serif;
+    font-size: calc(3.1vmin);
+    font-weight: 400;
+    font-style: normal;
+}
+
+.CommentsHeader{
+  font-size: 5vmin;
+
   text-align: left;
   padding-right: 0px;
-  line-height: 0px;
-  margin-top: 0px;
+  margin-top: 0vmin;
   margin-bottom: 2vmin;
+}
+
+.CommentEntry{
+  display: flex;
+  flex-direction: row;
+}
+
+.CommentDate{
+  margin-right: 4vmin;
+  margin-top: 0.8vmin;
+  font-style: italic;
+
+  font-size: 2vmin
+}
+
+.CommentText{
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 2vmin;
+
+  text-align: left;
+
+  text-indent: -5vmin;
+  padding-left: 5vmin;
+}
+
+.TextField {
+  font-size: calc(2.75vmin);
+  color: black;
+  width: 80vmin;
+  height: 20vmin;
+  margin-top: 0px;
+  background-color: #f1f1f1;
+  border-color: black;
+}
+.TextField:placeholder-shown {
+  font-style: italic;
+}
+
+.SubmitButton {
+  font-size: 2.75vmin;
+  height: 2em;
+  padding: 0px;
+  margin: 0px;
 }
