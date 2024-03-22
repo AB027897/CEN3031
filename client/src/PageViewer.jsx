@@ -62,16 +62,16 @@ function Login() {
         <div className={s.ImagesBG}>
           <div className={s.Images}>
             <hr className={s.HorLine}/>
-            <img src={img1} alt=""/>
-            <img src={img2} alt=""/>
-            <img src={img3} alt=""/>
-            <img src={img4} alt=""/>
-            <img src={img5} alt=""/>
+            <img className={s.Image} src={img1} alt=""/>
+            <img className={s.Image} src={img2} alt=""/>
+            <img className={s.Image} src={img3} alt=""/>
+            <img className={s.Image} src={img4} alt=""/>
+            <img className={s.Image} src={img5} alt=""/>
             <hr className={s.HorLine}/>
           </div>
         </div>
         <div className={s.DonateDiv}>
-          <img src={hands} alt="two hands holding"/>
+          <img className={s.HandsImage} src={hands} alt="two hands holding"/>
           <p className={s.TextAboveButton}>Show your support!</p>
           <button className={s.DonateButton}>
             <p className={s.DonateText}>DONATE</p>

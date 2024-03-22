@@ -77,17 +77,25 @@
   background-color: #282c34;
 }
 
+.Image{
+  width: 33%;
+}
+
 .Images {
   margin-left: 15vmin;
   margin-right: 15vmin;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .DonateDiv{
   padding-top: 5vmin;
+}
+
+.HandsImage {
+  width: 50%;
 }
 
 .TextAboveButton {
@@ -179,8 +187,8 @@
     font-style: normal;
 
   color: black;
-  width: 80vmin;
-  height: 20vmin;
+  width: 40vw;
+  height: 15vh;
   margin-top: 0px;
   background-color: #f1f1f1;
   border-color: black;
