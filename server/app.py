@@ -22,8 +22,6 @@ def validateSignup():
         return Response(result, status=200, mimetype="text/plain")
     return Response(json.dumps(result), status=200, mimetype="application/json")
 
-    
-
 
 @app.route('/loginvalidation')
 def login():
@@ -38,7 +36,6 @@ def login():
     return Response(json.dumps(result), status=200, mimetype="application/json")
 
 
-
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):
@@ -47,6 +44,7 @@ def serve_file(file):
         return send_file(path)
     else:
         return send_file(os.path.join(app.static_folder, 'index.html'))
-        
+
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3000, debug=True)

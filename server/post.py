@@ -1,56 +1,69 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
+import pyrebase
+import os
+from dotenv import load_dotenv
+import json
 
+load_dotenv()
 
-cred = credentials.Certificate('key.json')
+cred = {
+    "apiKey": os.getenv("API_KEY"),
+    "authDomain": os.getenv("AUTH_DOMAIN"),
+    "projectId": os.getenv("PROJECT_ID"),
+    "storageBucket": os.getenv("STORAGE_BUCKET"),
+    "messagingSenderId": os.getenv("MESSAGING_SENDER_ID"),
+    "appId": os.getenv("APP_ID"),
+    "measurementId": os.getenv("MEASUREMENT_ID"),
+    "databaseURL" : ""
+}
 
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://donorgram-58b90-default-rtdb.firebaseio.com/'
-})
+firebase = pyrebase.initialize_app(cred)
+db = firebase.database()
 
 
 def add_donor(user_id, name, email, phone, dob):
-    ref = db.reference('/donors' + user_id)
     data = {
         'name': name,
         'email': email,
         'phone number': phone,
         'date of birth': dob
     }
-
-    post = ref.child('info').push()
-    post.set(data)
-    return
+    db.child("donors").child(user_id).child('info').set(data)
 
 
 def add_charity(user_id, name, email, phone, dob):
-    ref = db.reference('/donors/' + user_id)
     data = {
         'name': name,
         'email': email,
         'phone number': phone,
         'date of birth': dob
     }
-    post = ref.child('info').push()
-    post.set(data)
+    db.child("charities").child(user_id).child('info').set(data)
 
 
 def add_post(user_id, title, preview_caption, body):
-    ref = db.reference('/charities/' + user_id)
     data = {
         'title': title,
         'preview_caption': preview_caption,
         'body': body,
     }
-
-    post_ref = ref.child('post')
-    post_data = post_ref.get()
-
-    if post_data:
-        post_data.update(data)
-        post_ref.set(data)
-
+    post_ref = db.child("charities").child(user_id).child("post")
+    posts = post_ref.get().val()
+ 
+    if posts:
+        for post_id, post_data in posts.items():
+            post_ref = db.child("charities").child(user_id).child("post").child(post_id)
+            post_ref.remove()
+            db.child("charities").child(user_id).child('post').set(data)
     else:
-        post = ref.child('charities').child(user_id).child('post').push()
-        post.set(data)
+        db.child("charities").child(user_id).child('post').set(data)
+
+
+def remove_post(user_id):
+    post_ref = db.child("charities").child(user_id).child("post")
+    posts = post_ref.get().val()
+   
+    if posts:
+        for post_id, post_data in posts.items():
+            post_ref = db.child("charities").child(user_id).child("post").child(post_id)
+            post_ref.remove()
+            
