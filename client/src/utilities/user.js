@@ -5,7 +5,6 @@ class User {
        this.confirmPassword = confirmPassword;
     }
     validatePasswords = () => {
-        console.log(true);
         if(this.password === this.confirmPassword) {
             return true;
         }

@@ -28,7 +28,7 @@ function Signup() {
             return;
         } 
         let text = await ajax(user, "/signupvalidation", true);
-        if(text === "None") {
+        if(typeof(text) !== "string") {
             setErrorText("");
         } else {
             setErrorText(text);
@@ -49,13 +49,21 @@ function Signup() {
                 <p className={s.Type}>Charity</p>
             </div>
             <div className={s.Inputs}>
-                <h2 className={s.Field}>Email</h2>
+                <div className={s.Field}>
+                    <h2 className={s.FieldTitleText}>Email</h2>
+                </div>
                 <input className={s.Text_Field} type="text" placeholder='Enter Text...' onChange={(event)=> setEmail(event.target.value)} value={getEmail}/>
-                <h2 className={s.Field}>Password</h2>
+                <div className={s.Field}>
+                    <h2 className={s.FieldTitleText}>Password</h2>
+                </div>
                 <input className={s.Text_Field} type="password" placeholder='Enter Text...' onChange={(event) => setPassword(event.target.value)} value={getPassword}/>
-                <h2 className={s.Field}>Confirm Password</h2>
+                <div className={s.Field}>
+                    <h2 className={s.FieldTitleText}>Confirm Password</h2>
+                </div>
                 <input className={s.Text_Field} type="password" placeholder='Enter Text...' onChange={(event)=> setConfirmPassword(event.target.value)} value={getConfirmPassword}/>
-                <h2 className={s.Field}>Phone Number</h2>
+                <div className={s.Field}>
+                    <h2 className={s.FieldTitleText}>Phone Number</h2>
+                </div>
                 <input className={s.Text_Field} type="text" placeholder='Enter Text...'/>
             </div>
             <p className={s.Error_Text}>{getErrorText}</p>
