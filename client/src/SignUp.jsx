@@ -11,7 +11,6 @@ function Signup() {
     const [getEmail, setEmail] = useState("");
     const [getPassword, setPassword] = useState("");
     const [getConfirmPassword, setConfirmPassword] = useState("");
-
     const changeState = (type) => {
         if(type === "donor") {
             setDonorStatus(true);
