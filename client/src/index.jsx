@@ -5,7 +5,8 @@ import './css/index.module.css';
 import Home from './App';
 import Signup from './SignUp';
 import Login from './Login';
-import Error from './404-page.jsx'
+import Error from './404-page'
+import DonorAccount from './Donor-Account';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Route path="/" element={<Home/>}></Route>
       <Route path="/signup" element={<Signup/>}></Route>
       <Route path="/login" element={<Login/>}></Route>
+      <Route path="/donor-account" element={<DonorAccount/>}></Route>
       <Route path="*" element={<Error/>}></Route>
     </Routes>
     </BrowserRouter>
