@@ -16,7 +16,6 @@ cred = {
     "databaseURL" : ""
 }
 
-
 def init_app():
     firebase_app = pyrebase.initialize_app(cred)
     global auth 
@@ -25,9 +24,10 @@ def init_app():
 def create_user(email, password):
     try:
         user = auth.create_user_with_email_and_password(email, password)
+        return user
     except Exception as err:
         error = json.loads(err.args[1])
-        return error["error"]["message"]
+        return str(error["error"]["message"])
 
 
 def authenticate_user(email, password):
@@ -36,4 +36,14 @@ def authenticate_user(email, password):
         return user
     except Exception as err:
         error = json.loads(err.args[1])
-        return error["error"]["message"]
+        return str(error["error"]["message"])
+
+
+def fetch_charities(firebase_app):
+    try:
+        db = firebase_app.database()  # Get a reference to the Firebase Realtime Database
+        charities_data = db.child("charities").get().val()  # Fetch charities data from the "charities" node
+        return charities_data
+    except Exception as e:
+        print(f"Error fetching charities data from Realtime Database: {str(e)}")
+        return None
