@@ -5,6 +5,9 @@ import Calender from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import phoneNumberFormat from './utilities/phoneNumberFormat.js';
 import calenderImage from './images/calendar.jpg';
+import home from './images/HomeIcon.png';
+import search from './images/SearchIcon.png';
+import settings from './images/SettingsIcon.png';
 import ajax from './utilities/ajax.js'
 import User from './utilities/user.js';
 
@@ -29,7 +32,11 @@ function DonorAccount() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
-        <h1 className={s.Title}>Donorgram</h1>
+        <img src={search} alt="prop" className={s.headerImage}/>
+        <hr className={s.bar}></hr>
+        <img src={home} alt="prop" className={s.headerImage}/>
+        <hr className={s.bar}></hr>
+        <img src={settings} alt="prop" className={s.headerImage}/>
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>

@@ -6,12 +6,18 @@
 .App_header {
     background-color: #282c34;
     color: white;
-  
     margin-top: 0%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
+}
+.headerImage {
+        height: 15vmin;
+    width: 15vmin;
+}
+.bar {
+    margin-left: 2vmin;
+    margin-right: 2vmin;
 }
 .App_body {
     margin-top: 1.5vmin;
