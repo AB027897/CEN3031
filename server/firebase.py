@@ -17,9 +17,13 @@ cred = {
 }
 
 def init_app():
+    global firebase_app
     firebase_app = pyrebase.initialize_app(cred)
     global auth 
     auth = firebase_app.auth()
+
+def get_firebase():
+    return firebase_app
 
 def create_user(email, password):
     try:

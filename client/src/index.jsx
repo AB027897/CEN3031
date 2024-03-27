@@ -5,7 +5,7 @@ import './css/index.module.css';
 import Home from './App';
 import Signup from './SignUp';
 import Login from './Login';
-import Error from './404-page.jsx'
+import Error from './404-page'
 
 export default function App() {
   return (
