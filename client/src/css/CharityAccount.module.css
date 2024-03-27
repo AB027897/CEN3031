@@ -1,0 +1,117 @@
+.App {
+    text-align: center;
+    background-color: white;
+}
+  
+.App_header {
+    background-color: #282c34;
+    color: white;
+    margin-top: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.headerImage {
+    height: 15vmin;
+    width: 15vmin;
+}
+.bar {
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+}
+.App_body {
+    margin-top: 1.5vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+.Title {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  
+    font-family: "League Spartan", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: bold;
+      font-size: calc(7vw);
+}
+.ItemTitle {
+    font-size: 2vmin;
+    text-align: left;
+    padding-right: 0px;
+    line-height: 0px;
+    margin-top: 0px;
+    margin-bottom: 2vmin;
+}
+
+.TextField {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 54vmin;
+    height: 5.4vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+}
+.TextField:placeholder-shown {
+    font-style: italic;
+}
+.Dropdown {
+    color: black;
+    width: 55vmin;
+    height: 5.4vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+}
+.button {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 1.6vmin 22vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: -1vmin;
+    border-radius: 5px;
+}
+.button:hover {
+    opacity: 0.8;
+}
+.button:active {
+    opacity: 0.6;
+}
+.Customize {
+    font-style: normal;
+    font-size: calc(2vmin);    
+    margin-top: 1vmin;
+    text-align: left;
+}
+.SmallButton {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    height: 7vmin;
+    width: 20vmin;
+    margin-right: 2vmin;
+    margin-left: 0.5vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: -1vmin;
+    border-radius: 5px;
+}
+.SmallButton:hover {
+    opacity: 0.8;
+}
+.SmallButton:active {
+    opacity: 0.6;
+}

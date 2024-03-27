@@ -3,6 +3,7 @@ import {useState} from 'react';
 import s from './css/Login.module.css';
 import ajax from './utilities/ajax.js'
 import User from './utilities/user.js';
+import { setToken} from './utilities/token.js';
 
 function Login() {
   const [getErrorText, setErrorText] = useState("");
@@ -13,6 +14,7 @@ function Login() {
     let text = await ajax(user, "/loginvalidation", true);
     if(typeof(text) !== "string") {
         setErrorText("");
+        setToken(text['token'])
     } else {
         setErrorText(text);
         setEmail("");

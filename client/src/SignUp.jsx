@@ -3,6 +3,7 @@ import { useState } from 'react';
 import s from './css/SignUp.module.css'
 import ajax from './utilities/ajax.js'
 import User from './utilities/user.js';
+import {setToken} from './utilities/token.js';
 
 function Signup() {
     const [getDonorStatus, setDonorStatus] = useState(false);
@@ -11,7 +12,6 @@ function Signup() {
     const [getEmail, setEmail] = useState("");
     const [getPassword, setPassword] = useState("");
     const [getConfirmPassword, setConfirmPassword] = useState("");
-
     const changeState = (type) => {
         if(type === "donor") {
             setDonorStatus(true);
@@ -30,6 +30,7 @@ function Signup() {
         let text = await ajax(user, "/signupvalidation", true);
         if(typeof(text) !== "string") {
             setErrorText("");
+            setToken(text['token']);
         } else {
             setErrorText(text);
             setEmail("");
