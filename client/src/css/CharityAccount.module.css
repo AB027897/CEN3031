@@ -109,3 +109,9 @@
     margin-top: -1vmin;
     border-radius: 5px;
 }
+.SmallButton:hover {
+    opacity: 0.8;
+}
+.SmallButton:active {
+    opacity: 0.6;
+}
