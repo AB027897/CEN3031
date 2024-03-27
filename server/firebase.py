@@ -10,10 +10,11 @@ cred = {
     "authDomain": os.getenv("AUTH_DOMAIN"),
     "projectId": os.getenv("PROJECT_ID"),
     "storageBucket": os.getenv("STORAGE_BUCKET"),
+    "serviceAccount" : "./serviceAccount.json",
     "messagingSenderId": os.getenv("MESSAGING_SENDER_ID"), 
     "appId": os.getenv("APP_ID"),
     "measurementId": os.getenv("MEASUREMENT_ID"),
-    "databaseURL" : ""
+    "databaseURL" : os.getenv("DATABASE_URL")
 }
 
 
@@ -42,3 +43,21 @@ def authenticate_user(email, password):
     except Exception as err:
         error = json.loads(err.args[1])
         return str(error["error"]["message"])
+
+def create_token(user):
+    try:
+        token = auth.create_custom_token(user['localId'])
+        return token
+    except Exception as err:
+        error = json.loads(err.args[1])
+        return str(error["error"]["message"])
+
+def signin_token(token):
+    try:
+        user = auth.sign_in_with_custom_token(token)
+        return user
+    except Exception as err:
+        error = json.loads(err.args[1])
+        return str(error["error"]["message"])
+    
+

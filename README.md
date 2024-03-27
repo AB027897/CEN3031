@@ -9,8 +9,10 @@
     - MESSAGING_SENDER_ID
     - APP_ID
     - MEASUREMENT_ID
-- Step 4: Run the following command pip install -r requirements.txt
-- Step 5: Run the command: python app.py
-- Step 6: Go to your browser and type in the following url: localhost:3000 and that is the website
+    - DATABASE_URL
+- Step 4: Put the json file downloaded from service accounts in the firebase settings and rename it serviceAccount.json and put it in the server folder
+- Step 5: Run the following command pip install -r requirements.txt
+- Step 6: Run the command: python app.py
+- Step 7: Go to your browser and type in the following url: localhost:3000 and that is the website
 # IMPORTANT: Make sure your Node.js is at 20.11.0 and your Python version is at 3.12.2
 ## Note: You can use npm start in the client folder to just run the frontend but the server functionality will not work
