@@ -1,12 +1,26 @@
-from flask import Flask, request, send_file, Response
+from flask import Flask, request, send_file, Response, jsonify
 from flask_cors import CORS
 import json
 import os
 from firebase import *
+# from firebase import *
+from firebase import init_app, create_user, authenticate_user, get_firebase, create_token, signin_token
+# from typesense import Client as TypesenseClient
+# from typesense_operations import initialize_typesense_client, index_user_data, search_charities
+from post import add_post
 
 app = Flask(__name__, static_folder="../client/build")
+
+
 CORS(app)
 init_app()
+
+# Fetch user data from Firebase
+firebase_app = get_firebase()
+
+# client = initialize_typesense_client()
+
+# charities_data = fetch_charities(firebase_app)
 
 @app.route('/signupvalidation')
 def validateSignup():

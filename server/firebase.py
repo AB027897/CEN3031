@@ -62,11 +62,11 @@ def signin_token(token):
 
 
 
-def fetch_charities(firebase_app):
-    try:
-        db = firebase_app.database()  # Get a reference to the Firebase Realtime Database
-        charities_data = db.child("charities").get().val()  # Fetch charities data from the "charities" node
-        return charities_data
-    except Exception as e:
-        print(f"Error fetching charities data from Realtime Database: {str(e)}")
-        return None
+# def fetch_charities(firebase_app):
+#     try:
+#         db = firebase_app.database()  # Get a reference to the Firebase Realtime Database
+#         charities_data = db.child("charities").get().val()  # Fetch charities data from the "charities" node
+#         return charities_data
+#     except Exception as e:
+#         print(f"Error fetching charities data from Realtime Database: {str(e)}")
+#         return None
