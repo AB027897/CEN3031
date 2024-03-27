@@ -1,138 +1,138 @@
 .App {
-  text-align: center;
-  background-color: white;
-}
-
-.App_header {
-  background-color: #282c34;
-  color: white;
-
-  margin-top: 0%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.BackButton {
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: calc(3.2vmin);
-  margin-top: 4vmin;
-  border-radius: 5px;
-  justify-content:left;
-  white-space: nowrap;
-}
-.BackButton:hover {
-  text-decoration: underline;
-}
-.BackButton:active {
-  text-decoration: none;
-}
-
-.Title {
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-top: 0%;
-  padding-bottom: 0%;
-
-  font-family: "League Spartan", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: bold;
-    font-size: calc(4vw);
-}
-
-.App_body {
-  margin-top: 1.5vmin;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: black;
+    text-align: center;
+    background-color: white;
+  }
   
-  font-family: "Roboto", sans-serif;
-    font-size: calc(3.1vmin);
-    font-weight: 400;
-    font-style: normal;
-}
-
-.ItemTitle {
-  font-size: 2vmin;
-  text-align: center;
-  padding-right: 0px;
-  line-height: 0px;
-  margin-top: 0px;
-  margin-bottom: 2vmin;
-}
-
-.TextField {
-  font-size: calc(2.75vmin);
-  color: black;
-  width: 54vmin;
-  height: 5.4vmin;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  background-color: #f1f1f1;
-  border-color: black;
-}
-.TextField:placeholder-shown {
-  font-style: italic;
-}
-
-.BodyTextField {
-  font-family: "Roboto", sans-serif;
-    font-size: calc(2.75vmin);
-    font-weight: 400;
-
-  width: 70vw;
-  height: 30vh;
+  .App_header {
+    background-color: #282c34;
+    color: white;
   
-  background-color: #f1f1f1;
-}
-.BodyTextField {
-  font-style: italic;
-}
-
-.UploadText {
-  font-family: "Roboto", sans-serif;
+    margin-top: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .BackButton {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: 4vmin;
+    border-radius: 5px;
+    justify-content:left;
+    white-space: nowrap;
+  }
+  .BackButton:hover {
+    text-decoration: underline;
+  }
+  .BackButton:active {
+    text-decoration: none;
+  }
+  
+  .Title {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  
+    font-family: "League Spartan", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: bold;
+      font-size: calc(4vw);
+  }
+  
+  .App_body {
+    margin-top: 1.5vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    
+    font-family: "Roboto", sans-serif;
+      font-size: calc(3.1vmin);
+      font-weight: 400;
+      font-style: normal;
+  }
+  
+  .ItemTitle {
+    font-size: 2vmin;
+    text-align: center;
+    padding-right: 0px;
+    line-height: 0px;
+    margin-top: 0px;
+    margin-bottom: 2vmin;
+  }
+  
+  .TextField {
     font-size: calc(2.75vmin);
-    font-weight: 400;
-}
-
-.ErrorText {
-  font-size: 2.2vmin;
-  color: red;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.ConfirmButton {
-  background-color: rgb(101, 153, 221);
-  border: none;
-  color: black;
-  padding: 1.6vmin 16vmin;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: calc(3.2vmin);
-  margin-top: 2vmin;
-  margin-bottom: 2vmin;
-  border-radius: 5px;
-}
-.button:hover {
-  opacity: 0.8;
-}
-.button:active {
-  opacity: 0.6;
-}
-.RedirectText {
-  padding-right: 0px;
-  margin-top: 2vmin;
-}
-
-.App_link {
-  color: blue;
-}
+    color: black;
+    width: 54vmin;
+    height: 5.4vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+  }
+  .TextField:placeholder-shown {
+    font-style: italic;
+  }
+  
+  .BodyTextField {
+    font-family: "Roboto", sans-serif;
+      font-size: calc(2.75vmin);
+      font-weight: 400;
+  
+    width: 70vw;
+    height: 30vh;
+    
+    background-color: #f1f1f1;
+  }
+  .BodyTextField {
+    font-style: italic;
+  }
+  
+  .UploadText {
+    font-family: "Roboto", sans-serif;
+      font-size: calc(2.75vmin);
+      font-weight: 400;
+  }
+  
+  .ErrorText {
+    font-size: 2.2vmin;
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  .ConfirmButton {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 1.6vmin 16vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: 2vmin;
+    margin-bottom: 2vmin;
+    border-radius: 5px;
+  }
+  .button:hover {
+    opacity: 0.8;
+  }
+  .button:active {
+    opacity: 0.6;
+  }
+  .RedirectText {
+    padding-right: 0px;
+    margin-top: 2vmin;
+  }
+  
+  .App_link {
+    color: blue;
+  }
