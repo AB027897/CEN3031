@@ -7,6 +7,8 @@ import Signup from './SignUp';
 import Login from './Login';
 import PageCreator from './PageCreator';
 import PageViewer from './PageViewer';
+import DonorAccount from './DonorAccount'
+import CharityAccount from './CharityAccount'
 import Error from './404-page'
 
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/pagecreator" element={<PageCreator/>}></Route>
       <Route path="/pageviewer" element={<PageViewer/>}></Route>
+      <Route path="/donoraccount" element={<DonorAccount/>}></Route>
+      <Route path="/charityaccount" element={<CharityAccount/>}></Route>
       <Route path="*" element={<Error/>}></Route>
     </Routes>
     </BrowserRouter>
