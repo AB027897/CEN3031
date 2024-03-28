@@ -1,26 +1,48 @@
 .App {
     text-align: center;
     background-color: white;
+
+    width: 100vw;
+    min-height: 100vh;
+    background-image: url('../images/background-light.webp');
+    background-size: 50vmin;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
   
 .App_header {
     background-color: #282c34;
     color: white;
-    margin-top: 0%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
 }
 .headerImage {
-        height: 15vmin;
+    height: 15vmin;
     width: 15vmin;
+    padding-top: 2.7vmin;
+    padding-bottom: 2.7vmin;
 }
 .bar {
     margin-left: 2vmin;
     margin-right: 2vmin;
 }
 .App_body {
+    background-color: white;
+    border: 0.3vmin solid #000000;
+    border-radius: 2vmin;
+    width: 60vmin;
+
     margin-top: 1.5vmin;
+    margin-bottom: 1.5vmin;
+    padding-bottom: 1.5vmin;
     display: flex;
     flex-direction: column;
     align-items: center;
