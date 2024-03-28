@@ -1,6 +1,7 @@
 import pyrebase
 import os
 import secrets
+from firebase import get_firebase
 
 cred = {
     "apiKey": os.getenv("API_KEY"),
