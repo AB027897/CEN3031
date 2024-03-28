@@ -3,11 +3,12 @@ from flask_cors import CORS
 import json
 import os
 from firebase import *
+from post import *
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
 init_app()
-
+init_database()
 
 @app.route('/signupvalidation')
 def validateSignup():
@@ -21,7 +22,6 @@ def validateSignup():
         return Response(result, status=200, mimetype="text/plain")
     token = create_token(result)
     result['token'] = token
-    print(token)
     return Response(json.dumps(result), status=200, mimetype="application/json")
 
 
@@ -35,7 +35,23 @@ def login():
     result = authenticate_user(email, password)
     if type(result) == str:
         return Response(result, status=200, mimetype="text/plain")
+    token = create_token(result)
+    result['token'] = token
     return Response(json.dumps(result), status=200, mimetype="application/json")
+
+
+@app.route('/addaccountinfo')
+def add_donor_info():
+    account = json.loads(request.headers["account"])
+    add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'])
+    return Response("", status=200, mimetype="text/plain")
+
+@app.route('/getaccountinfo')
+def get_account_info():
+    account = json.loads(request.headers["account"])
+    account_info = get_account(account['uuid'], account['token'])
+    return Response(json.dumps(account_info), status=200, mimetype="application/json")
+
 
 @app.route('/signintoken')
 def signin():
