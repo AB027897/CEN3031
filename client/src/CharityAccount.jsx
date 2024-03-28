@@ -32,7 +32,7 @@ function CharityAccount() {
   useEffect(()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
-      setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
+      //setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
       if(accountInfo["charity_type"] !== "") {
@@ -65,19 +65,19 @@ function CharityAccount() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Email</h2>
+            <h2 className={s.ItemTitleText}>Email</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." value={getEmail} onChange={(event) => setEmail(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Organization Name</h2>
+            <h2 className={s.ItemTitleText}>Organization Name</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." value={getName} onChange={(event) => setName(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Phone Number </h2>
+            <h2 className={s.ItemTitleText}>Phone Number </h2>
             <input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Charity Type</h2>
+            <h2 className={s.ItemTitleText}>Charity Type</h2>
             <select className={s.Dropdown} value={getType} onChange={(event) => setType(event.target.value)}>
                 <option className={s.TextField}>Select option...</option>
                 <option className={s.TextField}> Humanitarian Aid</option>
@@ -89,9 +89,11 @@ function CharityAccount() {
             </select>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
-        <button className={s.button} onClick={() => update()}>UPDATE</button>
+        <div className={s.ButtonDiv}>
+          <button className={s.button} onClick={() => update()}>UPDATE</button>
+        </div>
         <div className={s.Customize}>
-            <h2>Customize Charity Page</h2>
+            <h2 className={s.CustomizeText}>Customize Charity Page</h2>
         </div>
         <div>
             <button className={s.SmallButton} onClick={() => navigate("/pageviewer")}>Preview</button>
