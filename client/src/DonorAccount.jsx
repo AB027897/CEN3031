@@ -34,7 +34,7 @@ function DonorAccount() {
   useEffect( ()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
-      //setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
+      setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
       setDate(new Date(accountInfo["date of birth"]));
