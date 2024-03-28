@@ -106,11 +106,19 @@ function CharityAccount() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
+<<<<<<< HEAD
+            <h2 className={s.ItemTitleText}>Email</h2>
+            <input className={s.TextField} type="text" placeholder="Enter Text..." value={getEmail} onChange={(event) => setEmail(event.target.value)}/>
+        </div>
+        <div className={s.ItemTitle}>
+            <h2 className={s.ItemTitleText}>Organization Name</h2>
+=======
             <h2>Email</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." value={getEmail} onChange={(event) => setEmail(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
             <h2>Organization Name</h2>
+>>>>>>> 262d181 (Integrated the database with the frontend)
             <input className={s.TextField} type="text" placeholder="Enter Text..." value={getName} onChange={(event) => setName(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
@@ -118,7 +126,11 @@ function CharityAccount() {
             <input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
+<<<<<<< HEAD
+            <h2 className={s.ItemTitleText}>Charity Type</h2>
+=======
             <h2>Charity Type</h2>
+>>>>>>> 262d181 (Integrated the database with the frontend)
             <select className={s.Dropdown} value={getType} onChange={(event) => setType(event.target.value)}>
                 <option className={s.TextField}>Select option...</option>
                 <option className={s.TextField}> Humanitarian Aid</option>
