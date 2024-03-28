@@ -5,9 +5,10 @@
         font-style: normal;
 
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-image: url('../images/background-light.webp');
     background-size: 50vmin;
+    background-attachment: fixed;
     
     display: flex;
     flex-direction: column;
