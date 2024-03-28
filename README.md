@@ -15,4 +15,6 @@
 - Step 6: Run the command: python app.py
 - Step 7: Go to your browser and type in the following url: localhost:3000 and that is the website
 # IMPORTANT: Make sure your Node.js is at 20.11.0 and your Python version is at 3.12.2
+# This application only works on chrominum based browsers
 ## Note: You can use npm start in the client folder to just run the frontend but the server functionality will not work
+
