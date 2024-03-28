@@ -1,36 +1,48 @@
-import pyrebase
-import os
+from firebase import get_firebase
 import secrets
 from firebase import get_firebase
 
-cred = {
-    "apiKey": os.getenv("API_KEY"),
-    "authDomain": os.getenv("AUTH_DOMAIN"),
-    "projectId": os.getenv("PROJECT_ID"),
-    "storageBucket": os.getenv("STORAGE_BUCKET"),
-    "messagingSenderId": os.getenv("MESSAGING_SENDER_ID"), 
-    "appId": os.getenv("APP_ID"),
-    "measurementId": os.getenv("MEASUREMENT_ID"),
-    "databaseURL": os.getenv("DATABASE_URL")
-}
-
-firebase = get_firebase()
-db = firebase.database()
-storage = firebase.storage()
-auth = firebase.auth()
+def init_database():
+    global firebase_app
+    global db
+    firebase_app = get_firebase()
+    db = firebase_app.database()
 
 
-def add_account(user_id, name, email, phone, dob):
+def add_donor(user_id, account_type, name, email, phone, dob, token):
     data = {
+        'account type' : account_type,
         'name': name,
         'email': email,
         'phone number': phone,
         'dob': dob
     }
-    db.child("accounts").child(user_id).child('info').set(data)
+    db.child("accounts").child(user_id).set(data, token = token)
 
 
-def add_post(type, name, title, preview_caption, body):
+def add_charity(user_id, account_type, name, email, phone, charity_type, token):
+    data = {
+        'account type' : account_type,
+        'name': name,
+        'email': email,
+        'phone number': phone,
+        'type': charity_type
+    }
+    db.child("accounts").child(user_id).set(data, token=token)
+
+
+def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type=""):
+    if account_type == "donor":
+        add_donor(user_id, account_type, name, email, phone, dob, token)
+    else:
+        add_charity(user_id, account_type, name, email, phone, charity_type, token)
+
+def get_account(user_id, token):
+    user_info = db.child("accounts").child(user_id).get(token=token)
+    return user_info.val()
+
+
+def add_post(user_id, title, preview_caption, body):
     data = {
         'title': title,
         'preview_caption': preview_caption,

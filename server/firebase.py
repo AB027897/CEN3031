@@ -22,6 +22,7 @@ def init_app():
     firebase_app = pyrebase.initialize_app(cred)
     global auth 
     auth = firebase_app.auth()
+    
 
 def get_firebase():
     return firebase_app
@@ -54,6 +55,7 @@ def create_token(user):
 def signin_token(token):
     try:
         user = auth.sign_in_with_custom_token(token)
+        user = auth.get_account_info(user['idToken'])['users'][0]
         return user
     except Exception as err:
         error = json.loads(err.args[1])
