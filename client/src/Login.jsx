@@ -38,7 +38,7 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Username</h2>
+            <h2>Email</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setEmail(event.target.value)} value={getEmail}/>
         </div>
         <div className={s.ItemTitle}>
