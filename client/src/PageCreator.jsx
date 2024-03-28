@@ -22,11 +22,11 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Title</h2>
+            <h2 className={s.RightSpacing}>Title</h2>
             <input className={s.TextField} type="text" value={getTitle} onChange={(event)=> setTitle(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
-            <h2>Preview Caption</h2>
+            <h2 className={s.RightSpacing}>Preview Caption</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
         </div>
         <div className={s.ItemTitle}>
