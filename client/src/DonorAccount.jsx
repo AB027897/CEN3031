@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import s from './css/DonorAccount.module.css';
 import Calender from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -8,19 +8,52 @@ import calenderImage from './images/calendar.jpg';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
+import { getUser, getToken } from './utilities/token';
 import ajax from './utilities/ajax.js'
-import User from './utilities/user.js';
+import Account from './utilities/account';
 
 function DonorAccount() {
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
   const [getDisplayCalendar, setDisplayCalendar] = useState("none")
+  const [getEmail, setEmail] = useState("");
+  const [getName, setName] = useState("");
+  const getAccount = async () => {
+    const user = await getUser();
+    return new Promise((resolve, reject)=> {
+      resolve(new Account(user['localId'], getToken()));
+    });
+  }
+  const getAccountInfo = async () => {
+    const account = await getAccount();
+    return new Promise( (resolve, reject)=> {
+      resolve(ajax(account, "/getaccountinfo", true));
+    });
+  }
+  useEffect( ()=> {
+    (async ()=> {
+      const accountInfo = await getAccountInfo();
+      setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
+      setEmail(accountInfo["email"]);
+      setName(accountInfo["name"]);
+      setDate(new Date(accountInfo["date of birth"]));
+      console.log(getDate);
+    })();
+  }, [])
+
   const formatPhoneNumber = (phoneNumber) => {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
-  const update = ()=> {
-    const phoneNumber = getPhoneNumber.replace(/-/g, "");
+  const update = async ()=> {
+    const phoneNumber = getPhoneNumber.replace(/[-\(\)]/g, "");
+    let account = await getAccount();
+    account.account_type = "donor";
+    account.email = getEmail;
+    account.name = getName;
+    account.dob = JSON.stringify(getDate);
+    account.phone = phoneNumber;
+    await ajax(account, "/addaccountinfo", false);
   }
   const displayCalendar = () => {
     if(getDisplayCalendar === "none") {
@@ -41,11 +74,11 @@ function DonorAccount() {
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
             <h2>Email</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..."/>
+            <input className={s.TextField} type="text" placeholder="Enter Text..." value={getEmail} onChange={(event) => setEmail(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
             <h2>Name</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..."/>
+            <input className={s.TextField} type="text" placeholder="Enter Text..." value={getName} onChange={(event) => setName(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
             <h2>Phone Number </h2>
