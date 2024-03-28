@@ -32,7 +32,7 @@ function CharityAccount() {
   useEffect(()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
-      //setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
+      setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
       if(accountInfo["charity_type"] !== "") {
