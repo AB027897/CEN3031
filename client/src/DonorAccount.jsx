@@ -91,10 +91,12 @@ function DonorAccount() {
             </div>
         </div>
         <div style={{display : getDisplayCalendar}} >
-          <Calender calendarType='gregory' onClickDay={(value)=> setDate(value)}/>
+          <Calender className={s.CalendarSize} calendarType='gregory' onClickDay={(value)=> setDate(value)}/>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
-        <button className={s.button} onClick={() => update()}>UPDATE</button>
+        <div className={s.ButtonDiv}>
+          <button className={s.button} onClick={() => update()}>UPDATE</button>
+        </div>
       </body>
     </div>
   );
