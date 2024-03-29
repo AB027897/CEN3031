@@ -1,23 +1,35 @@
 .Page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-family: "Roboto", sans-serif;
         font-size: calc(3.1vmin);
         font-weight: 400;
         font-style: normal;
+
+    width: 100vw;
+    min-height: 100vh;
+    background-image: url('../images/background-light.webp');
+    background-size: 50vmin;
+    background-attachment: fixed;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .Title_Header {
-    margin-top: 0%;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     background-color: #282c34;
-    width: 100%;
+
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
 }
 .Title {
-    padding-top: 0%;
+    padding-top: 0px;
     margin-bottom: 0px;
     margin-top: 0px;
-    padding-bottom: 0%;
+    padding-bottom: 0px;
 
     color: white;
     text-align: center;
@@ -27,24 +39,56 @@
         font-style: bold;
         font-size: calc(7vw);
 }
+.App_body {
+    background-color: white;
+    border: 0.3vmin solid #000000;
+    border-radius: 2vmin;
+    width: 60vmin;
+  
+    margin-top: 2vmin;
+    padding-top: 1.5vmin;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    
+    font-family: "Roboto", sans-serif;
+      font-size: calc(3.1vmin);
+      font-weight: 400;
+      font-style: normal;
+}
 .Account_Type_Div {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    align-items: center;
+
+    height: 5vh;
+
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    margin-top: 0px;
+
+    margin-right: 2vmin;
 }
 .Radio {
     margin-top: 0%;
-    width: 10vh;
-    height: 10vh;
+    width: 3vw;
+    height: 3vh;
+
+    margin-left: 3vmin;
 }
 .Type {
-    margin-top: 8%;
-    margin-right: 14%;
-    margin-left: 2%;
+    margin-right: 3vmin;
     font-weight: bold;
 }
 .Inputs {
-    margin-top: -1vmin;
+    margin-top: 0vmin;
 }
 .Field {
     font-size: 2vmin;

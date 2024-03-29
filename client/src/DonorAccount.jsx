@@ -82,7 +82,7 @@ function DonorAccount() {
         </div>
         <div className={s.ItemTitle}>
             <h2>Phone Number </h2>
-            <input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
+            {<input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>}
         </div>
         <div className={s.ItemTitle}>
             <div className={s.calenderDiv}>
@@ -91,10 +91,12 @@ function DonorAccount() {
             </div>
         </div>
         <div style={{display : getDisplayCalendar}} >
-          <Calender calendarType='gregory' onClickDay={(value)=> setDate(value)}/>
+          <Calender className={s.CalendarSize} calendarType='gregory' onClickDay={(value)=> setDate(value)}/>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
-        <button className={s.button} onClick={() => update()}>UPDATE</button>
+        <div className={s.ButtonDiv}>
+          <button className={s.button} onClick={() => update()}>UPDATE</button>
+        </div>
       </body>
     </div>
   );

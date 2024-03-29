@@ -1,9 +1,23 @@
+body{
+  overflow-x: hidden;
+}
+
 .App {
     text-align: center;
     background-color: white;
+
+    width: 100vw;
+    min-height: 100vh;
+    background-image: url('../images/background-light.webp');
+    background-size: 50vmin;
+    background-attachment: fixed;
   }
   
   .App_header {
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
+
     background-color: #282c34;
     color: white;
   
@@ -73,8 +87,11 @@
   }
   
   .ImagesBG{
-    width: 100%;
-    background-color: #282c34;
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
+    padding-top: 5vmin;
+    padding-bottom: 5vmin;
   }
   
   .Image{
@@ -130,15 +147,19 @@
     margin-bottom: 0px;
   }
   
-  .HorLine{
-    background-color: #282c34;
-    border: #282c34;
-    height: 30px;
-    width: 100%;
+  .CommentsBG {
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .CommentsDiv{
+    padding-top: 4vmin;
     width: 80%;
+    color: rgb(223, 223, 223);
   
     font-family: "Roboto", sans-serif;
       font-size: calc(3.1vmin);

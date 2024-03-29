@@ -1,10 +1,23 @@
 .App {
   text-align: center;
   background-color: white;
+
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url('../images/background-light.webp');
+  background-size: 50vmin;
+  background-attachment: fixed;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App_header {
-  background-color: #282c34;
+  background-image: url('../images/background-dark.png');
+  background-size: 80vmin;
+  width: 100vw;
+
   color: white;
 
   margin-top: 0%;
@@ -28,7 +41,17 @@
 }
 
 .App_body {
-  margin-top: 1.5vmin;
+  background-color: white;
+  border: 0.3vmin solid #000000;
+  border-radius: 2vmin;
+  width: 60vmin;
+
+  margin-top: 2vmin;
+  padding-top: 1.5vmin;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,6 +119,7 @@
 .RedirectText {
   padding-right: 0px;
   margin-top: 2vmin;
+  margin-bottom: 2vmin;
 }
 
 .App_link {
