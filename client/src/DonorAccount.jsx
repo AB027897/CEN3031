@@ -8,9 +8,8 @@ import calenderImage from './images/calendar.jpg';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
-import { getUser, getToken } from './utilities/token';
 import ajax from './utilities/ajax.js'
-import Account from './utilities/account';
+import {getAccount, getAccountInfo} from './utilities/account';
 
 function DonorAccount() {
   const [getDate, setDate] = useState(new Date());
@@ -19,26 +18,14 @@ function DonorAccount() {
   const [getDisplayCalendar, setDisplayCalendar] = useState("none")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
-  const getAccount = async () => {
-    const user = await getUser();
-    return new Promise((resolve, reject)=> {
-      resolve(new Account(user['localId'], getToken()));
-    });
-  }
-  const getAccountInfo = async () => {
-    const account = await getAccount();
-    return new Promise( (resolve, reject)=> {
-      resolve(ajax(account, "/getaccountinfo", true));
-    });
-  }
   useEffect( ()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
-      setDate(new Date(accountInfo["date of birth"]));
-      console.log(getDate);
+      const date = accountInfo["dob"].replace(/["]/g, "");
+      setDate(Date.parse(date));
     })();
   }, [])
 
@@ -46,7 +33,7 @@ function DonorAccount() {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async ()=> {
-    const phoneNumber = getPhoneNumber.replace(/[-\(\)]/g, "");
+    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
     let account = await getAccount();
     account.account_type = "donor";
     account.email = getEmail;
@@ -91,7 +78,12 @@ function DonorAccount() {
             </div>
         </div>
         <div style={{display : getDisplayCalendar}} >
-          <Calender className={s.CalendarSize} calendarType='gregory' onClickDay={(value)=> setDate(value)}/>
+          <style>
+            {`.react-calendar__tile--now {
+                background: none;
+              }`}
+          </style>
+          <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> setDate(value)}/>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>
         <div className={s.ButtonDiv}>

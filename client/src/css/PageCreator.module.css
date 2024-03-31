@@ -146,10 +146,10 @@
     margin-bottom: 2vmin;
     border-radius: 5px;
   }
-  .button:hover {
+  .ConfirmButton:hover {
     opacity: 0.8;
   }
-  .button:active {
+  .ConfirmButton:active {
     opacity: 0.6;
   }
   .RedirectText {

@@ -43,7 +43,7 @@ function Signup() {
             accountType = 'charity'
         }
         let text = await ajax(user, "/signupvalidation", true);
-        const phoneNumber = getPhoneNumber.replace(/[-\(\)]/g, "");
+        const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
         if(typeof(text) !== "string") {
             setErrorText("");
             setToken(text['token']);

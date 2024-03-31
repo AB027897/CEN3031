@@ -61,5 +61,3 @@ def signin_token(token):
     except Exception as err:
         error = json.loads(err.args[1])
         return str(error["error"]["message"])
-    
-

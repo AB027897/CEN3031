@@ -15,7 +15,6 @@ function Login() {
   const [getBody] = useState("");
   // something for getImages? idk how to do that
   const [getNewComment, setNewComment] = useState("");
-
   return (
     <div className={s.App}>
       <header className={s.App_header} value={getTitle}>

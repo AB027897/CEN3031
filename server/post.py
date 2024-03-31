@@ -4,8 +4,10 @@ import secrets
 def init_database():
     global firebase_app
     global db
+    global storage
     firebase_app = get_firebase()
     db = firebase_app.database()
+    storage = firebase_app.storage()
 
 
 def add_donor(user_id, account_type, name, email, phone, dob, token):
@@ -41,44 +43,44 @@ def get_account(user_id, token):
     return user_info.val()
 
 
-def add_post(user_id, title, preview_caption, body):
+def add_post(uuid, charity_type, title, preview_caption, body, token):
     data = {
         'title': title,
         'preview_caption': preview_caption,
         'body': body,
         'n': 0
     }
-    post_ref = db.child("posts").child(type).child(name)
+    post_ref = db.child("posts").child(charity_type).child(uuid)
     posts = post_ref.get().val()
  
     if posts:
-        remove_post(type, user_id)
-        db.child("posts").child(type).child(name).set(data)
+        remove_post(uuid, charity_type)
+        db.child("posts").child(charity_type).child(uuid).set(data, token=token)
     else:
-        db.child("posts").child(type).child(name).set(data)
+        db.child("posts").child(charity_type).child(uuid).set(data, token=token)
 
 
-def remove_post(type, name):
-    data = db.child("posts").child(type).child(name).get().val()
+def remove_post(uuid, charity_type):
+    data = db.child("posts").child(charity_type).child(uuid).get().val()
     n = data.get("n")
 
     for i in range(n):
-        str = data.get("image{}".format(i))
-        remove_image(str)
+        string = data.get("image{}".format(i))
+        remove_image(string)
 
-    data_ref = db.child("posts").child(type).child(name)
+    data_ref = db.child("posts").child(charity_type).child(uuid)
     data_ref.remove()
 
-def upload_image(type, name, local_file_path):
+def upload_image(uuid, charity_type, local_file_path):
     try:
-        data = db.child("posts").child(type).child(name).get().val()
+        data = db.child("posts").child(charity_type).child(uuid).get().val()
         n = data.get("n")
         file_name = "image{}".format(n)
 
         path = "{}/{}".format(user_id, file_name)
         storage.child(path).put(local_file_path)
-        db.child("posts").child(type).child(name).update({"image{}".format(str(n)):path})
-        db.child("posts").child(type).child(name).update({"n": n + 1})
+        db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path})
+        db.child("posts").child(charity_type).child(uuid).update({"n": n + 1})
 
     except Exception as e:
         print("Error:", e)

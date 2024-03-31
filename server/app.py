@@ -61,6 +61,16 @@ def signin():
         return Response(user, status=200, mimetype="text/plain")
     return Response(json.dumps(user), status=200, mimetype="application/json")
 
+@app.route('/addpost')
+def post():
+    post_info = json.loads(request.headers["account"])
+    add_post(post_info["uuid"], post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
+    return Response("", status=200, mimetype="text/plain")
+
+
+
+
+
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):
