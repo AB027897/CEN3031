@@ -86,6 +86,7 @@
     height: 5.4vmin;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding-left: 12px;
     padding-top: 0px;
     padding-bottom: 0px;
     background-color: #f1f1f1;
@@ -102,7 +103,7 @@
     margin-bottom: 0px;
     background-color: #f1f1f1;
     border-color: black;
-
+    padding-left: 12px;
     font-family: "Roboto", sans-serif;
         font-size: calc(3.1vmin);
         font-weight: 400;

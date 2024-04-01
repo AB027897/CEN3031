@@ -84,6 +84,7 @@
   height: 5.4vmin;
   margin-top: 0px;
   margin-bottom: 0px;
+  padding-left: 12px;
   background-color: #f1f1f1;
   border-color: black;
 }
@@ -120,6 +121,7 @@
   padding-right: 0px;
   margin-top: 2vmin;
   margin-bottom: 2vmin;
+  font-size: 22px;
 }
 
 .App_link {

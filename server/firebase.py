@@ -2,6 +2,7 @@ import pyrebase
 import os
 from dotenv import load_dotenv
 import json
+from firebase_admin import auth
 
 load_dotenv()
 
@@ -23,6 +24,7 @@ def init_app():
     firebase_app = pyrebase.initialize_app(cred)
     global auth 
     auth = firebase_app.auth()
+
     
 
 def get_firebase():

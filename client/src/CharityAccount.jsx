@@ -61,7 +61,7 @@ function CharityAccount() {
         </div>
         <div className={s.ItemTitle}>
             <h2 className={s.ItemTitleText}>Phone Number </h2>
-            <input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
+            <input className={s.TextField} type="text" placeholder="(XXX) XXX-XXXX" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
             <h2 className={s.ItemTitleText}>Charity Type</h2>
