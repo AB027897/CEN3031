@@ -59,28 +59,35 @@ def add_post(uuid, charity_type, title, preview_caption, body, token):
     else:
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
 
+def get_post(uuid, charity_type, token):
+    posts = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
+    if posts:
+        return posts
+    return ""
+
 
 def remove_post(uuid, charity_type):
     data = db.child("posts").child(charity_type).child(uuid).get().val()
     n = data.get("n")
 
     for i in range(n):
-        string = data.get("image{}".format(i))
-        remove_image(string)
+        path = "{}/{}".format(uuid,"image{}".format(i)) + ".png"
+        print(path)
+        remove_image(path)
 
     data_ref = db.child("posts").child(charity_type).child(uuid)
     data_ref.remove()
 
-def upload_image(uuid, charity_type, local_file_path):
+def upload_image(uuid, charity_type, token, local_file_path):
     try:
-        data = db.child("posts").child(charity_type).child(uuid).get().val()
+        data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
         n = data.get("n")
         file_name = "image{}".format(n)
 
-        path = "{}/{}".format(user_id, file_name)
-        storage.child(path).put(local_file_path)
-        db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path})
-        db.child("posts").child(charity_type).child(uuid).update({"n": n + 1})
+        path = "{}/{}".format(uuid, file_name)
+        storage.child("images/"+path+".png").put(local_file_path, token=token)
+        db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path}, token=token)
+        db.child("posts").child(charity_type).child(uuid).update({"n": n + 1}, token=token)
 
     except Exception as e:
         print("Error:", e)
@@ -89,6 +96,6 @@ def upload_image(uuid, charity_type, local_file_path):
 def remove_image(path):
     token = secrets.token_hex(32)
     try:
-        storage.delete(path, token)
+        storage.child("images").delete(path, token)
     except Exception as e:
         print("Error removing image from storage:", e)

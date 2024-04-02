@@ -62,13 +62,26 @@ def signin():
     return Response(json.dumps(user), status=200, mimetype="application/json")
 
 @app.route('/addpost')
-def post():
+def post_add():
     post_info = json.loads(request.headers["account"])
     add_post(post_info["uuid"], post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
     return Response("", status=200, mimetype="text/plain")
 
+@app.route('/getpost')
+def post_get():
+    user_info = json.loads(request.headers["account"])
+    post = get_post(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    if post != "":
+        return Response(json.dumbs(post), status=200, mimetype="application/json")
+    return Response("", status=200, mimetype="text/plain")
 
-
+@app.route('/addimage', methods=['POST'])
+def add_image():
+    user_info = json.loads(request.headers["account"])
+    for label in request.files:
+        image = request.files[label]
+        upload_image(user_info["uuid"], user_info["charity_type"], user_info["token"], image.read())
+    return Response("", status=200, mimetype="text/plain")
 
 
 @app.route('/', defaults={'file': ''})
