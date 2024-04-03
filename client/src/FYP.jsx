@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 
-import s from './css/Home.module.css';
+import s from './css/FYP.module.css';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
@@ -28,7 +28,7 @@ function DonorAccount() {
             <input className={s.TextField} type="text" placeholder="Enter Text..." value={getSearchText} onChange={(event) => setSearchText(event.target.value)}/>
         </div>
         <div className={s.ButtonDiv}>
-          <button className={s.button} onClick={() => searchQuery()}>SEARCH</button>
+          <button className={s.button} onClick={() => searchQuery()}>No Search</button>
         </div>
       </body>
     </div>
