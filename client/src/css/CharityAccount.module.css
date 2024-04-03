@@ -12,11 +12,13 @@
     flex-direction: column;
     align-items: center;
 }
-  
+
+
+
+/* HEADER */
 .App_header {
     background-color: #282c34;
     color: white;
-    margin-top: 0%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -25,16 +27,56 @@
     background-size: 80vmin;
     width: 100vw;
 }
-.headerImage {
-    height: 15vmin;
-    width: 15vmin;
-    padding-top: 2.7vmin;
-    padding-bottom: 2.7vmin;
+.MainImageBG {
+    height: 20vmin;
+    width: 20vmin;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: rgba(0,0,0,0.4);
 }
-.bar {
-    margin-left: 2vmin;
-    margin-right: 2vmin;
+.MainImage{
+    align-self: center;
+    width: 85%;
+    padding: 0.5vmin;
 }
+.HeaderImageContainer {
+    height: 20vmin;
+    width: 20vmin;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.HeaderImageBG {
+    align-self: center;
+    height: 18vmin;
+    width: 18vmin;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.HeaderImageBG:hover {
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 2vmin;
+    background-color: rgba(0,0,0.5,0.4);
+}
+.HeaderImage {
+    align-self: center;
+    width: 94.5%;
+    padding: 0.5vmin;
+}
+.Bar {
+    margin: 0vmin;
+    padding: 0vmin;
+}
+
+
+
+/* BODY */
 .App_body {
     background-color: white;
     border: 0.3vmin solid #000000;

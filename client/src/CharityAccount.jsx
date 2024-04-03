@@ -57,11 +57,23 @@ function CharityAccount() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
-        <img src={search} alt="prop" className={s.headerImage}/>
-        <hr className={s.bar}></hr>
-        <img src={home} alt="prop" className={s.headerImage}/>
-        <hr className={s.bar}></hr>
-        <img src={settings} alt="prop" className={s.headerImage}/>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <a className={s.HeaderImageBG} href="/search" rel="noopener noreferrer">
+            <img src={search} alt="prop" className={s.HeaderImage}/>
+          </a>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <a className={s.HeaderImageBG} href="/fyp" rel="noopener noreferrer">
+            <img src={home} alt="prop" className={s.HeaderImage}/>
+          </a>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.MainImageBG}>
+            <img src={settings} alt="prop" className={s.MainImage}/>
+        </div>
+        <hr className={s.Bar}/>
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
