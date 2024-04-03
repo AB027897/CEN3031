@@ -1,4 +1,5 @@
 from firebase import get_firebase
+from firebase import get_firebase
 import secrets
 
 def init_database():
@@ -13,11 +14,24 @@ def init_database():
 def add_donor(user_id, account_type, name, email, phone, dob, token):
     data = {
         'account type' : account_type,
+        'account type' : account_type,
         'name': name,
         'email': email,
         'phone number': phone,
         'dob': dob
     }
+    db.child("accounts").child(user_id).set(data, token = token)
+
+
+def add_charity(user_id, account_type, name, email, phone, charity_type, token):
+    data = {
+        'account type' : account_type,
+        'name': name,
+        'email': email,
+        'phone number': phone,
+        'type': charity_type
+    }
+    db.child("accounts").child(user_id).set(data, token=token)
     db.child("accounts").child(user_id).set(data, token = token)
 
 
