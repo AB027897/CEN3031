@@ -7,14 +7,28 @@ import img5 from './images/Logo_Hands.png';
 
 import hands from './images/Logo_Hands_Crop.png';
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import Account, {getAccount, getAccountInfo} from './utilities/account';
+import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
 
 function Login() {
-  const [getTitle] = useState("");
-  const [getBody] = useState("");
+  const [getTitle, setTitle] = useState("");
+  const [getBody, setBody] = useState("");
+  const [getCaption, setCaption] = useState("");
   // something for getImages? idk how to do that
   const [getNewComment, setNewComment] = useState("");
+  useEffect(()=> {
+    (async ()=> {
+      const user = await getAccount();
+      const userInfo = await getAccountInfo(user);
+      const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);
+      const post = await ajax(account, "/getpost");
+      setTitle(post["title"]);
+      setBody(post["body"]);
+      setCaption(post["preview_caption"]);
+    })();
+  }, []);
   return (
     <div className={s.App}>
       <header className={s.App_header} value={getTitle}>
@@ -28,35 +42,7 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.PageBodyText}>
-          <h2 value = {getBody}>
-            Humanity
-            <br/><br/>
-            The Red Cross, born of a desire to bring assistance without discrimination to the wounded on the battlefield, endeavors—in its international and national capacity—to prevent and alleviate human suffering wherever it may be found. Its purpose is to protect life and health and to ensure respect for the human being. It promotes mutual understanding, friendship, cooperation and lasting peace amongst all peoples.
-            <br/><br/><br/>
-            Impartiality
-            <br/><br/>
-            It makes no discrimination as to nationality, race, religious beliefs, class or political opinions. It endeavors to relieve the suffering of individuals, being guided solely by their needs, and to give priority to the most urgent cases of distress.
-            <br/><br/><br/>
-            Neutrality
-            <br/><br/>
-            In order to continue to enjoy the confidence of all, the Red Cross may not take sides in hostilities or engage at any time in controversies of a political, racial, religious or ideological nature.
-            <br/><br/><br/>
-            Independence
-            <br/><br/>
-            The Red Cross is independent. The national societies, while auxiliaries in the humanitarian services of their governments and subject to the laws of their respective countries, must always maintain their autonomy so that they may be able at all times to act in accordance with Red Cross principles.
-            <br/><br/><br/>
-            Voluntary Service
-            <br/><br/>
-            The Red Cross is a voluntary relief movement not prompted in any manner by desire for gain.
-            <br/><br/><br/>
-            Unity
-            <br/><br/>
-            There can be only one Red Cross society in any one country. It must be open to all. It must carry on its humanitarian work throughout its territory.
-            <br/><br/><br/>
-            Universality
-            <br/><br/>
-            The Red Cross is a worldwide institution in which all societies have equal status and share equal responsibilities and duties in helping each other.
-          </h2>
+          <p>{getBody}</p>
         </div>
         <div className={s.ImagesBG}>
           <div className={s.Images}>

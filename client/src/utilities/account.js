@@ -20,7 +20,8 @@ export const getAccount = async () => {
     return new Promise((resolve, reject)=> {
       resolve(new Account(user['localId'], getToken()));
     });
-  }
+};
+
 export const getAccountInfo = async (account = "") => {
     if(account === "") {
       account = await getAccount();

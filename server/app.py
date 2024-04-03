@@ -72,7 +72,7 @@ def post_get():
     user_info = json.loads(request.headers["account"])
     post = get_post(user_info["uuid"], user_info["charity_type"], user_info["token"])
     if post != "":
-        return Response(json.dumbs(post), status=200, mimetype="application/json")
+        return Response(json.dumps(post), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
 
 @app.route('/addimage', methods=['POST'])

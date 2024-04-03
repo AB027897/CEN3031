@@ -3,7 +3,7 @@ import {useState} from 'react';
 import s from './css/PageCreator.module.css';
 import ajax from './utilities/ajax.js'
 import Post from './utilities/post'
-import { getToken } from './utilities/token';
+import {getToken} from './utilities/token';
 import {getAccount, getAccountInfo} from './utilities/account.js';
 
 function Login() {

@@ -18,7 +18,7 @@ function DonorAccount() {
   const [getDisplayCalendar, setDisplayCalendar] = useState("none")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
-  useEffect( ()=> {
+  useEffect(()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
