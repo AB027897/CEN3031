@@ -1,5 +1,4 @@
 from firebase import get_firebase
-import secrets
 
 def init_database():
     global firebase_app
@@ -52,9 +51,8 @@ def add_post(uuid, charity_type, title, preview_caption, body, token):
     }
     post_ref = db.child("posts").child(charity_type).child(uuid)
     posts = post_ref.get().val()
- 
     if posts:
-        remove_post(uuid, charity_type)
+        remove_post(uuid, charity_type, token)
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
     else:
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
@@ -66,17 +64,15 @@ def get_post(uuid, charity_type, token):
     return ""
 
 
-def remove_post(uuid, charity_type):
-    data = db.child("posts").child(charity_type).child(uuid).get().val()
+def remove_post(uuid, charity_type, token):
+    data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
     n = data.get("n")
-
     for i in range(n):
         path = "{}/{}".format(uuid,"image{}".format(i)) + ".png"
-        print(path)
-        remove_image(path)
-
+        remove_image(path, token)
     data_ref = db.child("posts").child(charity_type).child(uuid)
-    data_ref.remove()
+    data_ref.remove(token=token)
+
 
 def upload_image(uuid, charity_type, token, local_file_path):
     try:
@@ -85,17 +81,16 @@ def upload_image(uuid, charity_type, token, local_file_path):
         file_name = "image{}".format(n)
 
         path = "{}/{}".format(uuid, file_name)
-        storage.child("images/"+path+".png").put(local_file_path, token=token)
+        # Need to fix the security of firebase storage to allow for tokens
+        storage.child("images/"+path+".png").put(local_file_path, content_type="image/png")
         db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path}, token=token)
         db.child("posts").child(charity_type).child(uuid).update({"n": n + 1}, token=token)
-
     except Exception as e:
         print("Error:", e)
 
 
-def remove_image(path):
-    token = secrets.token_hex(32)
+def remove_image(path, token):
     try:
-        storage.child("images").delete(path, token)
+        storage.delete("images/" + path, token)
     except Exception as e:
         print("Error removing image from storage:", e)
