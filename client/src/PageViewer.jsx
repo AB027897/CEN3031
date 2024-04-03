@@ -13,20 +13,24 @@ import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
 
 function Login() {
+  const [getName, setName] = useState("")
   const [getTitle, setTitle] = useState("");
   const [getBody, setBody] = useState("");
   const [getCaption, setCaption] = useState("");
-  // something for getImages? idk how to do that
+  const [getImageURLs, setImageURLS] = useState([]);
   const [getNewComment, setNewComment] = useState("");
   useEffect(()=> {
     (async ()=> {
       const user = await getAccount();
       const userInfo = await getAccountInfo(user);
+      setName(userInfo["name"]);
       const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);
       const post = await ajax(account, "/getpost");
       setTitle(post["title"]);
       setBody(post["body"]);
       setCaption(post["preview_caption"]);
+      const images = await ajax(account, "/getimage");
+      setImageURLS(images);
     })();
   }, []);
   return (
@@ -36,7 +40,7 @@ function Login() {
           <a className={s.BackButton} href="javascript:history.back()" rel="noopener noreferrer">&lt; Go Back</a>
         </div>
         <div style={{alignItems: 'cemter', flex: 6}}>
-          <p className={s.Title}>American Red Cross</p>
+          <p className={s.Title}>{getName}</p>
         </div>
         <div style={{flex: 1}}/>
       </header>
@@ -46,11 +50,9 @@ function Login() {
         </div>
         <div className={s.ImagesBG}>
           <div className={s.Images}>
-            <img className={s.Image} src={img1} alt=""/>
-            <img className={s.Image} src={img2} alt=""/>
-            <img className={s.Image} src={img3} alt=""/>
-            <img className={s.Image} src={img4} alt=""/>
-            <img className={s.Image} src={img5} alt=""/>
+            {getImageURLs.map((url, i)=> (
+              <img className={s.Image} src={url}></img>
+            ))}
           </div>
         </div>
         <div className={s.DonateDiv}>

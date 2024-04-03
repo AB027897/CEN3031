@@ -94,3 +94,13 @@ def remove_image(path, token):
         storage.delete("images/" + path, token)
     except Exception as e:
         print("Error removing image from storage:", e)
+
+def get_images(uuid, charity_type, token):
+    arr = []
+    post = get_post(uuid, charity_type, token)
+    for i in range(int(post["n"])):
+        path = "{}/{}/{}".format("images", uuid, "image"+str(i)+".png")
+        url = storage.child(path).get_url(token=token)
+        arr.append(url)
+    return arr
+    

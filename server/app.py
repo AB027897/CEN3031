@@ -83,6 +83,11 @@ def add_image():
         upload_image(user_info["uuid"], user_info["charity_type"], user_info["token"], image.read())
     return Response("", status=200, mimetype="text/plain")
 
+@app.route('/getimage')
+def get_image():
+    user_info = json.loads(request.headers["account"])
+    urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    return Response(json.dumps(urls), status=200, mimetype="application/json")
 
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
