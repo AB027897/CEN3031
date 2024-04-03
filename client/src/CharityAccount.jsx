@@ -39,7 +39,7 @@ function CharityAccount() {
     account.name = getName;
     account.charity_type = getType;
     account.phone = phoneNumber;
-    await ajax(account, "/addaccountinfo", false);
+    await ajax(account, "/addaccountinfo");
   }
   return (
     <div className={s.App}>

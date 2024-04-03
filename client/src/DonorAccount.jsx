@@ -40,7 +40,7 @@ function DonorAccount() {
     account.name = getName;
     account.dob = JSON.stringify(getDate);
     account.phone = phoneNumber;
-    await ajax(account, "/addaccountinfo", false);
+    await ajax(account, "/addaccountinfo");
   }
   const displayCalendar = () => {
     if(getDisplayCalendar === "none") {

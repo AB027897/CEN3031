@@ -11,20 +11,18 @@ function Login() {
   const [getTitle, setTitle] = useState("");
   const [getCaption, setCaption] = useState("");
   const [getBody, setBody] = useState("");
-  const [getFile, setFile] = useState([]);
-  const saveFile = (files) => {
-    let arr = []
-    for(let i=0; i < files.length; i++) {
-      arr.push(URL.createObjectURL(files[i]));
-    }
-    setFile(arr);
-  }
+  const [getFiles, setFiles] = useState([]);
   const createPosts = async () => {
-    console.log(getFile);
     const user = await getAccount();
     const userInfo = await getAccountInfo(user);
+    const imageData = new FormData();
+    for(let i=0; i < getFiles.length; i++) {
+      imageData.append("files"+i, getFiles[i]);
+
+    }
     const post = new Post(user["uuid"], userInfo["type"], getToken(), getTitle, getCaption, getBody);
-    await ajax(post, "/addpost", false);
+    await ajax(post, "/addpost");
+    await ajax(post, "/addimage", "post", imageData, "multipart/form-data");
   }
   return (
     <div className={s.App}>
@@ -55,7 +53,7 @@ function Login() {
         <div className={s.ItemTitle}>
           <h2>Upload Images</h2>
           <form method="POST">
-            <input className={s.UploadText} type="file" id="myFile" name="filename" multiple="multiple" accept=".png, .jpeg, .jpg, .tiff" onChange={(event)=> saveFile(event.target.files)}/>
+            <input className={s.UploadText} type="file" id="myFile" name="filename" multiple="multiple" accept=".png, .jpeg, .jpg, .tiff" onChange={(event)=> setFiles(event.target.files)}/>
           </form>
         </div>
         <p className={s.ErrorText}>{getErrorText}</p>

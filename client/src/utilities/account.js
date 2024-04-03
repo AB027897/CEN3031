@@ -26,7 +26,7 @@ export const getAccountInfo = async (account = "") => {
       account = await getAccount();
     }
     return new Promise( (resolve, reject)=> {
-      resolve(ajax(account, "/getaccountinfo", true));
+      resolve(ajax(account, "/getaccountinfo"));
     });
 };
 
