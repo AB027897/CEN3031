@@ -18,8 +18,6 @@ def add_donor(user_id, account_type, name, email, phone, dob, token):
     }
     db.child("accounts").child(user_id).set(data, token = token)
 
-
-def add_charity(user_id, account_type, name, email, phone, charity_type, token):
 def add_charity(user_id, account_type, name, email, phone, charity_type, token):
     data = {
         'account type' : account_type,
