@@ -2,16 +2,16 @@ from flask import Flask, request, send_file, Response, jsonify
 from flask_cors import CORS
 import json
 import os
-# from firebase import *
-# TODO: REMOVE IMPORTS BELOW WHEN COMMITING
-from firebase import init_app, create_user, authenticate_user, get_firebase, create_token, signin_token
-# from typesense import Client as TypesenseClient
-# from typesense_operations import initialize_typesense_client, index_user_data, search_charities
+# from functions_framework import events
+from firebase import *
+from post import *
+from typesense_operations import *
 
-app = Flask(__name__, static_folder="..\\client\\build")
+app = Flask(__name__, static_folder="../client/build")
 CORS(app)
 init_app()
 init_database()
+init_typesense()
 
 @app.route('/signupvalidation')
 def validateSignup():
@@ -54,7 +54,6 @@ def get_account_info():
     account_info = get_account(account['uuid'], account['token'])
     return Response(json.dumps(account_info), status=200, mimetype="application/json")
 
-
 @app.route('/signintoken')
 def signin():
     token = json.loads(request.headers["account"])
@@ -62,22 +61,6 @@ def signin():
     if type(user) == str:
         return Response(user, status=200, mimetype="text/plain")
     return Response(json.dumps(user), status=200, mimetype="application/json")
-
-# @app.route('/search', methods=['GET'])
-# def search():
-#     query = request.args.get('q')
-#     if not query:
-#         return jsonify({'error': 'Query parameter "q" is required'}), 400
-
-#     try:
-#         # Call the search function in typesense_operations.py
-#         search_results = search_charities(query)
-#         if search_results is not None:
-#             return jsonify(search_results)
-#         else:
-#             return jsonify({'error': 'An error occurred while searching'}), 500
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
 
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')

@@ -1,127 +1,168 @@
-# from typesense import Client as TypesenseClient
-# from firebase import get_firebase
+import typesense
+from typesense import Client
+import requests
 
-# # Initialize Firestore client
-# firebase = get_firebase()
-# db = firebase.database()
+def init_typesense():
+    global client
+    
+    # when we used typesense cloud. we are now using typesense open source with Docker
+    # client = Client({
+    #         'nodes': [{
+    #             'host': 'ul1p783ztkoredcyp-1.a1.typesense.net',  # Typesense host
+    #             'port': '443',       # Typesense port
+    #             'protocol': 'https'  # Protocol
+    #         }],
+    #         'api_key': 'mYFiARCAiJvQvB0iJerI6Vm0RuSgw4UA'  # Admin API Key
+    #     })
+    
+    client = Client({
+        'nodes': [{
+            'host': 'localhost',
+            'port': '8108',
+            'protocol': 'http'
+        }],
+        'api_key': 'xyz',
+        'connection_timeout_seconds': 2
+    })   
 
-# client = TypesenseClient({
-#         'nodes': [{
-#             'host': 'ul1p783ztkoredcyp-1.a1.typesense.net',
-#             'port': '443',
-#             'protocol': 'https'
-#         }],
-#         'api_key': 'WFwOG63UuT4s6AyZZKUfb2w9Z41AQrOh',
-#         'connection_timeout_seconds': 2
-#     })
+    headers = {
+    "Content-Type": "application/json",
+    "X-TYPESENSE-API-KEY": "xyz"
+    }
+
+    url = "http://localhost:8108/collections/charities/documents/export"
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        # Print the exported documents in JSONL format
+        print(response.text)
+    else:
+        # Print an error message if the request failed
+        print(f"Failed to export documents: {response.status_code}")
+
 
     
-# # Define the schema for the "charities" collection
-# charities_schema = {
-#     'name': 'charities',
-#     'fields': [
-#         {'name': 'id', 'type': 'string'},
-#         {'name': 'name', 'type': 'string'},
-#         {'name': 'email', 'type': 'string'},
-#         {'name': 'phone_number', 'type': 'string'},
-#         {'name': 'type', 'type': 'string'},
-#         {'name': 'post_title', 'type': 'string'},
-#         {'name': 'post_body', 'type': 'string'},
-#         {'name': 'preview_caption', 'type': 'string'}
-#     ]
-# }
+    # # Define the schema for the "charities" collection
+    # charities_schema = {
+    #     'name': 'charities',
+    #     'fields': [
+    #         {'name': 'id', 'type': 'string'},
+    #         {'name': 'email', 'type': 'string'},
+    #         {'name': 'name', 'type': 'string'},
+    #         {'name': 'phone number', 'type': 'string'},
+    #         {'name': 'type', 'type': 'string'}  # Type of charity
+    #     ]
+    # }
 
-# # Create the collection with the defined schema
-# client.collections.create(charities_schema)
+    # # Define the schema for the "posts" collection
+    # posts_schema = {
+    #     'name': 'posts',
+    #     'fields': [
+    #         {'name': 'id', 'type': 'string'},
+    #         {'name': 'body', 'type': 'string'},
+    #         {'name': 'n', 'type': 'string[]'},  # Array of photo URLs
+    #         {'name': 'preview_caption', 'type': 'string'},
+    #         {'name': 'title', 'type': 'string'}
+    #     ]
+    # }
+    
 
+    # #  # Create the collections with defined schemas
+    # client.collections.create(charities_schema)
+    # client.collections.create(posts_schema)
 
-# # Function to index a new document to Typesense
-# def on_charity_create(event, context):
-#     # Get the document ID and data from the event
-#     charity_id = context.resource.split('/')[-1]
-#     charity_data = event['value']
+def on_charity_change(data):
+    user_id = data.get('user_id')
+    name = data.get('name')
+    email = data.get('email')
+    phone = data.get('phone number')
+    charity_type = data.get('type')
+    
+    document_id = user_id
+    
+    document = {
+        'id': user_id,
+        'name': name,
+        'email': email,
+        'phone number': phone,
+        'type': charity_type
+    }
 
-#     # Index the document in Typesense
-#     index_charity_data(charity_id, charity_data)
+    # print(f"ID before conversion: {document_id}")  # Print the ID before conversion
 
+    
+    if document_exists_in_typesense(document_id):
+        on_charity_update(document)
+    else:
+        on_charity_create(document)
 
-# # Function to update an existing document in Typesense
-# def on_charity_update(event, context):
-#     # Get the document ID and updated data from the event
-#     charity_id = context.resource.split('/')[-1]
-#     charity_data = event['value']
-
-#     # Update the document in Typesense
-#     update_charity_data(charity_id, charity_data)
-
-
-# # Function to delete a document from Typesense
-# def on_charity_delete(event, context):
-#     # Get the document ID from the event
-#     charity_id = context.resource.split('/')[-1]
-
-#     # Delete the document from Typesense
-#     delete_charity_data(charity_id)
-
-
-# def index_charity_data(client, user_data):
-#     try:
-#         # index the user's info data
-#         info_data = user_data['info']
-#         identifier = next(iter(info_data))  # get user's identifier key
-#         info_document = {
-#             'userID': identifier,
-#             'email': info_data[identifier].get('email', ''),
-#             'name': info_data[identifier].get('name', ''),
-#             'phone_number': info_data[identifier].get('phone number', ''),
-#             'type': info_data[identifier].get('type', '')
-#         }
-#         client.collections['charities'].documents.create(info_document)
-
-#         # index the user's post data
-#         post_data = user_data['post']
-#         post_document = {
-#             'userID': identifier,
-#             'post_title': post_data.get('title', ''),
-#             'post_body': post_data.get('body', ''),
-#             'preview_caption': post_data.get('preview_caption', '')
-#         }
-#         client.collections['charities'].documents.create(post_document)
-
-#         print("User data indexed successfully.")
-#     except Exception as e:
-#         print(f"Error indexing user data: {str(e)}")
+def document_exists_in_typesense(document_id):
+    try:
+        client.collections['charities'].documents[document_id].retrieve()
+        return True
+    except typesense.exceptions.ObjectNotFound:
+        return False
 
 
-# # Function to update charity data in Typesense
-# def update_charity_data(charity_id, charity_data):
-#     # Get the updated data for the document
-#     updated_document = {
-#         'name': charity_data.get('name', ''),
-#         'email': charity_data.get('email', ''),
-#         'phone_number': charity_data.get('phone number', ''),
-#     }
+def on_charity_create(data):
 
-#     # Update the document in Typesense
-#     client.collections['charities'].documents(charity_id).update(updated_document)
-
-
-# # Function to delete charity data from Typesense
-# def delete_charity_data(charity_id):
-#     # Delete the document from Typesense
-#     client.collections['charities'].documents(charity_id).delete()
+    document = {
+        'id': data.get('id', ''),
+        'name': data.get('name', ''),
+        'email': data.get('email', ''),
+        'phone number': data.get('phone number', ''),
+        'type': data.get('type', '')
+    }
+    
+    client.collections['charities'].documents.create(document)
 
 
-# def search_charities(query):
-#     try:
-#         # Perform the search query on the Realtime Database
-#         # Use 'contains' operator for partial matching
-#         results = db.child("charities").order_by_child("name").start_at(query).end_at(query + "\uf8ff").get()
-        
-#         # Convert the result to a list of dictionaries
-#         search_results = [charity.val() for charity in results.each()]
+def on_charity_update(data):
+    document = {
+        'id': data.get('id', ''),
+        'name': data.get('name', ''),
+        'email': data.get('email', ''),
+        'phone number': data.get('phone number', ''),
+        'type': data.get('type', '')
+    }
+    
+    client.collections['charities'].documents[data.get('id', '')].update(document)
 
-#         return search_results
-#     except Exception as e:
-#         print(f"Error searching charities: {str(e)}")
-#         return None
+
+def on_post_create(post_data):
+    typesense_document = {
+        'n': post_data['n'],
+        'body': post_data['body'],
+        'preview_caption': post_data['preview_caption'],
+        'title': post_data['title']
+    }
+    client.collections['posts'].documents.create(typesense_document)
+
+def on_post_update(post_data):
+    updated_document = {
+        'title': post_data['title'],
+        'body': post_data['body'],
+        'preview_caption': post_data.get('preview_caption', ''),
+        # 'n': post_data['n'],
+    }
+    client.collections['posts'].documents(post_data['id']).update(updated_document)
+
+
+def on_charity_delete(event):
+    document_id = event.path.split('/')[-1]
+    client.collections['charities'].documents.delete(document_id)
+
+
+def on_post_delete(post_id):
+    client.collections['posts'].documents(post_id).delete()
+
+
+
+def search_documents(collection_name, search_value, query_by):
+    search_params = {
+        'q': search_value,
+        'query_by': query_by
+    }
+    search_results = client.collections[collection_name].documents.search(search_params)
+    return search_results
