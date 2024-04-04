@@ -61,6 +61,34 @@ def signin():
         return Response(user, status=200, mimetype="text/plain")
     return Response(json.dumps(user), status=200, mimetype="application/json")
 
+@app.route('/addpost')
+def post_add():
+    post_info = json.loads(request.headers["account"])
+    add_post(post_info["uuid"], post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
+    return Response("", status=200, mimetype="text/plain")
+
+@app.route('/getpost')
+def post_get():
+    user_info = json.loads(request.headers["account"])
+    post = get_post(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    if post != "":
+        return Response(json.dumps(post), status=200, mimetype="application/json")
+    return Response("", status=200, mimetype="text/plain")
+
+@app.route('/addimage', methods=['POST'])
+def add_image():
+    user_info = json.loads(request.headers["account"])
+    for label in request.files:
+        image = request.files[label]
+        upload_image(user_info["uuid"], user_info["charity_type"], user_info["token"], image.read())
+    return Response("", status=200, mimetype="text/plain")
+
+@app.route('/getimage')
+def get_image():
+    user_info = json.loads(request.headers["account"])
+    urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    return Response(json.dumps(urls), status=200, mimetype="application/json")
+
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):

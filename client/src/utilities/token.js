@@ -15,7 +15,7 @@ export const clearToken = () => {
 export const getUser = async () => {
     let token = getToken();
     return new Promise( (resolve, reject)=> {
-        resolve(ajax(token, "/signintoken", true));
+        resolve(ajax(token, "/signintoken"));
     });
 }
 
