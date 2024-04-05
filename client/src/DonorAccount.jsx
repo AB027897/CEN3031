@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './css/DonorAccount.module.css';
 import Calender from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -12,6 +13,10 @@ import ajax from './utilities/ajax.js'
 import {getAccount, getAccountInfo} from './utilities/account';
 
 function DonorAccount() {
+  const navigate = useNavigate();
+  const toSearchPage = ()=> { navigate("/search"); }
+  const toFYP = ()=> { navigate("/fyp"); }
+
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
@@ -52,17 +57,17 @@ function DonorAccount() {
   return (
     <div className={s.App}>
       <header className={s.App_header}>
-      <hr className={s.Bar}/>
+        <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
-          <a className={s.HeaderImageBG} href="/fyp" rel="noopener noreferrer">
+          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
             <img src={search} alt="prop" className={s.HeaderImage}/>
-          </a>
+          </div>
         </div>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
-          <a className={s.HeaderImageBG} href="/fyp" rel="noopener noreferrer">
+          <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
             <img src={home} alt="prop" className={s.HeaderImage}/>
-          </a>
+          </div>
         </div>
         <hr className={s.Bar}/>
         <div className={s.MainImageBG}>

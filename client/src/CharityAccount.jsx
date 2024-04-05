@@ -10,6 +10,9 @@ import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js'
 
 function CharityAccount() {
+  const toSearchPage = ()=> { navigate("/search"); }
+  const toFYP = ()=> { navigate("/fyp"); }
+
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
   const [getEmail, setEmail] = useState("");
@@ -46,15 +49,15 @@ function CharityAccount() {
       <header className={s.App_header}>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
-          <a className={s.HeaderImageBG} href="/search" rel="noopener noreferrer">
+          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
             <img src={search} alt="prop" className={s.HeaderImage}/>
-          </a>
+          </div>
         </div>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
-          <a className={s.HeaderImageBG} href="/fyp" rel="noopener noreferrer">
+          <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
             <img src={home} alt="prop" className={s.HeaderImage}/>
-          </a>
+          </div>
         </div>
         <hr className={s.Bar}/>
         <div className={s.MainImageBG}>
