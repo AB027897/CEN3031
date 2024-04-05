@@ -114,6 +114,9 @@
 .PageItem:hover {
     filter: brightness(85%);
 }
+.PageItem:active {
+    filter: brightness(93%);
+}
 .PageItemImageDiv {
     margin-left: 2vmin;
     height: 90%;

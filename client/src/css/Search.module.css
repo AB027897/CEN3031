@@ -145,8 +145,13 @@
     border-radius: 2vmin;
     background-color: rgba(0,0,0,0.1);
 }
+.SearchButton:active {
+    border: 2px solid rgba(0,0,0,1);
+    border-radius: 2vmin;
+    background-color: rgba(0,0,0,0.02);
+}
+
 .SearchImage {
-    
     width: 100%;
 
     filter: brightness(0%);
@@ -168,6 +173,9 @@
 }
 .PageItem:hover {
     filter: brightness(85%);
+}
+.PageItem:active {
+    filter: brightness(93%);
 }
 .PageItemImageDiv {
     margin-left: 2vmin;
