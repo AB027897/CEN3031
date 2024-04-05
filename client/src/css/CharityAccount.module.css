@@ -62,7 +62,12 @@
 .HeaderImageBG:hover {
     border: 2px solid rgba(255,255,255,0.4);
     border-radius: 2vmin;
-    background-color: rgba(0,0,0.5,0.4);
+    background-color: rgba(0,0,0,0.4);
+}
+.HeaderImageBG:active {
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 2vmin;
+    background-color: rgba(0,0,0,0.2);
 }
 .HeaderImage {
     align-self: center;
