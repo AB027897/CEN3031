@@ -23,6 +23,7 @@ def init_app():
     firebase_app = pyrebase.initialize_app(cred)
     global auth 
     auth = firebase_app.auth()
+
     
 
 def get_firebase():
@@ -61,5 +62,3 @@ def signin_token(token):
     except Exception as err:
         error = json.loads(err.args[1])
         return str(error["error"]["message"])
-    
-

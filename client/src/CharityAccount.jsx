@@ -6,8 +6,7 @@ import phoneNumberFormat from './utilities/phoneNumberFormat.js';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
-import { getUser, getToken } from './utilities/token';
-import Account from './utilities/account';
+import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js'
 
 function CharityAccount() {
@@ -17,26 +16,14 @@ function CharityAccount() {
   const [getName, setName] = useState("");
   const [getType, setType] = useState("Select option...");
   const navigate = useNavigate();
-  const getAccount = async () => {
-    const user = await getUser();
-    return new Promise((resolve, reject)=> {
-      resolve(new Account(user['localId'], getToken()));
-    });
-  }
-  const getAccountInfo = async () => {
-    const account = await getAccount();
-    return new Promise( (resolve, reject)=> {
-      resolve(ajax(account, "/getaccountinfo", true));
-    });
-  }
   useEffect(()=> {
     (async ()=> {
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
-      if(accountInfo["charity_type"] !== "") {
-        setType(accountInfo["charity_type"]);
+      if(accountInfo["type"] !== "") {
+        setType(accountInfo["type"]);
       }
     })();
   }, [])
@@ -45,14 +32,14 @@ function CharityAccount() {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async()=> {
-    const phoneNumber = getPhoneNumber.replace(/[-\(\)]/g, "");
+    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
     let account = await getAccount();
     account.account_type = "charity";
     account.email = getEmail;
     account.name = getName;
     account.charity_type = getType;
     account.phone = phoneNumber;
-    await ajax(account, "/addaccountinfo", false);
+    await ajax(account, "/addaccountinfo");
   }
   return (
     <div className={s.App}>
@@ -86,7 +73,7 @@ function CharityAccount() {
         </div>
         <div className={s.ItemTitle}>
             <h2 className={s.ItemTitleText}>Phone Number </h2>
-            <input className={s.TextField} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
+            <input className={s.TextField} type="text" placeholder="(XXX) XXX-XXXX" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
         </div>
         <div className={s.ItemTitle}>
             <h2 className={s.ItemTitleText}>Charity Type</h2>

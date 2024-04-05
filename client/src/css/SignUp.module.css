@@ -104,6 +104,7 @@
     font-size: calc(2.75vmin);
     margin-top: 0px;
     margin-bottom: 2vmin;
+    padding-left: 12px;
     background-color: #f1f1f1;
     border-color: black;
     width: 54vmin;
@@ -140,6 +141,7 @@
     margin-top: 1%;
     margin-right: 0%;
     margin-top: 2vmin;
+    font-size: 22px;
     font-weight: 400;
 }
 .App_link {

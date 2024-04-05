@@ -42,13 +42,14 @@ function Signup() {
         } else if(getCharityStatus) {
             accountType = 'charity'
         }
-        let text = await ajax(user, "/signupvalidation", true);
-        const phoneNumber = getPhoneNumber.replace(/[-\(\)]/g, "");
+        let text = await ajax(user, "/signupvalidation");
+        console.log(text);
+        const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
         if(typeof(text) !== "string") {
             setErrorText("");
             setToken(text['token']);
             let account = new Account(text['localId'], text['token'], accountType, phoneNumber, getEmail);
-            await ajax(account, "/addaccountinfo", false);
+            await ajax(account, "/addaccountinfo");
             if(accountType === 'donor') {
                 navigate("/donoraccount");
             } else {
