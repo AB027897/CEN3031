@@ -1,4 +1,6 @@
 from firebase import get_firebase
+from admin import *
+
 
 def init_database():
     global firebase_app
@@ -17,7 +19,9 @@ def add_donor(user_id, account_type, name, email, phone, dob, token):
         'phone number': phone,
         'dob': dob
     }
-    db.child("accounts").child(user_id).set(data, token = token)
+    if not update_email(user_id, email):
+        db.child("accounts").child(user_id).set(data, token = token)
+   
 
 
 def add_charity(user_id, account_type, name, email, phone, charity_type, token):
@@ -28,7 +32,8 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, token):
         'phone number': phone,
         'type': charity_type
     }
-    db.child("accounts").child(user_id).set(data, token=token)
+    if not update_email(user_id, email):
+        db.child("accounts").child(user_id).set(data, token=token)
 
 
 def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type=""):
