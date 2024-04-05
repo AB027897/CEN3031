@@ -54,84 +54,84 @@ function DonorAccount() {
         <hr className={s.Bar}/>
       </header>
       <body className={s.App_body}>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={globe}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            Jude Children's Research Hospital
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
           </div>
-          <div className={s.PageItemBlurb}>
-            We are committed to ensuring that every child with cancer and other catastrophic diseases will have access to quality care and treatment no matter where in the world they live.
-          </div>
-        </div>
-      </div>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={hands}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            American Red Cross
-          </div>
-          <div className={s.PageItemBlurb}>
-            Each day, thousands of people – people just like you – provide compassionate care to those in need. Our network of generous donors, volunteers and employees share a mission of preventing and relieving suffering, here at home and around the world.
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Jude Children's Research Hospital
+            </div>
+            <div className={s.PageItemBlurb}>
+              We are committed to ensuring that every child with cancer and other catastrophic diseases will have access to quality care and treatment no matter where in the world they live.
+            </div>
           </div>
         </div>
-      </div>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={globe}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            Another Charity
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
           </div>
-          <div className={s.PageItemBlurb}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
-          </div>
-        </div>
-      </div>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={hands}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            Another Sample Charity
-          </div>
-          <div className={s.PageItemBlurb}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              American Red Cross
+            </div>
+            <div className={s.PageItemBlurb}>
+              Each day, thousands of people – people just like you – provide compassionate care to those in need. Our network of generous donors, volunteers and employees share a mission of preventing and relieving suffering, here at home and around the world.
+            </div>
           </div>
         </div>
-      </div>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={globe}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            50 character total character limit on title text
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
           </div>
-          <div className={s.PageItemBlurb}>
-            200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview
-          </div>
-        </div>
-      </div>
-      <div className={s.PageItem} onClick={()=>openPage()}>
-        <div className={s.PageItemImageDiv}>
-          <img className={s.PageItemImage} src={hands}/>
-        </div>
-        <div className={s.PageItemTextDiv}>
-          <div className={s.PageItemTitle}>
-            50 character total character limit on title text
-          </div>
-          <div className={s.PageItemBlurb}>
-            200 total character limit on preview
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Another Charity
+            </div>
+            <div className={s.PageItemBlurb}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
+            </div>
           </div>
         </div>
-      </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Another Sample Charity
+            </div>
+            <div className={s.PageItemBlurb}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              50 character total character limit on title text
+            </div>
+            <div className={s.PageItemBlurb}>
+              200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              50 character total character limit on title text
+            </div>
+            <div className={s.PageItemBlurb}>
+              200 total character limit on preview
+            </div>
+          </div>
+        </div>
         <div className={s.ButtonDiv}>
           <button className={s.button} onClick={() => loadMorePages()}>LOAD MORE</button>
         </div>

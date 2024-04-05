@@ -8,6 +8,10 @@ import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 
+// temporary placeholder images before actual images are implemented from pages
+import hands from './images/Logo_Hands_Crop.png'
+import globe from './images/Logo_Earth.png'
+
 function DonorAccount() {
   const navigate = useNavigate();
   const toAccountPage = async ()=> {
@@ -19,6 +23,14 @@ function DonorAccount() {
     }
   }
   const toFYP = ()=> { navigate("/fyp"); }
+
+  const openPage = async ()=> {
+    // open pageviewer with specific page data
+    document.write("Open Page");
+  }
+  const loadMorePages = async ()=> {
+    // interface with backend to gather more pages to load onto this page (or a new page)
+  }
 
   const [getSearchText, setSearchText] = useState("");
 
@@ -48,12 +60,92 @@ function DonorAccount() {
         <hr className={s.Bar}/>
       </header>
       <body className={s.App_body}>
-        <div className={s.ItemTitle}>
-            <h2>Search</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." value={getSearchText} onChange={(event) => setSearchText(event.target.value)}/>
+        <div className={s.SearchDiv}>
+          <input className={s.TextField} type="text" placeholder="Search..." value={getSearchText} onChange={(event) => setSearchText(event.target.value)}/>
+          <div className={s.SearchButton}>
+            <img className={s.SearchImage} src={search}/>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Jude Children's Research Hospital
+            </div>
+            <div className={s.PageItemBlurb}>
+              We are committed to ensuring that every child with cancer and other catastrophic diseases will have access to quality care and treatment no matter where in the world they live.
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              American Red Cross
+            </div>
+            <div className={s.PageItemBlurb}>
+              Each day, thousands of people – people just like you – provide compassionate care to those in need. Our network of generous donors, volunteers and employees share a mission of preventing and relieving suffering, here at home and around the world.
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Another Charity
+            </div>
+            <div className={s.PageItemBlurb}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              Another Sample Charity
+            </div>
+            <div className={s.PageItemBlurb}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eget pulvinar nisl, nec suscipit est. Vestibulum id interdum ligula. Sed finibus quis mauris eget volutpat. Etiam malesuada metus quis placerat eleifend.
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={globe}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              50 character total character limit on title text
+            </div>
+            <div className={s.PageItemBlurb}>
+              200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview200 total character limit on preview 200 total character limit on preview 200 total character limit on preview 200 total character limit on preview
+            </div>
+          </div>
+        </div>
+        <div className={s.PageItem} onClick={()=>openPage()}>
+          <div className={s.PageItemImageDiv}>
+            <img className={s.PageItemImage} src={hands}/>
+          </div>
+          <div className={s.PageItemTextDiv}>
+            <div className={s.PageItemTitle}>
+              50 character total character limit on title text
+            </div>
+            <div className={s.PageItemBlurb}>
+              200 total character limit on preview
+            </div>
+          </div>
         </div>
         <div className={s.ButtonDiv}>
-          <button className={s.button} onClick={() => searchQuery()}>SEARCH</button>
+          <button className={s.button} onClick={() => loadMorePages()}>LOAD MORE</button>
         </div>
       </body>
     </div>
