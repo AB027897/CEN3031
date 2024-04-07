@@ -8,7 +8,7 @@ import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js';
-import loading from './images/loading.gif'
+import loading from './images/loading.webp'
 
 function CharityAccount() {
   const toSearchPage = ()=> { navigate("/search"); }

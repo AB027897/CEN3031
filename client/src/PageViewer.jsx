@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import Account, {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
-import loading from './images/loading.gif';
+import loading from './images/loading.webp';
 
 function Login() {
   const [getName, setName] = useState("")

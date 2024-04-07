@@ -11,7 +11,7 @@ import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 import ajax from './utilities/ajax.js'
 import {getAccount, getAccountInfo} from './utilities/account';
-import loading from './images/loading.gif';
+import loading from './images/loading.webp';
 
 function DonorAccount() {
   const navigate = useNavigate();
