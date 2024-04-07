@@ -43,7 +43,10 @@ function DonorAccount() {
     account.name = getName;
     account.dob = JSON.stringify(getDate);
     account.phone = phoneNumber;
-    await ajax(account, "/addaccountinfo");
+    const message = await ajax(account, "/addaccountinfo");
+    if(message !== "") {
+      setErrorText(message);
+    }
   }
   const displayCalendar = () => {
     if(getDisplayCalendar === "none") {

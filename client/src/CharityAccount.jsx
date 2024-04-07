@@ -42,7 +42,10 @@ function CharityAccount() {
     account.name = getName;
     account.charity_type = getType;
     account.phone = phoneNumber;
-    await ajax(account, "/addaccountinfo");
+    const message = await ajax(account, "/addaccountinfo");
+    if(message !== "") {
+      setErrorText(message);
+    }
   }
   return (
     <div>

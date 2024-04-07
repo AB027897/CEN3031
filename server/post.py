@@ -44,9 +44,9 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, token):
 
 def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type=""):
     if account_type == "donor":
-        add_donor(user_id, account_type, name, email, phone, dob, token)
+        return add_donor(user_id, account_type, name, email, phone, dob, token)
     else:
-        add_charity(user_id, account_type, name, email, phone, charity_type, token)
+        return add_charity(user_id, account_type, name, email, phone, charity_type, token)
 
 def get_account(user_id, token):
     user_info = db.child("accounts").child(user_id).get(token=token)
