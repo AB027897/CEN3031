@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './css/DonorAccount.module.css';
 import Calender from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -13,6 +14,10 @@ import {getAccount, getAccountInfo} from './utilities/account';
 import loading from './images/loading.gif';
 
 function DonorAccount() {
+  const navigate = useNavigate();
+  const toSearchPage = ()=> { navigate("/search"); }
+  const toFYP = ()=> { navigate("/fyp"); }
+
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
@@ -63,11 +68,23 @@ function DonorAccount() {
         </div> :
       <div className={s.App}>
         <header className={s.App_header}>
-          <img src={search} alt="prop" className={s.headerImage}/>
-          <hr className={s.bar}></hr>
-          <img src={home} alt="prop" className={s.headerImage}/>
-          <hr className={s.bar}></hr>
-          <img src={settings} alt="prop" className={s.headerImage}/>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
+            <img src={search} alt="prop" className={s.HeaderImage}/>
+          </div>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
+            <img src={home} alt="prop" className={s.MainImage}/>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.MainImageBG}>
+            <img src={settings} alt="prop" className={s.HeaderImage}/>
+          </div>
+        </div>
+        <hr className={s.Bar}/>
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>

@@ -11,6 +11,9 @@ import ajax from './utilities/ajax.js';
 import loading from './images/loading.gif'
 
 function CharityAccount() {
+  const toSearchPage = ()=> { navigate("/search"); }
+  const toFYP = ()=> { navigate("/fyp"); }
+
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
   const [getEmail, setEmail] = useState("");
@@ -53,13 +56,25 @@ function CharityAccount() {
       <div className={s.Loading}> 
         <img src={loading} className={s.Loading_img} ></img> 
       </div> :
-        <div className={s.App}>
+      <div className={s.App}>
         <header className={s.App_header}>
-          <img src={search} alt="prop" className={s.headerImage}/>
-          <hr className={s.bar}></hr>
-          <img src={home} alt="prop" className={s.headerImage}/>
-          <hr className={s.bar}></hr>
-          <img src={settings} alt="prop" className={s.headerImage}/>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
+            <img src={search} alt="prop" className={s.HeaderImage}/>
+          </div>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
+            <img src={home} alt="prop" className={s.MainImage}/>
+        </div>
+        <hr className={s.Bar}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.MainImageBG}>
+            <img src={settings} alt="prop" className={s.HeaderImage}/>
+          </div>
+        </div>
+        <hr className={s.Bar}/>
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>
@@ -100,7 +115,6 @@ function CharityAccount() {
         </body>
       </div>}
     </div>
-    
   );
 }
 
