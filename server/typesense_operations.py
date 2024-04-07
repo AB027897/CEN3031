@@ -5,16 +5,6 @@ import requests
 def init_typesense():
     global client
     
-    # when we used typesense cloud. we are now using typesense open source with Docker
-    # client = Client({
-    #         'nodes': [{
-    #             'host': 'ul1p783ztkoredcyp-1.a1.typesense.net',  # Typesense host
-    #             'port': '443',       # Typesense port
-    #             'protocol': 'https'  # Protocol
-    #         }],
-    #         'api_key': 'mYFiARCAiJvQvB0iJerI6Vm0RuSgw4UA'  # Admin API Key
-    #     })
-    
     client = Client({
         'nodes': [{
             'host': 'localhost',
@@ -88,9 +78,6 @@ def on_charity_change(data):
         'phone number': phone,
         'type': charity_type
     }
-
-    # print(f"ID before conversion: {document_id}")  # Print the ID before conversion
-
     
     if document_exists_in_typesense(document_id):
         on_charity_update(document)
@@ -131,22 +118,22 @@ def on_charity_update(data):
 
 
 def on_post_create(post_data):
-    typesense_document = {
-        'n': post_data['n'],
+    document = {
+        # 'n': post_data['n'],
         'body': post_data['body'],
         'preview_caption': post_data['preview_caption'],
         'title': post_data['title']
     }
-    client.collections['posts'].documents.create(typesense_document)
+    client.collections['posts'].documents.create(document)
 
 def on_post_update(post_data):
-    updated_document = {
+    document = {
         'title': post_data['title'],
         'body': post_data['body'],
         'preview_caption': post_data.get('preview_caption', ''),
         # 'n': post_data['n'],
     }
-    client.collections['posts'].documents(post_data['id']).update(updated_document)
+    client.collections['posts'].documents(post_data['id']).update(document)
 
 
 def on_charity_delete(event):
