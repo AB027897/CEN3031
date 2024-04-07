@@ -14,12 +14,12 @@ function Login() {
   const navigate = useNavigate();
   const handleLogin = async () => {
     let user = new User(getEmail, getPassword);
-    let text = await ajax(user, "/loginvalidation", true);
+    let text = await ajax(user, "/loginvalidation");
     if(typeof(text) !== "string") {
         setErrorText("");
         setToken(text['token']);
         let account = new Account(text['localId'], text['token']);
-        let accountInfo = await ajax(account, "/getaccountinfo", true);
+        let accountInfo = await ajax(account, "/getaccountinfo");
         if(accountInfo['account type'] === 'charity') {
           navigate("/charityaccount");
         } else {
@@ -38,7 +38,7 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2>Username</h2>
+            <h2>Email</h2>
             <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setEmail(event.target.value)} value={getEmail}/>
         </div>
         <div className={s.ItemTitle}>

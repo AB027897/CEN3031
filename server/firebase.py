@@ -24,6 +24,8 @@ def init_app():
     global auth 
     auth = firebase_app.auth()
 
+    
+
 def get_firebase():
     return firebase_app
 

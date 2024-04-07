@@ -1,3 +1,6 @@
+import ajax from "./ajax";
+import {getUser, getToken} from "./token";
+
 class Account {
     constructor(uuid, token, accountType="", phone="", email="", name="", dob="", charityType="") {
        this.uuid = uuid;
@@ -11,3 +14,21 @@ class Account {
     }
 };
 export default Account;
+
+export const getAccount = async () => {
+    const user = await getUser();
+    return new Promise((resolve, reject)=> {
+      resolve(new Account(user['localId'], getToken()));
+    });
+};
+
+export const getAccountInfo = async (account = "") => {
+    if(account === "") {
+      account = await getAccount();
+    }
+    return new Promise( (resolve, reject)=> {
+      resolve(ajax(account, "/getaccountinfo"));
+    });
+};
+
+

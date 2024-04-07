@@ -1,6 +1,16 @@
 .App {
     text-align: center;
     background-color: white;
+
+    width: 100vw;
+    min-height: 100vh;
+    background-image: url('../images/background-light.webp');
+    background-size: 50vmin;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
   
 .App_header {
@@ -10,22 +20,40 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    background-image: url('../images/background-dark.png');
+    background-size: 80vmin;
+    width: 100vw;
 }
 .headerImage {
     height: 15vmin;
     width: 15vmin;
+    padding-top: 2.7vmin;
+    padding-bottom: 2.7vmin;
 }
 .bar {
     margin-left: 2vmin;
     margin-right: 2vmin;
 }
 .App_body {
+    background-color: white;
+    border: 0.3vmin solid #000000;
+    border-radius: 2vmin;
+    width: 60vmin;
+
     margin-top: 1.5vmin;
+    margin-bottom: 1.5vmin;
+    padding-bottom: 1.5vmin;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: black;
+
+    font-family: "Roboto", sans-serif;
+        font-size: calc(3.1vmin);
+        font-weight: 400;
+        font-style: normal;
 }
 .Title {
     margin-bottom: 0px;
@@ -44,10 +72,13 @@
     text-align: left;
     padding-right: 0px;
     line-height: 0px;
-    margin-top: 0px;
+    margin-top: 0.5vmin;
+    margin-bottom: 1.5vmin;
+}
+.ItemTitleText {
+    padding-bottom: 0px;
     margin-bottom: 2vmin;
 }
-
 .TextField {
     font-size: calc(2.75vmin);
     color: black;
@@ -55,6 +86,9 @@
     height: 5.4vmin;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding-left: 12px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     background-color: #f1f1f1;
     border-color: black;
 }
@@ -69,6 +103,21 @@
     margin-bottom: 0px;
     background-color: #f1f1f1;
     border-color: black;
+    padding-left: 12px;
+    font-family: "Roboto", sans-serif;
+        font-size: calc(3.1vmin);
+        font-weight: 400;
+        font-style: normal;
+}
+.ErrorText {
+    font-size: 2.2vmin;
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.ButtonDiv {
+    padding-top: 1.5vmin;
+    padding-bottom: 1vmin;
 }
 .button {
     background-color: rgb(101, 153, 221);
@@ -79,7 +128,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: calc(3.2vmin);
-    margin-top: -1vmin;
+    margin-top: 0vmin;
     border-radius: 5px;
 }
 .button:hover {
@@ -91,8 +140,16 @@
 .Customize {
     font-style: normal;
     font-size: calc(2vmin);    
-    margin-top: 1vmin;
+    margin-top: 0vmin;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     text-align: left;
+}
+.CustomizeText {
+    padding-top: 0vmin;
+    margin-top: 0.5vmin;
+    margin-bottom: 1vmin;
 }
 .SmallButton {
     background-color: rgb(101, 153, 221);
@@ -106,7 +163,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: calc(3.2vmin);
-    margin-top: -1vmin;
+    margin-top: 0vmin;
     border-radius: 5px;
 }
 .SmallButton:hover {

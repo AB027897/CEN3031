@@ -1,23 +1,17 @@
-const ajax = async (userInfo, route, response) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", route, true);
-    xhttp.setRequestHeader("account", JSON.stringify(userInfo));
-    xhttp.send();
-    return new Promise((resolve, reject) => {
-        if(response) {
-            xhttp.onload = () => {
-                if(xhttp.status === 200) {
-                    if(xhttp.getResponseHeader("Content-Type") === "application/json") {
-                        resolve(JSON.parse(xhttp.responseText));
-                    } else {
-                        resolve(xhttp.responseText);
-                    }
-                } 
-            };
-        } else {
-            resolve(null);
+import axios from "axios";
+
+const ajax = async(userInfo, route, method = "get", files = new FormData(), contentType = "text/plain") => {
+    userInfo = JSON.stringify(userInfo); 
+    const response = await axios({
+        method: method,
+        url : route, 
+        data: files,
+        headers: {
+            "account" : userInfo,
+            "Content-Type": contentType
         }
     });
-    
+    return response["data"];
+
 }
 export default ajax;
