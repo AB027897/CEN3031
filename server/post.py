@@ -19,8 +19,11 @@ def add_donor(user_id, account_type, name, email, phone, dob, token):
         'phone number': phone,
         'dob': dob
     }
-    if not update_email(user_id, email):
+    error = update_email(user_id, email)
+    if type(error) != str:
         db.child("accounts").child(user_id).set(data, token = token)
+    else:
+        return error
    
 
 
@@ -32,15 +35,18 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, token):
         'phone number': phone,
         'type': charity_type
     }
-    if not update_email(user_id, email):
+    error = update_email(user_id, email)
+    if type(error) != str:
         db.child("accounts").child(user_id).set(data, token=token)
+    else:
+        return error
 
 
 def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type=""):
     if account_type == "donor":
-        add_donor(user_id, account_type, name, email, phone, dob, token)
+        return add_donor(user_id, account_type, name, email, phone, dob, token)
     else:
-        add_charity(user_id, account_type, name, email, phone, charity_type, token)
+        return add_charity(user_id, account_type, name, email, phone, charity_type, token)
 
 def get_account(user_id, token):
     user_info = db.child("accounts").child(user_id).get(token=token)

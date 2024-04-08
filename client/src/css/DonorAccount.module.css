@@ -1,3 +1,13 @@
+.Loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40vh;
+}
+.Loading_img {
+    width: 20vh;
+    height: 20vh;
+}
 .App {
     text-align: center;
     background-color: white;
