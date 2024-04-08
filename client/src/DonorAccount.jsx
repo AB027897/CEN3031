@@ -75,14 +75,14 @@ function DonorAccount() {
           </div>
         </div>
         <hr className={s.Bar}/>
-        <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
-            <img src={home} alt="prop" className={s.MainImage}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
+              <img src={home} alt="prop" className={s.HeaderImage}/>
+          </div>
         </div>
         <hr className={s.Bar}/>
-        <div className={s.HeaderImageContainer}>
-          <div className={s.MainImageBG}>
-            <img src={settings} alt="prop" className={s.HeaderImage}/>
-          </div>
+        <div className={s.MainImageBG}>
+          <img src={settings} alt="prop" className={s.MainImage}/>
         </div>
         <hr className={s.Bar}/>
         </header>
