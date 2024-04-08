@@ -5,9 +5,9 @@ import s from './css/App.module.css';
 function App() {
   return (
     <div className={s.App}>
-      <header className={s.header}>
-        <img src={logo_e} className={s.logo} alt="logo" />
-        <img src={logo_h} className={s.hands} alt="hands" />
+      <header className={s.LogoDiv}>
+        <img src={logo_e} className={s.Earth} alt="logo" />
+        <img src={logo_h} className={s.Hands} alt="hands" />
         <p className={s.Title}> DonorGram</p>
       </header>
       <div className={s.Links}>

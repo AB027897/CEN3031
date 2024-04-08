@@ -1,50 +1,54 @@
 .App {
   text-align: center;
   background: linear-gradient(90deg, white 65%, #282c34 66%);
+  /* replace with actual background images for better detail */
   overflow: hidden;
   scroll-padding: 100px;
   max-height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: start;
+  justify-content: start;
 }
 
-.header {
-  min-height: 100vh;
+.LogoDiv {
+  width: 65vw;
+  height: 100vh;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   justify-content: center;
 
-  position: relative;
-    left: 150px;
-    bottom: 50px;
-  
-  scale: 1.2;
+  background-color: aqua;
 }
-
-.logo {
-  height: 80vmin;
-  pointer-events: none;
-  position: relative;
-    right: 150px;
-    top: 120px;
+.Earth {
+  width: 45vw;
+  position: absolute;
+    left: 16%;
+    top: 3%;
 }
-
-.hands {
-  position: relative;
-    right: 765px;
-    bottom: 0px;
-
-  scale: 1.5;
+.Hands {
+  width: 45vw;
+  position: absolute;
+    left: 16%;
+    top: 3%;
 }
-
-.Title{
-  color: black;
-  position: relative;
-    bottom: 250px;
-    right: 390px;
+.Title {
+  position: absolute;
+    left: 12.5%;
+    top: 55%;
 
   font-family: "League Spartan", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: bold;
-    font-size: 150px;
+    font-size: 7.9vw;
 }
 
 .Links {
