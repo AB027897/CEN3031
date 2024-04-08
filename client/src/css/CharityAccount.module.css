@@ -135,8 +135,8 @@
 .TextField {
     font-size: calc(2.75vmin);
     color: black;
-    width: 54vmin;
-    height: 5.4vmin;
+    width: 55vmin;
+    height: 5.8vmin;
     margin-top: 0px;
     margin-bottom: 0px;
     padding-left: 1vmin;
@@ -144,23 +144,10 @@
     padding-bottom: 0px;
     background-color: #f1f1f1;
     border-color: black;
+    box-sizing: border-box
 }
 .TextField:placeholder-shown {
     font-style: italic;
-}
-.Dropdown {
-    color: black;
-    width: 55vmin;
-    height: 5.4vmin;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    background-color: #f1f1f1;
-    border-color: black;
-    padding-left: 1vmin;
-    font-family: "Roboto", sans-serif;
-        font-size: calc(2.75vmin);
-        font-weight: 400;
-        font-style: normal;
 }
 .Subheading {
     margin-top: 2.5vmin;

@@ -89,7 +89,7 @@ function CharityAccount() {
           </div>
           <div className={s.ItemTitle}>
               <h2>Organization Name</h2>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getName} onChange={(event) => setName(event.target.value)}/>
+              <input className={s.TextField} type="text" placeholder="Enter Text..." maxLength={50} value={getName} onChange={(event) => setName(event.target.value)}/>
           </div>
           <div className={s.ItemTitle}>
               <h2>Phone Number </h2>
@@ -97,9 +97,9 @@ function CharityAccount() {
           </div>
           <div className={s.ItemTitle}>
               <h2>Charity Type</h2>
-              <select className={s.Dropdown} value={getType} onChange={(event) => setType(event.target.value)}>
+              <select className={s.TextField} value={getType} onChange={(event) => setType(event.target.value)}>
                   <option className={s.TextField}>Select option...</option>
-                  <option className={s.TextField}> Humanitarian Aid</option>
+                  <option className={s.TextField}>Humanitarian Aid</option>
                   <option className={s.TextField}>Medical</option>
                   <option className={s.TextField}>Environmental</option>
                   <option className={s.TextField}>Education</option>
