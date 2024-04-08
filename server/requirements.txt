@@ -4,3 +4,4 @@ pyrebase4==4.7.1
 firebase-admin==6.5.0
 pycryptodome==3.20.0
 python-dotenv==1.0.1
+stripe==8.10.0
