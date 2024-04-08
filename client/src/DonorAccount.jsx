@@ -101,7 +101,7 @@ function DonorAccount() {
           </div>
           <div className={s.ItemTitle}>
               <div className={s.calenderDiv}>
-                <h2 className={s.ItemTitleText}>Date of Birth:</h2>
+                <h2>Date of Birth:</h2>
                 <img src={calenderImage} className={s.calenderImage} alt="prop" onClick={()=> displayCalendar()}/>
               </div>
           </div>
