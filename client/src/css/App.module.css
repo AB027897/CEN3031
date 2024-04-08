@@ -1,4 +1,7 @@
 .App {
+
+  
+
   text-align: center;
   background: linear-gradient(90deg, white 65%, #282c34 66%);
   /* replace with actual background images for better detail */
@@ -17,69 +20,96 @@
   width: 65vw;
   height: 100vh;
 
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
+  display: grid;
   align-items: center;
-  text-align: center;
+  justify-items: center;
   justify-content: center;
 
-  background-color: aqua;
+  background-image: url('../images/background-light.webp');
+  background-size: 50vmin;
 }
 .Earth {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  padding-bottom: 20vw;
+}
+.EarthImg {
   width: 45vw;
-  position: absolute;
-    left: 16%;
-    top: 3%;
+  z-index: 1;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .EarthImg {
+    animation: App-logo-spin infinite 30s linear;
+  }
 }
 .Hands {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  padding-bottom: 20vw;
+
   width: 45vw;
-  position: absolute;
-    left: 16%;
-    top: 3%;
+  
+  z-index: 2;
 }
 .Title {
-  position: absolute;
-    left: 12.5%;
-    top: 55%;
+  grid-column-start: 1;
+  grid-row-start: 1;
+
+  padding-top: 13vw;
 
   font-family: "League Spartan", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: bold;
     font-size: 7.9vw;
+
+  z-index: 2;
 }
 
-.Links {
-  color: white;
-  position: relative;
-    bottom: 1000px;
-    left: 600px;
+.LinksDiv {
+  width: 35vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: start;
+  justify-content: center;
 
   font-family: "Roboto", sans-serif;
     font-size: calc(10px + 2vmin);
     font-weight: 400;
     font-style: normal;
-}
+    color: white;
 
+  background-image: url('../images/background-dark.png');
+  background-size: 80vmin;
+}
 .JoinNowText {
   font-weight: bolder;
-  font-size: 60px;
-  margin-bottom: 0px;
+  font-size: 3.2vw;
+  margin-bottom: 0.3vw;
+  margin-top: 0px;
 }
-
 .Button1 {
     background-color: rgb(126, 168, 223);
     border: none;
     color: black;
-    padding: 10px 100px;
+    padding: 0.5vw 5vw;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 40px;
+    font-size: 2vw;
     margin-top: 1%;
-    border-radius: 5px;
+    border-radius: 0.25vw;
 }
 .Button1:hover {
   opacity: 0.8;
@@ -89,45 +119,26 @@
 }
 
 .AlreadyAccountText {
-  font-size: 30px;
-  margin-top: 80px;
-  margin-bottom: 0px;
+  font-size: 1.6vw;
+  margin-top: 4.5vw;
+  margin-bottom: 0.3vw;
 }
 
 .Button2 {
   background-color: rgb(126, 168, 223);
   border: none;
   color: black;
-  padding: 10px 50px;
+  padding: 0.5vw 2.5vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 30px;
+  font-size: 1.6vw;
   margin-top: 1%;
-  border-radius: 50px;
+  border-radius: 2.5vw;
 }
 .Button2:hover {
 opacity: 0.8;
 }
 .Button2:active {
 opacity: 0.6;
-}
-
-.App_link {
-  color: blue;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .logo {
-    animation: App-logo-spin infinite 30s linear;
-  }
 }
