@@ -19,6 +19,12 @@ function CharityAccount() {
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
   const [getType, setType] = useState("Select option...");
+
+  // banking information variables
+  const [getAccountNum, setAccountNum] = useState("");
+  const [getRoutingNum, setRoutingNum] = useState("");
+  const [getCountryCode, setCountryCode] = useState("");
+
   const [getLoading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(()=> {
@@ -78,19 +84,19 @@ function CharityAccount() {
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>
-              <h2 className={s.ItemTitleText}>Email</h2>
+              <h2>Email</h2>
               <input className={s.TextField} type="text" placeholder="Enter Text..." value={getEmail} onChange={(event) => setEmail(event.target.value)}/>
           </div>
           <div className={s.ItemTitle}>
-              <h2 className={s.ItemTitleText}>Organization Name</h2>
+              <h2>Organization Name</h2>
               <input className={s.TextField} type="text" placeholder="Enter Text..." value={getName} onChange={(event) => setName(event.target.value)}/>
           </div>
           <div className={s.ItemTitle}>
-              <h2 className={s.ItemTitleText}>Phone Number </h2>
+              <h2>Phone Number </h2>
               <input className={s.TextField} type="text" placeholder="(XXX) XXX-XXXX" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
           </div>
           <div className={s.ItemTitle}>
-              <h2 className={s.ItemTitleText}>Charity Type</h2>
+              <h2>Charity Type</h2>
               <select className={s.Dropdown} value={getType} onChange={(event) => setType(event.target.value)}>
                   <option className={s.TextField}>Select option...</option>
                   <option className={s.TextField}> Humanitarian Aid</option>
@@ -100,6 +106,17 @@ function CharityAccount() {
                   <option className={s.TextField}>Social Justice</option>
                   <option className={s.TextField}>Other</option>
               </select>
+          </div>
+          <hr className={s.BarSep}/>
+          <div className={s.ItemTitle}>
+              <h2>Banking Information</h2>
+              <hr className={s.BankSeparator}/>
+              <h3 className={s.Subheading}>Account Number</h3>
+              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getAccountNum} onChange={(event) => setAccountNum(event.target.value)}/>
+              <h3 className={s.Subheading}>Routing Number</h3>
+              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getRoutingNum} onChange={(event) => setRoutingNum(event.target.value)}/>
+              <h3 className={s.Subheading}>Country Code</h3>
+              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getCountryCode} onChange={(event) => setCountryCode(event.target.value)}/>
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>

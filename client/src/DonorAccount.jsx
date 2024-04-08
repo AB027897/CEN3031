@@ -125,6 +125,7 @@ function DonorAccount() {
             <div className={s.PreferencesDiv}>
               <h2>Charity Preferences</h2>
               <form>
+                <hr className={s.PrefSeparator}/>
                 <input type = "checkbox" id="pref1" checked={getPref_Hum} className={s.Checkbox} onClick={()=> setPref_Hum(!getPref_Hum)}/>
                 <label className={s.PreferencesText} for="pref1">Humanitarian Aid</label>
                 <hr className={s.PrefSeparator}/>
