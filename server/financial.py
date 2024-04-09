@@ -6,11 +6,11 @@ load_dotenv()
 
 stripe.api_key = os.getenv("STRIPE_API_KEY")
 
-def create_charity_account(email):
+def create_charity_account(email, country):
     try:
         account = stripe.Account.create(
             type="express",
-            country="US",
+            country= country,
             email=email,
             capabilities={
                 "transfers": {"requested": True},

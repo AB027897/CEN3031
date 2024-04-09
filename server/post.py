@@ -1,5 +1,6 @@
 from firebase import get_firebase
 from admin import *
+from financial import *
 
 
 def init_database():
@@ -27,13 +28,14 @@ def add_donor(user_id, account_type, name, email, phone, dob, token):
    
 
 
-def add_charity(user_id, account_type, name, email, phone, charity_type, token):
+def add_charity(user_id, account_type, name, email, phone, charity_type, id, token):
     data = {
         'account type' : account_type,
         'name': name,
         'email': email,
         'phone number': phone,
-        'type': charity_type
+        'type': charity_type,
+        'id': id
     }
     error = update_email(user_id, email)
     if type(error) != str:
@@ -42,11 +44,23 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, token):
         return error
 
 
-def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type=""):
+def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type="", account_number="", routing_number="", country=""):
     if account_type == "donor":
         return add_donor(user_id, account_type, name, email, phone, dob, token)
     else:
-        return add_charity(user_id, account_type, name, email, phone, charity_type, token)
+        account_info = get_account(user_id, token)
+        if account_info == None:
+            account = create_charity_account(email, country)
+            id = account["id"]
+            create_bank_account(id, account_number, routing_number, country)
+        else:
+            try:
+                id = account_info["id"]
+            except:
+                account = create_charity_account(email, country)
+                id = account["id"]
+                create_bank_account(id, account_number, routing_number, country)
+        return add_charity(user_id, account_type, name, email, phone, charity_type, id, token)
 
 def get_account(user_id, token):
     user_info = db.child("accounts").child(user_id).get(token=token)
