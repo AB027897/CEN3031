@@ -20,11 +20,7 @@ function Login() {
         setToken(text['token']);
         let account = new Account(text['localId'], text['token']);
         let accountInfo = await ajax(account, "/getaccountinfo");
-        if(accountInfo['account type'] === 'charity') {
-          navigate("/charityaccount");
-        } else {
-          navigate("/donoraccount");
-        }
+        navigate("/fyp");
     } else {
         setErrorText(text);
         setEmail("");

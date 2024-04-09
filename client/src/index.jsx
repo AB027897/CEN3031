@@ -9,6 +9,8 @@ import PageCreator from './PageCreator';
 import PageViewer from './PageViewer';
 import DonorAccount from './DonorAccount'
 import CharityAccount from './CharityAccount'
+import Search from './Search'
+import FYP from './FYP'
 import Error from './404-page'
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
       <Route path="/pageviewer" element={<PageViewer/>}></Route>
       <Route path="/donoraccount" element={<DonorAccount/>}></Route>
       <Route path="/charityaccount" element={<CharityAccount/>}></Route>
+      <Route path="/search" element={<Search/>}></Route>
+      <Route path="/fyp" element={<FYP/>}></Route>
       <Route path="*" element={<Error/>}></Route>
     </Routes>
     </BrowserRouter>

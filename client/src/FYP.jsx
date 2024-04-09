@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { getAccountInfo } from './utilities/account.js'
 
-import s from './css/Search.module.css';
+import s from './css/FYP.module.css';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
@@ -22,7 +22,7 @@ function DonorAccount() {
       navigate("/donoraccount");
     }
   }
-  const toFYP = ()=> { navigate("/fyp"); }
+  const toSearchPage = ()=> { navigate("/search"); }
 
   const openPage = async ()=> {
     // open pageviewer with specific page data
@@ -32,24 +32,18 @@ function DonorAccount() {
     // interface with backend to gather more pages to load onto this page (or a new page)
   }
 
-  const [getSearchText, setSearchText] = useState("");
-
-  const searchQuery = async ()=> {
-    // somehow interface here with backend search functionality
-  }
-
   return (
     <div className={s.App}>
       <header className={s.App_header}>
         <hr className={s.Bar}/>
-        <div className={s.MainImageBG}>
-          <img src={search} alt="prop" className={s.MainImage}/>
+        <div className={s.HeaderImageContainer}>
+          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
+            <img src={search} alt="prop" className={s.HeaderImage}/>
+          </div>
         </div>
         <hr className={s.Bar}/>
-        <div className={s.HeaderImageContainer}>
-          <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
-            <img src={home} alt="prop" className={s.HeaderImage}/>
-          </div>
+        <div className={s.MainImageBG}>
+            <img src={home} alt="prop" className={s.MainImage}/>
         </div>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
@@ -60,12 +54,6 @@ function DonorAccount() {
         <hr className={s.Bar}/>
       </header>
       <body className={s.App_body}>
-        <div className={s.SearchDiv}>
-          <input className={s.TextField} type="text" placeholder="Search..." value={getSearchText} onChange={(event) => setSearchText(event.target.value)}/>
-          <div className={s.SearchButton}>
-            <img className={s.SearchImage} src={search}/>
-          </div>
-        </div>
         <div className={s.PageItem} onClick={()=>openPage()}>
           <div className={s.PageItemImageDiv}>
             <img className={s.PageItemImage} src={globe}/>
