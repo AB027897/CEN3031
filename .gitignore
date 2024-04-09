@@ -6,6 +6,7 @@ node_modules
 .pnp.js
 __pycache__
 server/typesense-data
+typesense-data
 
 # testing
 /coverage
@@ -27,3 +28,5 @@ yarn-error.log*
 
 # key
 serviceAccount.json
+
+typesense_api_key.txt

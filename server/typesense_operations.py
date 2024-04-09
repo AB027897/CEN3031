@@ -2,8 +2,15 @@ import typesense
 from typesense import Client
 import requests
 
+
+def read_api_key_from_file():
+    with open('typesense_api_key.txt', 'r') as file:
+        return file.read().strip()
+
 def init_typesense():
     global client
+    
+    api_key = read_api_key_from_file()
     
     client = Client({
         'nodes': [{
@@ -11,56 +18,9 @@ def init_typesense():
             'port': '8108',
             'protocol': 'http'
         }],
-        'api_key': 'xyz',
+        'api_key': api_key,
         'connection_timeout_seconds': 2
     })   
-
-    headers = {
-    "Content-Type": "application/json",
-    "X-TYPESENSE-API-KEY": "xyz"
-    }
-
-    url = "http://localhost:8108/collections/charities/documents/export"
-
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        # Print the exported documents in JSONL format
-        print(response.text)
-    else:
-        # Print an error message if the request failed
-        print(f"Failed to export documents: {response.status_code}")
-
-
-    
-    # # Define the schema for the "charities" collection
-    # charities_schema = {
-    #     'name': 'charities',
-    #     'fields': [
-    #         {'name': 'id', 'type': 'string'},
-    #         {'name': 'email', 'type': 'string'},
-    #         {'name': 'name', 'type': 'string'},
-    #         {'name': 'phone number', 'type': 'string'},
-    #         {'name': 'type', 'type': 'string'}  # Type of charity
-    #     ]
-    # }
-
-    # # Define the schema for the "posts" collection
-    # posts_schema = {
-    #     'name': 'posts',
-    #     'fields': [
-    #         {'name': 'id', 'type': 'string'},
-    #         {'name': 'body', 'type': 'string'},
-    #         {'name': 'n', 'type': 'string[]'},  # Array of photo URLs
-    #         {'name': 'preview_caption', 'type': 'string'},
-    #         {'name': 'title', 'type': 'string'}
-    #     ]
-    # }
-    
-
-    # #  # Create the collections with defined schemas
-    # client.collections.create(charities_schema)
-    # client.collections.create(posts_schema)
 
 def on_charity_change(data):
     user_id = data.get('user_id')
@@ -79,12 +39,12 @@ def on_charity_change(data):
         'type': charity_type
     }
     
-    if document_exists_in_typesense(document_id):
+    if charity_exists_in_typesense(document_id):
         on_charity_update(document)
     else:
         on_charity_create(document)
 
-def document_exists_in_typesense(document_id):
+def charity_exists_in_typesense(document_id):
     try:
         client.collections['charities'].documents[document_id].retrieve()
         return True
@@ -93,7 +53,6 @@ def document_exists_in_typesense(document_id):
 
 
 def on_charity_create(data):
-
     document = {
         'id': data.get('id', ''),
         'name': data.get('name', ''),
@@ -117,32 +76,65 @@ def on_charity_update(data):
     client.collections['charities'].documents[data.get('id', '')].update(document)
 
 
-def on_post_create(post_data):
+def on_post_change(data):
+    post_id = data.get('post_id')
+    charity_type = data.get('charity_type')
+    title = data.get('title')
+    preview_caption = data.get('preview_caption')
+    body = data.get('body')
+    
+    document_id = post_id
+    
     document = {
-        # 'n': post_data['n'],
-        'body': post_data['body'],
-        'preview_caption': post_data['preview_caption'],
-        'title': post_data['title']
+        'uuid': post_id,
+        'charity_type': charity_type,
+        'title': title,
+        'preview_caption': preview_caption,
+        'body': body
     }
+    
+    if post_exists_in_typesense(document_id):
+        on_post_update(document)
+    else:
+        on_post_create(document)
+
+def post_exists_in_typesense(document_id):
+    try:
+        client.collections['posts'].documents[document_id].retrieve()
+        return True
+    except typesense.exceptions.ObjectNotFound:
+        return False
+
+def on_post_create(data):
+    document = {
+        'uuid': data.get('post_id', ''),
+        'title': data.get('title', ''),
+        'body': data.get('body', ''),
+        'preview_caption': data.get('preview_caption', ''),
+        'charity_type': data.get('charity_type', '')
+    }
+    
     client.collections['posts'].documents.create(document)
 
-def on_post_update(post_data):
+def on_post_update(data):
     document = {
-        'title': post_data['title'],
-        'body': post_data['body'],
-        'preview_caption': post_data.get('preview_caption', ''),
-        # 'n': post_data['n'],
+        'uuid': data.get('post_id', ''),
+        'title': data.get('title', ''),
+        'body': data.get('body', ''),
+        'preview_caption': data.get('preview_caption', ''),
+        'charity_type': data.get('charity_type', '')
     }
-    client.collections['posts'].documents(post_data['id']).update(document)
+    
+    client.collections['posts'].documents[data.get('post_id', '')].update(document)
 
 
-def on_charity_delete(event):
-    document_id = event.path.split('/')[-1]
-    client.collections['charities'].documents.delete(document_id)
+# def on_charity_delete(event):
+#     document_id = event.path.split('/')[-1]
+#     client.collections['charities'].documents.delete(document_id)
 
 
-def on_post_delete(post_id):
-    client.collections['posts'].documents(post_id).delete()
+# def on_post_delete(post_id):
+#     client.collections['posts'].documents(post_id).delete()
 
 
 

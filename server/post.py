@@ -1,6 +1,5 @@
 from firebase import get_firebase
 from admin import *
-
 from typesense_operations import *
 
 def init_database():
@@ -71,6 +70,15 @@ def add_post(uuid, charity_type, title, preview_caption, body, token):
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
     else:
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
+
+    typesense_data = {
+        'post_id' : uuid,
+        'charity_type': charity_type,
+        'title': title,
+        'preview_caption': preview_caption,
+        'body': body
+    }    
+    on_post_change(typesense_data)
 
 def get_post(uuid, charity_type, token):
     posts = db.child("posts").child(charity_type).child(uuid).get(token=token).val()

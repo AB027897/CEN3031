@@ -2,7 +2,6 @@ import pyrebase
 import os
 from dotenv import load_dotenv
 import json
-from typesense_operations import *
 
 load_dotenv()
 

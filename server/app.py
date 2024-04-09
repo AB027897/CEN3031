@@ -2,7 +2,6 @@ from flask import Flask, request, send_file, Response, jsonify
 from flask_cors import CORS
 import json
 import os
-# from functions_framework import events
 from firebase import *
 from post import *
 from typesense_operations import *
