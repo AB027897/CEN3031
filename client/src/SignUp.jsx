@@ -91,7 +91,7 @@ function Signup() {
                     <div className={s.Field}>
                         <h2 className={s.FieldTitleText}>Phone Number</h2>
                     </div>
-                    <input className={s.Text_Field} type="text" placeholder="000-000-0000" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
+                    <input className={s.Text_Field} type="text" placeholder="(XXX) XXX-XXXX" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>
                 </div>
                 <p className={s.Error_Text}>{getErrorText}</p>
                 <button className={s.Button} onClick={() => handleSignup()}>SIGN UP</button>

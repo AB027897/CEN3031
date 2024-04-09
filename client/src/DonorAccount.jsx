@@ -24,6 +24,14 @@ function DonorAccount() {
   const [getDisplayCalendar, setDisplayCalendar] = useState("none")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
+  // charity preference vars
+  const [getPref_Hum, setPref_Hum] = useState("");
+  const [getPref_Med, setPref_Med] = useState("");
+  const [getPref_Env, setPref_Env] = useState("");
+  const [getPref_Edu, setPref_Edu] = useState("");
+  const [getPref_Soc, setPref_Soc] = useState("");
+  const [getPref_Other, setPref_Other] = useState("");
+
   const [getLoading, setLoading] = useState(true);
   useEffect(()=> {
     (async ()=> {
@@ -100,10 +108,10 @@ function DonorAccount() {
               {<input className={s.TextField} type="text" placeholder="(XXX) XXX-XXXX" maxLength={14} value={getPhoneNumber} onChange={(event) => formatPhoneNumber(event.target.value)}/>}
           </div>
           <div className={s.ItemTitle}>
-              <div className={s.calenderDiv}>
-                <h2 className={s.ItemTitleText}>Date of Birth:</h2>
-                <img src={calenderImage} className={s.calenderImage} alt="prop" onClick={()=> displayCalendar()}/>
-              </div>
+            <div className={s.calenderDiv}>
+              <h2>Date of Birth:</h2>
+              <img src={calenderImage} className={s.calenderImage} alt="prop" onClick={()=> displayCalendar()}/>
+            </div>
           </div>
           <div style={{display : getDisplayCalendar}} >
             <style>
@@ -112,6 +120,31 @@ function DonorAccount() {
                 }`}
             </style>
             <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> setDate(value)}/>
+          </div>
+          <div className={s.ItemTitle}>
+            <div className={s.PreferencesDiv}>
+              <h2>Charity Preferences</h2>
+              <form>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref1" checked={getPref_Hum} className={s.Checkbox} onClick={()=> setPref_Hum(!getPref_Hum)}/>
+                <label className={s.PreferencesText} for="pref1">Humanitarian Aid</label>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref2" checked={getPref_Med} className={s.Checkbox} onClick={()=> setPref_Med(!getPref_Med)}/>
+                <label className={s.PreferencesText} for="pref2">Medical</label>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref3" checked={getPref_Env} className={s.Checkbox} onClick={()=> setPref_Env(!getPref_Env)}/>
+                <label className={s.PreferencesText} for="pref3">Environmental</label>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref4" checked={getPref_Edu} className={s.Checkbox} onClick={()=> setPref_Edu(!getPref_Edu)}/>
+                <label className={s.PreferencesText} for="pref4">Education</label>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref5" checked={getPref_Soc} className={s.Checkbox} onClick={()=> setPref_Soc(!getPref_Soc)}/>
+                <label className={s.PreferencesText} for="pref5">Social Justice</label>
+                <hr className={s.PrefSeparator}/>
+                <input type = "checkbox" id="pref6" checked={getPref_Other} className={s.Checkbox} onClick={()=> setPref_Other(!getPref_Other)}/>
+                <label className={s.PreferencesText} for="pref6">Other</label>
+              </form>
+            </div>
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
