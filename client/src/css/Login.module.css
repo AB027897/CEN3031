@@ -121,7 +121,7 @@
   padding-right: 0px;
   margin-top: 2vmin;
   margin-bottom: 2vmin;
-  font-size: 22px;
+  font-size: calc(2.4vmin);
 }
 
 .App_link {

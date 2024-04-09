@@ -141,7 +141,7 @@
     margin-top: 1%;
     margin-right: 0%;
     margin-top: 2vmin;
-    font-size: 22px;
+    font-size: calc(2.4vmin);
     font-weight: 400;
 }
 .App_link {
