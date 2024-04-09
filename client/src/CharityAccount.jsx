@@ -23,7 +23,7 @@ function CharityAccount() {
   // banking information variables
   const [getAccountNum, setAccountNum] = useState("");
   const [getRoutingNum, setRoutingNum] = useState("");
-  const [getCountry, setCountry] = useState("United States");
+  const [getCountry, setCountry] = useState("US");
 
   const [getLoading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -52,6 +52,10 @@ function CharityAccount() {
     account.charity_type = getType;
     account.phone = phoneNumber;
     account.account_number = getAccountNum;
+    if(getRoutingNum.length !== 9) {
+      setErrorText("Routing Number must be 9 digits!");
+      return;
+    }
     account.routing_number = getRoutingNum;
     account.country = getCountry;
     const message = await ajax(account, "/addaccountinfo");

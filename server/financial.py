@@ -21,13 +21,14 @@ def create_charity_account(email, country):
         return str(e)
     
 def create_bank_account(id, account_number, routing_number, country):
-    source= {
+    account= {
+        "object": "bank_account",
         "account_number": account_number,
         "routing_number": routing_number, 
         "country": country, 
         "currency" : "usd"
     }
-    stripe.Customer.create_source(id, source=source)
+    stripe.Account.create_external_account(id, external_account=account)
 
         
 def create_card_token(number, exp_month, exp_year, cvc):
