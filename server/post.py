@@ -53,6 +53,8 @@ def add_account(user_id, token, account_type, name="", email="", phone="", dob="
         if account_info != None:
             try:
                 id = account_info["id"]
+                if id == "":
+                    raise Exception("Invalid id")
             except:
                 account = create_charity_account(email, country)
                 id = account["id"]
