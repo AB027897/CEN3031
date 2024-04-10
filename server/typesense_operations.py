@@ -19,7 +19,25 @@ def init_typesense():
         'connection_timeout_seconds': 2
     })
 
-   
+    # comment out when don't want to print documents
+    export_documents("charities")
+    export_documents("posts")
+
+def export_documents(collection_name):
+    api_key = os.getenv("TYPESENSE_API_KEY")
+    headers = {
+        "Content-Type": "application/json",
+        "X-TYPESENSE-API-KEY": api_key
+    }
+    url = f"http://localhost:8108/collections/{collection_name}/documents/export"
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        print(f"Documents for {collection_name}:")
+        print(response.text)
+    else:
+        print(f"Failed to export documents for {collection_name}: {response.status_code}")   
 
 def on_charity_change(data):
     user_id = data.get('user_id')
