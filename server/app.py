@@ -44,7 +44,7 @@ def login():
 @app.route('/addaccountinfo')
 def add_donor_info():
     account = json.loads(request.headers["account"])
-    response = add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'])
+    response = add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'], account["account_number"], account["routing_number"], account["country"])
     if type(response) == str:
         return Response(response, status=200, mimetype="text/plain")
     return Response("", status=200, mimetype="text/plain")

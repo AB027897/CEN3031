@@ -129,42 +129,37 @@
     text-align: left;
     padding-right: 0px;
     line-height: 0px;
-    margin-top: 0.5vmin;
-    margin-bottom: 1.5vmin;
-}
-.ItemTitleText {
-    padding-bottom: 0px;
+    margin-top: 0vmin;
     margin-bottom: 2vmin;
 }
 .TextField {
     font-size: calc(2.75vmin);
     color: black;
-    width: 54vmin;
-    height: 5.4vmin;
+    width: 55vmin;
+    height: 5.8vmin;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-left: 12px;
+    padding-left: 1vmin;
     padding-top: 0px;
     padding-bottom: 0px;
     background-color: #f1f1f1;
     border-color: black;
+    box-sizing: border-box;
 }
 .TextField:placeholder-shown {
     font-style: italic;
 }
-.Dropdown {
-    color: black;
-    width: 55vmin;
-    height: 5.4vmin;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    background-color: #f1f1f1;
-    border-color: black;
-    padding-left: 12px;
-    font-family: "Roboto", sans-serif;
-        font-size: calc(3.1vmin);
-        font-weight: 400;
-        font-style: normal;
+.Subheading {
+    margin-top: 2.5vmin;
+    margin-bottom: 1.5vmin;
+    font-weight: normal;
+}
+.BarSep {
+    width: 95%;
+    margin-top: 0.9vmin;
+}
+.BankSeparator {
+    visibility: hidden;
 }
 .ErrorText {
     font-size: 2.2vmin;

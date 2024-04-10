@@ -2,7 +2,7 @@ import ajax from "./ajax";
 import {getUser, getToken} from "./token";
 
 class Account {
-    constructor(uuid, token, accountType="", phone="", email="", name="", dob="", charityType="") {
+    constructor(uuid, token, accountType="", phone="", email="", name="", dob="", charityType="", accountNumber="", routingNumber="", country="") {
        this.uuid = uuid;
        this.token = token;
        this.account_type = accountType;
@@ -11,6 +11,9 @@ class Account {
        this.phone = phone;
        this.dob = dob;
        this.charity_type= charityType;
+       this.account_number = accountNumber;
+       this.routing_number = routingNumber;
+       this.country = country;
     }
 };
 export default Account;
