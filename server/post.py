@@ -49,11 +49,8 @@ def add_account(user_id, token, account_type, name="", email="", phone="", dob="
         return add_donor(user_id, account_type, name, email, phone, dob, token)
     else:
         account_info = get_account(user_id, token)
-        if account_info == None:
-            account = create_charity_account(email, country)
-            id = account["id"]
-            create_bank_account(id, account_number, routing_number, country)
-        else:
+        id = ""
+        if account_info != None:
             try:
                 id = account_info["id"]
             except:
