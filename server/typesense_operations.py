@@ -1,16 +1,13 @@
 import typesense
 from typesense import Client
+import os
 import requests
 
-
-def read_api_key_from_file():
-    with open('typesense_api_key.txt', 'r') as file:
-        return file.read().strip()
 
 def init_typesense():
     global client
 
-    api_key = read_api_key_from_file()
+    api_key = os.getenv("TYPESENSE_API_KEY")
     
     client = Client({
         'nodes': [{

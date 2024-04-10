@@ -2,11 +2,10 @@
 
 
 ## Prerequisites
-- Install Docker: [Docker Installation Guide](https://docs.docker.com/get-docker/)
-- Install Docker Compose: [Docker Compose Installation Guide](https://docs.docker.com/compose/install/)
+- Install Docker Desktop: [Docker Installation Guide](https://docs.docker.com/get-docker/)
 
 ### Running the Project
-- Step 0: Build and start the Docker containers: docker-compose up
+- Step 0: At the root directory, start the Docker containers: docker-compose up
 - Step 1: Go into the client folder and run the following command: npm install
 - Step 2: Then, run the following command: npm run build
 - Step 3: Go into the server folder and create a .env file using the following parameters obtained from firebase:
