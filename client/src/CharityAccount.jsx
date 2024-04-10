@@ -23,7 +23,7 @@ function CharityAccount() {
   // banking information variables
   const [getAccountNum, setAccountNum] = useState("");
   const [getRoutingNum, setRoutingNum] = useState("");
-  const [getCountry, setCountry] = useState("");
+  const [getCountry, setCountry] = useState("US");
 
   const [getLoading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -51,6 +51,13 @@ function CharityAccount() {
     account.name = getName;
     account.charity_type = getType;
     account.phone = phoneNumber;
+    account.account_number = getAccountNum;
+    if(getRoutingNum.length !== 9) {
+      setErrorText("Routing Number must be 9 digits!");
+      return;
+    }
+    account.routing_number = getRoutingNum;
+    account.country = getCountry;
     const message = await ajax(account, "/addaccountinfo");
     if(message !== "") {
       setErrorText(message);
@@ -112,7 +119,7 @@ function CharityAccount() {
               <h2>Banking Information</h2>
               <hr className={s.BankSeparator}/>
               <h3 className={s.Subheading}>Account Number</h3>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getAccountNum} onChange={(event) => setAccountNum(event.target.value)}/>
+              <input className={s.TextField} type="password" placeholder="Enter Text..." value={getAccountNum} onChange={(event) => setAccountNum(event.target.value)}/>
               <h3 className={s.Subheading}>Routing Number</h3>
               <input className={s.TextField} type="text" placeholder="Enter Text..." value={getRoutingNum} onChange={(event) => setRoutingNum(event.target.value)}/>
               <h3 className={s.Subheading}>Country</h3> 
