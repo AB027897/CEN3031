@@ -91,6 +91,17 @@ def get_image():
     urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
     return Response(json.dumps(urls), status=200, mimetype="application/json")
 
+@app.route('/search')
+def search_handler():
+    query = request.args.get('q')
+    collection_names = ['posts', 'charities']
+
+    results = search_documents(collection_names, query)
+
+    json_results = jsonify(results)
+    return Response(response=json_results, status=200, mimetype='application/json')
+
+
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):

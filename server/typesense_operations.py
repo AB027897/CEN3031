@@ -9,7 +9,7 @@ def read_api_key_from_file():
 
 def init_typesense():
     global client
-    
+
     api_key = read_api_key_from_file()
     
     client = Client({
@@ -20,7 +20,8 @@ def init_typesense():
         }],
         'api_key': api_key,
         'connection_timeout_seconds': 2
-    })   
+    })
+   
 
 def on_charity_change(data):
     user_id = data.get('user_id')
@@ -107,7 +108,7 @@ def post_exists_in_typesense(document_id):
 
 def on_post_create(data):
     document = {
-        'uuid': data.get('post_id', ''),
+        'id': data.get('uuid', ''),
         'title': data.get('title', ''),
         'body': data.get('body', ''),
         'preview_caption': data.get('preview_caption', ''),
@@ -118,30 +119,24 @@ def on_post_create(data):
 
 def on_post_update(data):
     document = {
-        'uuid': data.get('post_id', ''),
+        'uuid': data.get('uuid', ''),
         'title': data.get('title', ''),
         'body': data.get('body', ''),
         'preview_caption': data.get('preview_caption', ''),
         'charity_type': data.get('charity_type', '')
     }
     
-    client.collections['posts'].documents[data.get('post_id', '')].update(document)
+    client.collections['posts'].documents[data.get('uuid', '')].update(document)
 
+# we can search by query_by, meaning for fields like title, preview_caption, name, etc
+def search_documents(collection_names, search_value):
+    results = []
 
-# def on_charity_delete(event):
-#     document_id = event.path.split('/')[-1]
-#     client.collections['charities'].documents.delete(document_id)
+    for collection_name in collection_names:
+        search_params = {
+            'q': search_value
+        }
+        search_results = client.collections[collection_name].documents.search(search_params)
+        results.extend(search_results)
 
-
-# def on_post_delete(post_id):
-#     client.collections['posts'].documents(post_id).delete()
-
-
-
-def search_documents(collection_name, search_value, query_by):
-    search_params = {
-        'q': search_value,
-        'query_by': query_by
-    }
-    search_results = client.collections[collection_name].documents.search(search_params)
-    return search_results
+    return results
