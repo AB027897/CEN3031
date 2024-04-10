@@ -5,7 +5,6 @@ node_modules
 /.pnp
 .pnp.js
 __pycache__
-server/typesense-data
 typesense-data
 
 # testing
@@ -30,3 +29,5 @@ yarn-error.log*
 serviceAccount.json
 
 typesense_api_key.txt
+docker-compose.yml
+Dockerfile
