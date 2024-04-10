@@ -21,6 +21,32 @@ def init_typesense():
         'api_key': api_key,
         'connection_timeout_seconds': 2
     })
+
+    headers = {
+    "Content-Type": "application/json",
+    "X-TYPESENSE-API-KEY": "xyz"
+    }
+
+    url_charities = "http://localhost:8108/collections/charities/documents/export"
+
+    response = requests.get(url_charities, headers=headers)
+
+    if response.status_code == 200:
+        print(response.text)
+    else:
+        print(f"Failed to export documents: {response.status_code}")
+
+
+    url_posts = "http://localhost:8108/collections/posts/documents/export"
+
+    response = requests.get(url_posts, headers=headers)
+
+    if response.status_code == 200:
+        print(response.text)
+    else:
+        print(f"Failed to export documents for posts: {response.status_code}")
+
+
    
 
 def on_charity_change(data):
