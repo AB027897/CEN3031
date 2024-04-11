@@ -128,3 +128,9 @@ def get_images(uuid, charity_type, token):
         arr.append(url)
     return arr
     
+def add_comment(charity_type, post_id, time, comment):
+    data = {
+        'data': time,
+        'comment': comment
+    }
+    db.child("posts").child(charity_type).child(post_id).push(data)
