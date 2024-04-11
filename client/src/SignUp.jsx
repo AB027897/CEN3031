@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './css/SignUp.module.css'
 import ajax from './utilities/ajax.js'
 import phoneNumberFormat from './utilities/phoneNumberFormat.js';
 import User from './utilities/user.js';
 import Account from './utilities/account.js'
-import {setToken} from './utilities/token.js';
+import {setToken, checkToken} from './utilities/token.js';
 
 function Signup() {
     const [getDonorStatus, setDonorStatus] = useState(false);
@@ -17,6 +17,15 @@ function Signup() {
     const [getConfirmPassword, setConfirmPassword] = useState("");
     const [getPhoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
+
+    useEffect(()=> {
+        (async ()=> {
+          if(checkToken()) {
+            navigate("/fyp");
+          }
+        })();
+      }, []);
+
     const changeState = (type) => {
         if(type === "donor") {
             setDonorStatus(true);
@@ -50,6 +59,7 @@ function Signup() {
             setToken(text['token']);
             let account = new Account(text['localId'], text['token'], accountType, phoneNumber, getEmail);
             await ajax(account, "/addaccountinfo");
+            localStorage.setItem('newUser', true);
             if(accountType === 'donor') {
                 navigate("/donoraccount");
             } else {

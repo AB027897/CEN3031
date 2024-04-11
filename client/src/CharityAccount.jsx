@@ -8,11 +8,22 @@ import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js';
+import {checkToken} from './utilities/token.js';
 import loading from './images/loading.webp'
 
 function CharityAccount() {
-  const toSearchPage = ()=> { navigate("/search"); }
-  const toFYP = ()=> { navigate("/fyp"); }
+  const toSearchPage = ()=> { 
+    if(localStorage.getItem('newUser')) {
+      return;
+    }
+    navigate("/search"); 
+  }
+  const toFYP = ()=> { 
+    if(localStorage.getItem('newUser')) {
+      return;
+    }
+    navigate("/fyp"); 
+  }
 
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
@@ -29,6 +40,9 @@ function CharityAccount() {
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
+      if(!checkToken()) {
+        navigate("/login");
+      }
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
@@ -48,6 +62,9 @@ function CharityAccount() {
     let account = await getAccount();
     account.account_type = "charity";
     account.email = getEmail;
+    if(getName == "") {
+      setErrorText("Must have a valid name!");
+    }
     account.name = getName;
     account.charity_type = getType;
     account.phone = phoneNumber;
@@ -61,6 +78,8 @@ function CharityAccount() {
     const message = await ajax(account, "/addaccountinfo");
     if(message !== "") {
       setErrorText(message);
+    } else {
+      localStorage.removeItem("newUser");
     }
   }
   return (

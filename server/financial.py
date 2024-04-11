@@ -28,8 +28,10 @@ def create_bank_account(id, account_number, routing_number, country):
         "country": country, 
         "currency" : "usd"
     }
-    stripe.Account.create_external_account(id, external_account=account)
-
+    try:
+        stripe.Account.create_external_account(id, external_account=account)
+    except Exception as e:
+        return str(e)
         
 def create_card_token(number, exp_month, exp_year, cvc):
     card = {

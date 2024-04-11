@@ -1,9 +1,11 @@
 import hands from './images/Logo_Hands_Crop.png';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import Account, {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
+import { checkToken } from './utilities/token';
 import loading from './images/loading.webp';
 
 function Login() {
@@ -14,8 +16,13 @@ function Login() {
   const [getImageURLs, setImageURLS] = useState([]);
   const [getNewComment, setNewComment] = useState("");
   const [getLoading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
   useEffect(()=> {
     (async ()=> {
+        if(!checkToken()) {
+          navigate("/login");
+        }
       const user = await getAccount();
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);

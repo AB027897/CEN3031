@@ -1,17 +1,26 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './css/Login.module.css';
 import ajax from './utilities/ajax.js'
 import User from './utilities/user.js';
 import Account from './utilities/account.js'
-import { setToken} from './utilities/token.js';
+import {setToken, checkToken} from './utilities/token.js';
 
 function Login() {
   const [getErrorText, setErrorText] = useState("");
   const [getEmail, setEmail] = useState("");
   const [getPassword, setPassword] = useState("");
   const navigate = useNavigate();
+  
+  useEffect(()=> {
+    (async ()=> {
+      if(checkToken()) {
+        navigate("/fyp");
+      }
+    })();
+  }, []);
+
   const handleLogin = async () => {
     let user = new User(getEmail, getPassword);
     let text = await ajax(user, "/loginvalidation");

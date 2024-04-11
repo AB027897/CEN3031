@@ -11,7 +11,9 @@ import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 import ajax from './utilities/ajax.js'
 import {getAccount, getAccountInfo} from './utilities/account';
+import {checkToken} from './utilities/token.js';
 import loading from './images/loading.webp';
+
 
 function DonorAccount() {
   const navigate = useNavigate();
@@ -35,6 +37,9 @@ function DonorAccount() {
   const [getLoading, setLoading] = useState(true);
   useEffect(()=> {
     (async ()=> {
+      if(!checkToken()) {
+        navigate("/login");
+      }
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);

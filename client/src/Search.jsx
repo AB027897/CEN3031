@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import { getAccountInfo } from './utilities/account.js'
+import { getAccountInfo } from './utilities/account.js';
+import { checkToken } from './utilities/token.js';
 
 import s from './css/Search.module.css';
 import home from './images/HomeIcon.png';
@@ -14,6 +15,15 @@ import globe from './images/Logo_Earth.png'
 
 function DonorAccount() {
   const navigate = useNavigate();
+
+  useEffect(()=> {
+    (async ()=> {
+      if(!checkToken()) {
+        navigate("/login");
+      }
+    })();
+  }, []);
+
   const toAccountPage = async ()=> {
     let accountInfo = await getAccountInfo();
     if(accountInfo['account type'] === 'charity') {

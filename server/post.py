@@ -57,8 +57,13 @@ def add_account(user_id, token, account_type, name="", email="", phone="", dob="
                     raise Exception("Invalid id")
             except:
                 account = create_charity_account(email, country)
+                if type(account) == str:
+                    return account
                 id = account["id"]
-                create_bank_account(id, account_number, routing_number, country)
+                bank_account = create_bank_account(id, account_number, routing_number, country)
+                print(bank_account)
+                if type(bank_account) == str:
+                    return bank_account
         return add_charity(user_id, account_type, name, email, phone, charity_type, id, token)
 
 def get_account(user_id, token):

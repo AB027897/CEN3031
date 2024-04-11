@@ -4,13 +4,10 @@ import ajax from './ajax'
 export const setToken = (token) => {
     localStorage.setItem('token', token);
 };
+
 export const getToken = () => {
     return localStorage.getItem('token');
 };
-
-export const clearToken = () => {
-    localStorage.clear();
-}
 
 export const getUser = async () => {
     let token = getToken();
@@ -19,10 +16,10 @@ export const getUser = async () => {
     });
 }
 
-
-export const checkToken = (token) => {
-    token = jwtDecode(token);
+export const checkToken = () => {
+    let token = jwtDecode(getToken());
     if(Date.now()/1000.0 > token.exp) {
+        localStorage.clear();
         return false;
     }
     return true;

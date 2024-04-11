@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { getAccountInfo } from './utilities/account.js'
+import { checkToken } from './utilities/token.js';
 
 import s from './css/FYP.module.css';
 import home from './images/HomeIcon.png';
@@ -10,10 +11,20 @@ import settings from './images/SettingsIcon.png';
 
 // temporary placeholder images before actual images are implemented from pages
 import hands from './images/Logo_Hands_Crop.png'
-import globe from './images/Logo_Earth.png'
+import globe from './images/Logo_Earth.png';
+
 
 function DonorAccount() {
   const navigate = useNavigate();
+
+  useEffect(()=> {
+    (async ()=> {
+      if(!checkToken()) {
+        navigate("/login");
+      }
+    })();
+  }, []);
+
   const toAccountPage = async ()=> {
     let accountInfo = await getAccountInfo();
     if(accountInfo['account type'] === 'charity') {

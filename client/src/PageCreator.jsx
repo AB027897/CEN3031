@@ -1,9 +1,10 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './css/PageCreator.module.css';
 import ajax from './utilities/ajax.js'
 import Post from './utilities/post'
-import {getToken} from './utilities/token';
+import {getToken, checkToken} from './utilities/token';
 import {getAccount, getAccountInfo} from './utilities/account.js';
 
 function Login() {
@@ -12,6 +13,16 @@ function Login() {
   const [getCaption, setCaption] = useState("");
   const [getBody, setBody] = useState("");
   const [getFiles, setFiles] = useState([]);
+  const navigate = useNavigate();
+  
+  useEffect(()=> {
+    (async ()=> {
+      if(!checkToken()) {
+        navigate("/login");
+      }
+    })();
+  }, []);
+
   const createPosts = async () => {
     const user = await getAccount();
     const userInfo = await getAccountInfo(user);
