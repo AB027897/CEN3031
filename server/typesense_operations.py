@@ -3,6 +3,27 @@ from typesense import Client
 import os
 import requests
 
+charities_schema = {
+    'name': 'charities',
+    'fields': [
+        {'name': 'id', 'type': 'string'},
+        {'name': 'email', 'type': 'string'},
+        {'name': 'name', 'type': 'string'},
+        {'name': 'phone number', 'type': 'string'},
+        {'name': 'type', 'type': 'string'}  # Type of charity
+    ]
+}
+
+posts_schema = {
+    'name': 'posts',
+    'fields': [
+        {'name': 'id', 'type': 'string'},
+        {'name': 'body', 'type': 'string'},
+        {'name': 'preview_caption', 'type': 'string'},
+        {'name': 'title', 'type': 'string'},
+        {'name': 'charity_type', 'type': 'string'}
+    ]
+}
 
 def init_typesense():
     global client
@@ -19,7 +40,22 @@ def init_typesense():
         'connection_timeout_seconds': 2
     })
 
-    # comment out when don't want to print documents
+    existing_collections = client.collections.retrieve()
+    existing_collection_names = [collection['name'] for collection in existing_collections]
+
+    if 'charities' not in existing_collection_names:
+        client.collections.create(charities_schema)
+        print("Charities collection created!")
+    else:
+        print("Charities collection already exists!")
+
+    if 'posts' not in existing_collection_names:
+        client.collections.create(posts_schema)
+        print("Posts collection created!")
+    else:
+        print("Posts collection already exists!")
+
+    # TODO: comment out when don't want to print documents
     export_documents("charities")
     export_documents("posts")
 
