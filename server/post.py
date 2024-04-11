@@ -133,4 +133,8 @@ def add_comment(charity_type, post_id, time, comment):
         'data': time,
         'comment': comment
     }
-    db.child("posts").child(charity_type).child(post_id).push(data)
+    db.child("posts").child(charity_type).child(post_id).child("comments").push(data)
+
+def get_comments(charity_type, post_id, token):
+    return db.child("posts").child(charity_type).child(uuid).get("comments").get(token=token).val()
+    
