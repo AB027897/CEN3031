@@ -27,9 +27,9 @@ function Donate() {
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
-      // if(!checkToken()) {
-      //   navigate("/login");
-      // }
+      if(!checkToken()) {
+        navigate("/login");
+      }
       const user = await getAccount();
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);
@@ -50,7 +50,7 @@ function Donate() {
           <div style={{flex:1}}>
             <a className={s.BackButton} href="javascript:history.back()" rel="noopener noreferrer">&lt; Go Back</a>
           </div>
-          <div style={{alignItems: 'cemter', flex: 6}}>
+          <div style={{alignItems: 'center', flex: 6}}>
             <p className={s.Title}>{getName}</p>
           </div>
           <div style={{flex: 1}}/>
@@ -78,9 +78,9 @@ function Donate() {
           </div>
           <div className={s.ItemTitle}>
                 <h2>Billing Address</h2>
-                <input className={s.TextField} type="text" placeholder="Line 1..." maxLength={50} value={getBillingAddress1} onChange={(event) => setBillingAddress1(event.target.value)}/>
-                <input className={s.TextField} type="text" placeholder="Line 2..." maxLength={50} value={getBillingAddress2} onChange={(event) => setBillingAddress2(event.target.value)}/>
-                <input className={s.TextField} type="text" placeholder="Line 3..." maxLength={50} value={getBillingAddress3} onChange={(event) => setBillingAddress3(event.target.value)}/>
+                <input className={s.TextField} type="text" placeholder="Address Line 1..." value={getBillingAddress1} onChange={(event) => setBillingAddress1(event.target.value)}/>
+                <input className={s.TextField} type="text" placeholder="Address Line 2..." value={getBillingAddress2} onChange={(event) => setBillingAddress2(event.target.value)}/>
+                <input className={s.TextField} type="text" placeholder="Address Line 3..." value={getBillingAddress3} onChange={(event) => setBillingAddress3(event.target.value)}/>
             </div>      
           <hr className={s.BarSep}/>
           <p className={s.ErrorText}>{getErrorText}</p>
