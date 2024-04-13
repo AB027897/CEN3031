@@ -66,6 +66,10 @@ function DonorAccount() {
       setErrorText(message);
     }
   }
+  const logout = async ()=> {
+    // route to home
+    navigate("/");
+  }
   const displayCalendar = () => {
     if(getDisplayCalendar === "none") {
       setDisplayCalendar("flex");
@@ -155,6 +159,8 @@ function DonorAccount() {
           <div className={s.ButtonDiv}>
             <button className={s.button} onClick={() => update()}>UPDATE</button>
           </div>
+          <hr className={s.BarSep}/>
+          <button className={s.button2} onClick={() => logout()}>Log Out</button>
         </body> 
       </div> }
     </div>

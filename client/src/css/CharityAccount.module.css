@@ -189,6 +189,25 @@
 .button:active {
     opacity: 0.6;
 }
+.button2 {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 1.2vmin 8vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(2vmin);
+    margin-top: 0vmin;
+    margin: 0px;
+    border-radius: 5px;
+}
+.button2:hover {
+    opacity: 0.8;
+}
+.button2:active {
+    opacity: 0.6;
+}
 .Customize {
     font-style: normal;
     font-size: calc(2vmin);    
@@ -217,6 +236,7 @@
     font-size: calc(3.2vmin);
     margin-top: 0vmin;
     border-radius: 5px;
+    margin-bottom: 1vmin;
 }
 .SmallButton:hover {
     opacity: 0.8;

@@ -82,6 +82,10 @@ function CharityAccount() {
       localStorage.removeItem("newUser");
     }
   }
+  const logout = async ()=> {
+    // route to home
+    navigate("/");
+  }
   return (
     <div>
       {getLoading ? 
@@ -408,6 +412,8 @@ function CharityAccount() {
               <button className={s.SmallButton} onClick={() => navigate("/pageviewer")}>Preview</button>
               <button className={s.SmallButton} onClick={() => navigate("/pagecreator")}>Edit</button>
           </div>
+          <hr className={s.BarSep}/>
+          <button className={s.button2} onClick={() => logout()}>Log Out</button>
         </body>
       </div>}
     </div>
