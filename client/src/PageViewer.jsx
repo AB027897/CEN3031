@@ -66,9 +66,11 @@ function Login() {
           <div className={s.DonateDiv}>
             <img className={s.HandsImage} src={hands} alt="two hands holding"/>
             <p className={s.TextAboveButton}>Show your support!</p>
-            <button className={s.DonateButton}>
-              <p className={s.DonateText}>DONATE</p>
-            </button>
+            <a href="/donate" rel="noopener noreferrer">
+              <button className={s.DonateButton}>
+                <p className={s.DonateText}>DONATE</p>
+              </button>
+            </a>
           </div>
           <div className={s.CommentsBG}>
             <div className={s.CommentsDiv}>
