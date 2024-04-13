@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import s from './css/CharityAccount.module.css';
+import s from './css/Donate.module.css';
 import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js';
 import {checkToken} from './utilities/token.js';
@@ -27,12 +27,12 @@ function Donate() {
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
-      if(!checkToken()) {
-        navigate("/login");
-      }
-      // const user = await getAccount();
-      // const userInfo = await getAccountInfo(user);
-      // setName(userInfo["name"]);
+      // if(!checkToken()) {
+      //   navigate("/login");
+      // }
+      const user = await getAccount();
+      const userInfo = await getAccountInfo(user);
+      setName(userInfo["name"]);
       setLoading(false);
     })();
   }, [])
@@ -56,32 +56,32 @@ function Donate() {
           <div style={{flex: 1}}/>
         </header>
         <body className={s.App_body}>
-        <div className={s.ItemTitle}>
+          <div className={s.ItemTitle}>
               <h2>Name on Card</h2>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getCardNum} onChange={(event) => setCardNum(event.target.value)}/>
+              <input className={s.TextField} type="text" placeholder="Enter Name..." value={getCardName} onChange={(event) => setCardName(event.target.value)}/>
           </div>
           <div className={s.ItemTitle}>
               <h2>Card Number</h2>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." value={getCardNum} onChange={(event) => setCardNum(event.target.value)}/>
+              <input className={s.TextField} type="text" placeholder="Enter Card Number..." maxLength={16} value={getCardNum} onChange={(event) => setCardNum(event.target.value)}/>
           </div>
-          <div className={s.SmallInputsDiv}>
-
-          </div>
-          <div className={s.ItemTitle}>
+          <div className={s.SmallInputTotalDiv}>
+            <div className={s.SmallInputsTextDiv}>
+              <h2 className={s.RightMargin}>Expiration Date</h2>
               <h2>CVC</h2>
-              <input className={s.TextField} type="password" placeholder="Enter Text..." maxLength={50} value={getCVC} onChange={(event) => setCVC(event.target.value)}/>
+            </div>
+            <div className={s.SmallInputsDiv}>
+              <input className={s.TextFieldDate} type="text" placeholder="mo" maxLength={2} value={getExpMonth} onChange={(event) => setExpMonth(event.target.value)}/>
+              <h2>/</h2>
+              <input className={s.TextFieldDate} type="text" placeholder="yr" maxLength={2} value={getExpYear} onChange={(event) => setExpYear(event.target.value)}/>
+              <input className={s.TextFieldCVC} type="password" placeholder="###" maxLength={3} value={getCVC} onChange={(event) => setCVC(event.target.value)}/>
+            </div>
           </div>
           <div className={s.ItemTitle}>
-              <h2>Expiration Date</h2>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." maxLength={14} value={getExpMonth} onChange={(event) => setExpMonth(event.target.value)}/>
-              <input className={s.TextField} type="text" placeholder="Enter Text..." maxLength={14} value={getExpYear} onChange={(event) => setExpYear(event.target.value)}/>
-          </div>
-          <div className={s.ItemTitle}>
-              <h2>Billing Address</h2>
-              <input className={s.TextField} type="text" placeholder="Line 1..." maxLength={50} value={getName} onChange={(event) => setName(event.target.value)}/>
-              <input className={s.TextField} type="text" placeholder="Line 2..." maxLength={50} value={getName} onChange={(event) => setName(event.target.value)}/>
-              <input className={s.TextField} type="text" placeholder="Line 3..." maxLength={50} value={getName} onChange={(event) => setName(event.target.value)}/>
-          </div>          
+                <h2>Billing Address</h2>
+                <input className={s.TextField} type="text" placeholder="Line 1..." maxLength={50} value={getBillingAddress1} onChange={(event) => setBillingAddress1(event.target.value)}/>
+                <input className={s.TextField} type="text" placeholder="Line 2..." maxLength={50} value={getBillingAddress2} onChange={(event) => setBillingAddress2(event.target.value)}/>
+                <input className={s.TextField} type="text" placeholder="Line 3..." maxLength={50} value={getBillingAddress3} onChange={(event) => setBillingAddress3(event.target.value)}/>
+            </div>      
           <hr className={s.BarSep}/>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>

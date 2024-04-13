@@ -103,6 +103,11 @@
     line-height: 0px;
     margin-top: 0vmin;
     margin-bottom: 2vmin;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
 }
 .TextField {
     font-size: calc(2.75vmin);
@@ -119,6 +124,77 @@
     box-sizing: border-box;
 }
 .TextField:placeholder-shown {
+    font-style: italic;
+}
+.SmallInputTotalDiv {
+    font-size: 2vmin;
+    text-align: left;
+    padding-right: 0px;
+    line-height: 0px;
+    margin-top: 0vmin;
+    margin-bottom: 2vmin;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+
+    width: 55vmin;
+}
+.SmallInputsDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 48vmin;
+}
+.SmallInputsTextDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.RightMargin {
+    margin-right: 15.6vh;
+}
+.TextFieldDate {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 7.5vmin;
+    height: 5.8vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 1vmin;
+    margin-right: 1vmin;
+    padding-left: 0vmin;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+    box-sizing: border-box;
+    text-align: center;
+}
+.TextFieldDate:placeholder-shown {
+    font-style: italic;
+}
+.TextFieldCVC {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 10vmin;
+    height: 5.8vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 15vmin;
+    margin-right: 1vmin;
+    padding-left: 0vmin;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+    box-sizing: border-box;
+    text-align: center;
+}
+.TextFieldCVC:placeholder-shown {
     font-style: italic;
 }
 
