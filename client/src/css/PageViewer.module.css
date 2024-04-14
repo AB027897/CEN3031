@@ -89,8 +89,9 @@ body{
   .PageBodyText {
     width: 80%;
   
-    font-size: 2vmin;
-    text-align: left;
+    font-size: 3vmin;
+    text-align: center;
+
     padding-right: 0px;
     margin-top: 0px;
     margin-bottom: 2vmin;
