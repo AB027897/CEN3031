@@ -88,6 +88,7 @@ function CharityAccount() {
   }
   const logout = async ()=> {
     // route to home
+    localStorage.clear();
     navigate("/");
   }
   return (

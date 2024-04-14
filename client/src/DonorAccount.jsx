@@ -68,6 +68,7 @@ function DonorAccount() {
   }
   const logout = async ()=> {
     // route to home
+    localStorage.clear();
     navigate("/");
   }
   const displayCalendar = () => {
