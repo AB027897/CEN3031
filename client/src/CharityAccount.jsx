@@ -47,6 +47,10 @@ function CharityAccount() {
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
+      // I think these should be set below but I get an error when doing the country one so I'll keep it commented for now
+      // setAccountNum(accountInfo["account_number"]);
+      // setRoutingNum(accountInfo["routing_number"]);
+      // setCountry(accountInfo["country"]);
       if(accountInfo["type"] !== "") {
         setType(accountInfo["type"]);
       }
