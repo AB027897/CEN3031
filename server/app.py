@@ -4,6 +4,7 @@ import json
 import os
 from firebase import *
 from post import *
+from financial import *
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
@@ -90,6 +91,16 @@ def get_image():
     user_info = json.loads(request.headers["account"])
     urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
     return Response(json.dumps(urls), status=200, mimetype="application/json")
+
+@app.route('/donatecharity')
+def donate_charity():
+    user_info = json.loads(request.headers["account"])
+    charity_info = get_account(user_info["charity"], user_info["token"])
+    card = create_card_token(user_info["number"], user_info["exp_month"], user_info["exp_year"], user_info["cvc"])
+    charge_card(user_info["amount"], card)
+    transfer_money(user_info["amount"], charity_info["id"])
+    return Response("", status=200, mimetype="text/plain")
+
 
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
