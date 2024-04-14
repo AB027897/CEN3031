@@ -48,7 +48,7 @@ function Login() {
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
             <h2 className={s.RightSpacing}>Preview Caption</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
+            <input className={s.TextField} type="text" maxLength={200} placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
         </div>
         <div className={s.ItemTitle}>
             <h2>Page Body</h2>
