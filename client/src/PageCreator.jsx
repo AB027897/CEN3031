@@ -9,7 +9,6 @@ import {getAccount, getAccountInfo} from './utilities/account.js';
 
 function Login() {
   const [getErrorText, setErrorText] = useState("");
-  const [getTitle, setTitle] = useState("");
   const [getCaption, setCaption] = useState("");
   const [getBody, setBody] = useState("");
   const [getFiles, setFiles] = useState([]);
@@ -31,7 +30,7 @@ function Login() {
       imageData.append("files"+i, getFiles[i]);
 
     }
-    const post = new Post(user["uuid"], userInfo["type"], getToken(), getTitle, getCaption, getBody);
+    const post = new Post(user["uuid"], userInfo["type"], getToken(), "title (remove)", getCaption, getBody);
     await ajax(post, "/addpost");
     await ajax(post, "/addimage", "post", imageData, "multipart/form-data");
   }
@@ -48,12 +47,8 @@ function Login() {
       </header>
       <body className={s.App_body}>
         <div className={s.ItemTitle}>
-            <h2 className={s.RightSpacing}>Title</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." value={getTitle} onChange={(event)=> setTitle(event.target.value)}/>
-        </div>
-        <div className={s.ItemTitle}>
             <h2 className={s.RightSpacing}>Preview Caption</h2>
-            <input className={s.TextField} type="text" placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
+            <input className={s.TextField} type="text" maxLength={200} placeholder="Enter Text..." onChange={(event)=> setCaption(event.target.value)} value={getCaption}/>
         </div>
         <div className={s.ItemTitle}>
             <h2>Page Body</h2>

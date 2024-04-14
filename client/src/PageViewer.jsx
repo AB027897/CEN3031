@@ -12,7 +12,6 @@ function Login() {
   const [getName, setName] = useState("")
   const [getTitle, setTitle] = useState("");
   const [getBody, setBody] = useState("");
-  const [getCaption, setCaption] = useState("");
   const [getImageURLs, setImageURLS] = useState([]);
   const [getNewComment, setNewComment] = useState("");
   const [getLoading, setLoading] = useState(true);
@@ -30,7 +29,6 @@ function Login() {
       const post = await ajax(account, "/getpost");
       setTitle(post["title"]);
       setBody(post["body"]);
-      setCaption(post["preview_caption"]);
       const images = await ajax(account, "/getimage");
       setImageURLS(images);
       setLoading(false);
@@ -66,9 +64,11 @@ function Login() {
           <div className={s.DonateDiv}>
             <img className={s.HandsImage} src={hands} alt="two hands holding"/>
             <p className={s.TextAboveButton}>Show your support!</p>
-            <button className={s.DonateButton}>
-              <p className={s.DonateText}>DONATE</p>
-            </button>
+            <a href="/donate" rel="noopener noreferrer">
+              <button className={s.DonateButton}>
+                <p className={s.DonateText}>DONATE</p>
+              </button>
+            </a>
           </div>
           <div className={s.CommentsBG}>
             <div className={s.CommentsDiv}>

@@ -47,6 +47,10 @@ function CharityAccount() {
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
+      // I think these should be set below but I get an error when doing the country one so I'll keep it commented for now
+      // setAccountNum(accountInfo["account_number"]);
+      // setRoutingNum(accountInfo["routing_number"]);
+      // setCountry(accountInfo["country"]);
       if(accountInfo["type"] !== "") {
         setType(accountInfo["type"]);
       }
@@ -81,6 +85,10 @@ function CharityAccount() {
     } else {
       localStorage.removeItem("newUser");
     }
+  }
+  const logout = async ()=> {
+    // route to home
+    navigate("/");
   }
   return (
     <div>
@@ -408,6 +416,8 @@ function CharityAccount() {
               <button className={s.SmallButton} onClick={() => navigate("/pageviewer")}>Preview</button>
               <button className={s.SmallButton} onClick={() => navigate("/pagecreator")}>Edit</button>
           </div>
+          <hr className={s.BarSep}/>
+          <button className={s.button2} onClick={() => logout()}>Log Out</button>
         </body>
       </div>}
     </div>
