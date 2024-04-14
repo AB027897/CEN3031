@@ -12,7 +12,6 @@ function Login() {
   const [getName, setName] = useState("")
   const [getTitle, setTitle] = useState("");
   const [getBody, setBody] = useState("");
-  const [getCaption, setCaption] = useState("");
   const [getImageURLs, setImageURLS] = useState([]);
   const [getNewComment, setNewComment] = useState("");
   const [getLoading, setLoading] = useState(true);
@@ -30,7 +29,6 @@ function Login() {
       const post = await ajax(account, "/getpost");
       setTitle(post["title"]);
       setBody(post["body"]);
-      setCaption(post["preview_caption"]);
       const images = await ajax(account, "/getimage");
       setImageURLS(images);
       setLoading(false);
