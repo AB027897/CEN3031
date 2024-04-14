@@ -125,6 +125,40 @@
 .TextField:placeholder-shown {
     font-style: italic;
 }
+.ContributionAmtDiv {
+    width: 55vmin;
+}
+.ContributionHorDiv {
+    width: 27vmin;
+
+    font-size: 2.3vmin;
+    font-style: italic;
+
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: center;
+}
+.TextFieldDollars {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 25vmin;
+    height: 5.8vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 1vmin;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+    box-sizing: border-box;
+}
+.DollarSignSpacing {
+    margin-right: 0.5vmin;
+}
+.TextFieldDollars:placeholder-shown {
+    font-style: italic;
+}
 .SmallInputTotalDiv {
     font-size: 2vmin;
     text-align: left;

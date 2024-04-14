@@ -11,6 +11,7 @@ function Donate() {
   // header
   const [getName, setName] = useState("");
   // input variables
+  const [getDollarAmt, setDollarAmt] = useState("");
   const [getCardName, setCardName] = useState("");
   const [getCardNum, setCardNum] = useState("");
   const [getCVC, setCVC] = useState("");
@@ -56,6 +57,15 @@ function Donate() {
           <div style={{flex: 1}}/>
         </header>
         <body className={s.App_body}>
+          <div className={s.ContributionAmtDiv}>
+            <div className={s.ItemTitle}>
+                <h2>Contribution Amount</h2>
+                <div className={s.ContributionHorDiv}>
+                  <h2 className={s.DollarSignSpacing}>$</h2>
+                  <input className={s.TextFieldDollars} type="text" placeholder="0.00" value={getDollarAmt} onChange={(event) => setDollarAmt(event.target.value)}/>
+                </div>
+            </div>
+          </div>
           <div className={s.ItemTitle}>
               <h2>Name on Card</h2>
               <input className={s.TextField} type="text" placeholder="Enter Name..." value={getCardName} onChange={(event) => setCardName(event.target.value)}/>
