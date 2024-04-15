@@ -17,7 +17,6 @@ cred = {
     "databaseURL" : os.getenv("DATABASE_URL")
 }
 
-
 def init_app():
     global firebase_app
     firebase_app = pyrebase.initialize_app(cred)

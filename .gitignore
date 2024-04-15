@@ -5,6 +5,7 @@ node_modules
 /.pnp
 .pnp.js
 __pycache__
+typesense-data
 
 # testing
 /coverage
@@ -26,3 +27,7 @@ yarn-error.log*
 
 # key
 serviceAccount.json
+
+typesense_api_key.txt
+docker-compose.yml
+Dockerfile
