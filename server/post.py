@@ -128,8 +128,9 @@ def get_images(uuid, charity_type, token):
         arr.append(url)
     return arr
     
-def add_comment(charity_type, post_id, time, comment):
+def add_comment(charity_type, post_id, uuid, time, comment):
     data = {
+        'user_id' = uuid,
         'data': time,
         'comment': comment
     }
