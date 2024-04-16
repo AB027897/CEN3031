@@ -1,15 +1,17 @@
-from flask import Flask, request, send_file, Response
+from flask import Flask, request, send_file, Response, jsonify
 from flask_cors import CORS
 import json
 import os
 from firebase import *
 from post import *
 from financial import *
+from typesense_operations import *
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
 init_app()
 init_database()
+init_typesense()
 
 @app.route('/signupvalidation')
 def validateSignup():
@@ -24,7 +26,6 @@ def validateSignup():
     token = create_token(result)
     result['token'] = token
     return Response(json.dumps(result), status=200, mimetype="application/json")
-
 
 @app.route('/loginvalidation')
 def login():
@@ -54,7 +55,6 @@ def get_account_info():
     account = json.loads(request.headers["account"])
     account_info = get_account(account['uuid'], account['token'])
     return Response(json.dumps(account_info), status=200, mimetype="application/json")
-
 
 @app.route('/signintoken')
 def signin():
@@ -100,6 +100,16 @@ def donate_charity():
     charge_card(user_info["amount"], card)
     transfer_money(user_info["amount"], charity_info["id"])
     return Response("", status=200, mimetype="text/plain")
+
+@app.route('/typesense')
+def search_handler():
+    query = request.args.get('q')
+    collection_names = ['posts', 'charities']
+
+    results = search_documents(collection_names, query)
+
+    json_results = jsonify(results)
+    return Response(response=json_results, status=200, mimetype='application/json')
 
 
 @app.route('/', defaults={'file': ''})
