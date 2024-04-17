@@ -414,7 +414,7 @@ function CharityAccount() {
               <h2 className={s.CustomizeText}>Customize Charity Page</h2>
           </div>
           <div>
-              <button className={s.SmallButton} onClick={() => navigate("/pageviewer")}>Preview</button>
+              <button className={s.SmallButton} onClick={() => {localStorage.removeItem("Post"); navigate("/pageviewer")}}>Preview</button>
               <button className={s.SmallButton} onClick={() => navigate("/pagecreator")}>Edit</button>
           </div>
           <hr className={s.BarSep}/>

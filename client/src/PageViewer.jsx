@@ -38,6 +38,11 @@ function Login() {
       setLoading(false);
     })();
   }, []);
+  const handleDonate = () => {
+    if(localStorage.getItem("Post") !== null) {
+      navigate("/donate");
+    } 
+  }
   return (
     <div>
       {getLoading ? 
@@ -68,11 +73,9 @@ function Login() {
           <div className={s.DonateDiv}>
             <img className={s.HandsImage} src={hands} alt="two hands holding"/>
             <p className={s.TextAboveButton}>Show your support!</p>
-            <a href="/donate" rel="noopener noreferrer">
-              <button className={s.DonateButton}>
-                <p className={s.DonateText}>DONATE</p>
-              </button>
-            </a>
+            <button className={s.DonateButton} onClick={() => handleDonate()}>
+              <p className={s.DonateText}>DONATE</p>
+            </button>
           </div>
           <div className={s.CommentsBG}>
             <div className={s.CommentsDiv}>

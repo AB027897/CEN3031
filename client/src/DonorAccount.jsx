@@ -41,6 +41,9 @@ function DonorAccount() {
       setName(accountInfo["name"]);
       const date = accountInfo["dob"].replace(/["]/g, "");
       setDate(Date.parse(date));
+      for(let i=0; i < accountInfo["preferences"].length; i++) {
+        handlePreferences(accountInfo["preferences"][i]);
+      }
       setLoading(false);
     })();
   }, [])

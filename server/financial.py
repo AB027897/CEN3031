@@ -40,7 +40,7 @@ def create_card_token(number, exp_month, exp_year, cvc):
         "exp_year": exp_year,
         "cvc": cvc
     }
-    return stripe.Token.create(card)
+    return stripe.Token.create(card=card)
 
 def charge_card(amount, token):
     stripe.Charge.create(amount=amount, currency="usd", source=token, description="Donation")
