@@ -151,4 +151,24 @@ def get_images(uuid, charity_type, token):
         url = storage.child(path).get_url(token=token)
         arr.append(url)
     return arr
-    
+
+def get_all_posts(charity_type = None):
+    if charity_type != None:
+        posts = db.child("posts/" + charity_type).get()
+    else:
+        all_charities = db.child("posts").get()
+        posts = []
+        for charity in all_charities:
+            uuids = charity.val().keys()
+            for uuid in uuids:
+                title = charity.val()[uuid]["title"]
+                preview_caption = charity.val()[uuid]["preview_caption"]
+                body = charity.val()[uuid]["body"]
+                typesense_data = {
+                    'post_id' : uuid,
+                    'charity_type': charity.key(),
+                    'title': title,
+                    'preview_caption': preview_caption,
+                    'body': body
+                }    
+                on_post_change(typesense_data)

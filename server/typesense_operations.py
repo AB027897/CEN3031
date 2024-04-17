@@ -186,9 +186,10 @@ def search_documents(collection_names, search_value):
 
     for collection_name in collection_names:
         search_params = {
-            'q': search_value
+            'q': search_value,
+            'query_by': "name",
         }
         search_results = client.collections[collection_name].documents.search(search_params)
         results.extend(search_results)
-
+        print(search_results)    
     return results

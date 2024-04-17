@@ -19,9 +19,9 @@ function Login() {
 
   useEffect(()=> {
     (async ()=> {
-        if(!checkToken()) {
-          navigate("/login");
-        }
+      if(!checkToken()) {
+        navigate("/login");
+      }
       const user = await getAccount();
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);
