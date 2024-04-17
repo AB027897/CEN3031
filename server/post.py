@@ -181,7 +181,7 @@ def get_all_posts(charity_type = None):
                 typesense_data = {
                     'post_id' : uuid,
                     'charity_type': charity.key(),
-                    'title': name,
+                    'charity_name': name,
                     'preview_caption': preview_caption,
                     'body': body
                 }    

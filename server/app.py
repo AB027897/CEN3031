@@ -124,7 +124,11 @@ def search_handler():
 def get_recommended():
     account = json.loads(request.headers["account"])
     account_info = get_account(account["uuid"], account["token"])
-    preferences = account_info["preferences"]
+    preferences = ""
+    if account_info["account type"] == "donor":
+        preferences = account_info["preferences"]
+    else:
+        preferences = [account_info["type"]]
     recs = []
     for preference in preferences:
         recs = recs + get_all_posts(preference)
