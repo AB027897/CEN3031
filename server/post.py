@@ -160,10 +160,11 @@ def get_all_posts(charity_type = None):
         for charity in charity_posts:
             uuid = charity.key()
             title = charity.val()["title"]
+            name = db.child("accounts/"+uuid+"/name").get().val()
             preview_caption = charity.val()["preview_caption"]
             data = {
                 "uuid": uuid,
-                "title": title,
+                "title": name,
                 "preview_caption": preview_caption
             }
             posts.append(data)
@@ -174,13 +175,13 @@ def get_all_posts(charity_type = None):
         for charity in all_charities:
             uuids = charity.val().keys()
             for uuid in uuids:
-                title = charity.val()[uuid]["title"]
+                name = db.child("accounts/"+uuid+"/name").get().val()
                 preview_caption = charity.val()[uuid]["preview_caption"]
                 body = charity.val()[uuid]["body"]
                 typesense_data = {
                     'post_id' : uuid,
                     'charity_type': charity.key(),
-                    'title': title,
+                    'title': name,
                     'preview_caption': preview_caption,
                     'body': body
                 }    

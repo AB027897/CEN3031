@@ -122,7 +122,6 @@ def search_handler():
 
 @app.route('/getrecs')
 def get_recommended():
-    print(True)
     account = json.loads(request.headers["account"])
     account_info = get_account(account["uuid"], account["token"])
     preferences = account_info["preferences"]
