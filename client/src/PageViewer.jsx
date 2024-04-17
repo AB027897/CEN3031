@@ -22,7 +22,11 @@ function Login() {
       if(!checkToken()) {
         navigate("/login");
       }
-      const user = await getAccount();
+      let uuid = "";
+      if(localStorage.getItem("Post") !== null) {
+        uuid = localStorage.getItem("Post");
+      }
+      const user = await getAccount(uuid);
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);
       const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);

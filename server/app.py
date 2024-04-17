@@ -45,7 +45,7 @@ def login():
 @app.route('/addaccountinfo')
 def add_donor_info():
     account = json.loads(request.headers["account"])
-    response = add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'], account["account_number"], account["routing_number"], account["country"])
+    response = add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'], account["account_number"], account["routing_number"], account["country"], account["preferences"])
     print(response)
     if type(response) == str:
         return Response(json.dumps(response), status=200, mimetype="application/json")
@@ -78,6 +78,13 @@ def post_get():
     if post != "":
         return Response(json.dumps(post), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
+
+@app.route('/setposttoken')
+def post_set_token():
+    uuid = json.loads(request.headers["account"])
+    account = {"localId" : uuid}
+    token = create_token(account)
+    return Response(token, status=200, mimetype="text/plain")
 
 @app.route('/addimage', methods=['POST'])
 def add_image():
@@ -113,6 +120,16 @@ def search_handler():
     json_results = json.dumps(results)
     return Response(json_results, status=200, mimetype='application/json')
 
+@app.route('/getrecs')
+def get_recommended():
+    print(True)
+    account = json.loads(request.headers["account"])
+    account_info = get_account(account["uuid"], account["token"])
+    preferences = account_info["preferences"]
+    recs = []
+    for preference in preferences:
+        recs = recs + get_all_posts(preference)
+    return Response(json.dumps(recs), status=200, mimetype="application/json")
 
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
