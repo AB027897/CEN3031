@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { getAccountInfo } from './utilities/account.js';
 import { checkToken } from './utilities/token.js';
+import ajax from './utilities/ajax.js';
 
 import s from './css/Search.module.css';
 import home from './images/HomeIcon.png';
@@ -46,6 +47,8 @@ function DonorAccount() {
 
   const searchQuery = async ()=> {
     // somehow interface here with backend search functionality
+    const response = await ajax(getSearchText, "/typesense");
+    console.log(response);
   }
 
   return (
@@ -73,7 +76,7 @@ function DonorAccount() {
         <div className={s.SearchDiv}>
           <input className={s.TextField} type="text" placeholder="Search..." value={getSearchText} onChange={(event) => setSearchText(event.target.value)}/>
           <div className={s.SearchButton}>
-            <img className={s.SearchImage} src={search}/>
+            <img className={s.SearchImage} src={search} onClick={()=>searchQuery()}/>
           </div>
         </div>
         <div className={s.PageItem} onClick={()=>openPage()}>

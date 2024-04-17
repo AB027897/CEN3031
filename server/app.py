@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, Response, jsonify
+from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
 import os
@@ -46,8 +46,9 @@ def login():
 def add_donor_info():
     account = json.loads(request.headers["account"])
     response = add_account(account['uuid'], account['token'], account['account_type'], account['name'], account['email'], account['phone'], account['dob'], account['charity_type'], account["account_number"], account["routing_number"], account["country"])
+    print(response)
     if type(response) == str:
-        return Response(response, status=200, mimetype="text/plain")
+        return Response(json.dumps(response), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
 
 @app.route('/getaccountinfo')
@@ -103,13 +104,14 @@ def donate_charity():
 
 @app.route('/typesense')
 def search_handler():
-    query = request.args.get('q')
-    collection_names = ['posts', 'charities']
+    #get_all_posts()
+    query = json.loads(request.headers["account"])
+    collection_names = ['charities', 'posts']
 
     results = search_documents(collection_names, query)
 
-    json_results = jsonify(results)
-    return Response(response=json_results, status=200, mimetype='application/json')
+    json_results = json.dumps(results)
+    return Response(json_results, status=200, mimetype='application/json')
 
 
 @app.route('/', defaults={'file': ''})
