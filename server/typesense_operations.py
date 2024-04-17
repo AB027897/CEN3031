@@ -3,17 +3,6 @@ from typesense import Client
 import os
 import requests
 
-charities_schema = {
-    'name': 'charities',
-    'fields': [
-        {'name': 'id', 'type': 'string'},
-        {'name': 'email', 'type': 'string'},
-        {'name': 'name', 'type': 'string'},
-        {'name': 'phone number', 'type': 'string'},
-        {'name': 'type', 'type': 'string'}  # Type of charity
-    ]
-}
-
 posts_schema = {
     'name': 'posts',
     'fields': [
@@ -21,7 +10,7 @@ posts_schema = {
         {'name': 'body', 'type': 'string'},
         {'name': 'preview_caption', 'type': 'string'},
         {'name': 'title', 'type': 'string'},
-        {'name': 'charity_type', 'type': 'string'}
+        {'name': 'charity_name', 'type': 'string'}  # NEW: name of the charity
     ]
 }
 
@@ -59,6 +48,12 @@ def init_typesense():
     export_documents("charities")
     export_documents("posts")
 
+    # TODO: comment out when don't want to print size of collections
+    get_collection_size("charities")
+    get_collection_size("posts")
+
+
+
 def export_documents(collection_name):
     api_key = os.getenv("TYPESENSE_API_KEY")
     headers = {
@@ -74,6 +69,25 @@ def export_documents(collection_name):
         print(response.text)
     else:
         print(f"Failed to export documents for {collection_name}: {response.status_code}")   
+
+
+def get_collection_size(collection_name):
+    api_key = os.getenv("TYPESENSE_API_KEY")
+    base_url = 'http://localhost:8108'
+
+    url = f"{base_url}/collections/{collection_name}/documents"
+    headers = {"Content-Type": "application/json", "X-TYPESENSE-API-KEY": api_key}
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        documents = response.json()
+        collection_size = len(documents)
+        print(f"Number of documents in collection '{collection_name}': {collection_size}")
+        return collection_size
+    else:
+        print(f"Failed to fetch documents for collection '{collection_name}': {response.status_code}")
+
 
 def on_charity_change(data):
     user_id = data.get('user_id')
@@ -151,12 +165,14 @@ def on_post_change(data):
     else:
         on_post_create(document)
 
+        
 def post_exists_in_typesense(document_id):
     try:
         client.collections['posts'].documents[document_id].retrieve()
         return True
     except typesense.exceptions.ObjectNotFound:
         return False
+
 
 def on_post_create(data):
     document = {
@@ -169,6 +185,7 @@ def on_post_create(data):
     
     client.collections['posts'].documents.create(document)
 
+
 def on_post_update(data):
     document = {
         'uuid': data.get('uuid', ''),
@@ -180,13 +197,15 @@ def on_post_update(data):
     
     client.collections['posts'].documents[data.get('uuid', '')].update(document)
 
+
 # we can search by query_by, meaning for fields like title, preview_caption, name, etc
 def search_documents(collection_names, search_value):
     results = []
 
     for collection_name in collection_names:
         search_params = {
-            'q': search_value
+            'q': search_value,
+            'query_by': "name"
         }
         search_results = client.collections[collection_name].documents.search(search_params)
         results.extend(search_results)

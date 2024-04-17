@@ -151,4 +151,3 @@ def get_images(uuid, charity_type, token):
         url = storage.child(path).get_url(token=token)
         arr.append(url)
     return arr
-    
