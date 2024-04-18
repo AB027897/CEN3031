@@ -13,16 +13,14 @@ import loading from './images/loading.webp'
 
 function CharityAccount() {
   const toSearchPage = ()=> { 
-    if(localStorage.getItem('newUser')) {
-      return;
+    if(getConfigured) {
+      navigate("/search"); 
     }
-    navigate("/search"); 
   }
   const toFYP = ()=> { 
-    if(localStorage.getItem('newUser')) {
-      return;
+    if(getConfigured) {
+      navigate("/fyp"); 
     }
-    navigate("/fyp"); 
   }
 
   const [getErrorText, setErrorText] = useState("");
@@ -37,6 +35,10 @@ function CharityAccount() {
   const [getCountry, setCountry] = useState("US");
 
   const [getLoading, setLoading] = useState(true);
+
+  // firstTimeConfigure
+  const [getConfigured, setConfigured] = useState(false);
+
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
@@ -47,13 +49,23 @@ function CharityAccount() {
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
+
       // I think these should be set below but I get an error when doing the country one so I'll keep it commented for now
       // setAccountNum(accountInfo["account_number"]);
       // setRoutingNum(accountInfo["routing_number"]);
       // setCountry(accountInfo["country"]);
+
       if(accountInfo["type"] !== "") {
         setType(accountInfo["type"]);
       }
+
+      // set first time configure state
+      if(localStorage.getItem('newUser')) {
+        setConfigured(false);
+      }
+      else setConfigured(true);
+
+      // exit loading state
       setLoading(false);
     })();
   }, [])
@@ -80,10 +92,13 @@ function CharityAccount() {
     account.routing_number = getRoutingNum;
     account.country = getCountry;
     const message = await ajax(account, "/addaccountinfo");
+
+    // check for error or all valid
     if(message !== "") {
       setErrorText(message);
     } else {
       localStorage.removeItem("newUser");
+      setConfigured(true);
     }
   }
   const logout = async ()=> {
@@ -99,6 +114,8 @@ function CharityAccount() {
       </div> :
       <div className={s.App}>
         <header className={s.App_header}>
+        {getConfigured ?
+        <>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
           <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
@@ -116,6 +133,9 @@ function CharityAccount() {
           <img src={settings} alt="prop" className={s.MainImage}/>
         </div>
         <hr className={s.Bar}/>
+        </> :
+        <div className={s.HeaderText}>Account Configuration</div>
+        }
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>

@@ -36,6 +36,7 @@
     background-image: url('../images/background-dark.png');
     background-size: 80vmin;
     width: 100vw;
+    height: 20vmin;
 }
 .MainImageBG {
     height: 20vmin;
@@ -88,6 +89,20 @@
     margin: 0vmin;
     padding: 0vmin;
 }
+.HeaderText {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  
+    font-family: "League Spartan", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: bold;
+      font-size: calc(7vmin);
+
+    align-self: center;
+  }
 
 
 
