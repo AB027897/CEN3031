@@ -205,7 +205,7 @@ function DonorAccount() {
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
-            <button className={s.button} onClick={() => update()}>UPDATE</button>
+            <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
           <hr className={s.BarSep}/>
           <button className={s.button2} onClick={() => logout()}>Log Out</button>

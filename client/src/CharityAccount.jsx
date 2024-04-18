@@ -494,7 +494,7 @@ function CharityAccount() {
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
-            <button className={s.button} onClick={() => update()}>UPDATE</button>
+            <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
           <div className={s.Customize}>
               <h2 className={s.CustomizeText}>Customize Charity Page</h2>
