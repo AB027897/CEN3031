@@ -11,13 +11,14 @@ import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 
 // temporary placeholder images before actual images are implemented from pages
-import hands from './images/Logo_Hands_Crop.png'
 import globe from './images/Logo_Earth.png';
 
 
 function DonorAccount() {
   const navigate = useNavigate();
   const [getRecs, setRecs] = useState([]);
+  const [getMax, setMax] = useState(10);
+  const [getShow, setShow] = useState("inline-block");
   useEffect(()=> {
     (async ()=> {
       if(!checkToken()) {
@@ -26,6 +27,9 @@ function DonorAccount() {
       const account = await getAccount();
       const recommended = await ajax(account, "/getrecs");
       setRecs(recommended);
+      if(getRecs.length < getMax) {
+        setShow("none");
+      }
     })();
   }, []);
 
@@ -45,7 +49,10 @@ function DonorAccount() {
     navigate("/pageviewer");
   }
   const loadMorePages = async ()=> {
-    // interface with backend to gather more pages to load onto this page (or a new page)
+    setMax(getMax + 10);
+    if(getRecs.length < setMax) {
+      setShow("none");
+    }
   }
 
   return (
@@ -71,6 +78,7 @@ function DonorAccount() {
       </header>
       <body className={s.App_body}>
         {getRecs.map((rec, i)=> (
+          i < getMax ? (
           <div className={s.PageItem} onClick={()=>openPage(rec["uuid"])}>
             <div className={s.PageItemImageDiv}>
               <img className={s.PageItemImage} src={globe}/>
@@ -79,10 +87,10 @@ function DonorAccount() {
               <div className={s.PageItemTitle}>{rec["title"]}</div>
               <div className={s.PageItemBlurb}>{rec["preview_caption"]}</div>
             </div>
-          </div>
+          </div>) : null
         ))}
         <div className={s.ButtonDiv}>
-          <button className={s.button} onClick={() => loadMorePages()}>LOAD MORE</button>
+          <button className={s.button} style={{"display": getShow}} onClick={() => loadMorePages()}>LOAD MORE</button>
         </div>
       </body>
     </div>

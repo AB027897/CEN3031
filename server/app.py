@@ -134,6 +134,15 @@ def get_recommended():
         recs = recs + get_all_posts(preference)
     return Response(json.dumps(recs), status=200, mimetype="application/json")
 
+@app.route('/financial')
+def finance():
+    user_info = json.loads(request.headers["account"])
+    payment_intent(user_info["amount"])
+    charity_info = signin_token(user_info["charity"])
+    print(charity_info)
+    transfer_money(user_info["amount"], charity_info["id"])
+    return Response("", status=200, mimetype="text/plain")
+
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):

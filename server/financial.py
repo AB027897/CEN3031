@@ -45,5 +45,14 @@ def create_card_token(number, exp_month, exp_year, cvc):
 def charge_card(amount, token):
     stripe.Charge.create(amount=amount, currency="usd", source=token, description="Donation")
 
+def payment_intent(amount):
+    id = stripe.PaymentIntent.create(
+        amount= amount,
+        currency="usd",
+        payment_method="pm_card_visa"
+
+    )
+    stripe.PaymentIntent.confirm(id, payment_method="pm_card_visa", return_url="https://www.example.com")
+
 def transfer_money(amount, charity):
     stripe.Transfer.create(amount=amount, currency="usd", destination=charity)

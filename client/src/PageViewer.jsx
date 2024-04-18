@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
 import Account, {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
-import { checkToken } from './utilities/token';
+import { checkToken, getToken } from './utilities/token';
 import loading from './images/loading.webp';
 
 function Login() {
@@ -38,9 +38,15 @@ function Login() {
       setLoading(false);
     })();
   }, []);
-  const handleDonate = () => {
+  const handleDonate = async () => {
     if(localStorage.getItem("Post") !== null) {
-      navigate("/donate");
+      //navigate("/donate");
+      const data = {
+        "charity" : localStorage.getItem("Posts"),
+        "amount": 100, 
+        "token": getToken()
+      }
+      const message = await ajax(data, "/financial")
     } 
   }
   return (
