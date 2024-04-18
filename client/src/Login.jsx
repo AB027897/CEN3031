@@ -31,15 +31,17 @@ function Login() {
         let accountInfo = await ajax(account, "/getaccountinfo");
         navigate("/fyp");
     } else {
-      if(text=="INVALID_EMAIL")
-      {
-        text = "Email address must be valid"
-      }
-      else if(text=="INVALID_LOGIN_CREDENTIALS")
-      {
-        text = "Invalid username or password"
-      }
-        setErrorText(text);
+        if(text=="INVALID_EMAIL")
+        {
+          setErrorText("Email address must be valid");
+        }
+        else if(text=="INVALID_LOGIN_CREDENTIALS")
+        {
+          setErrorText("Invalid username or password");
+        }
+        else {
+          setErrorText(text);
+        }
         setEmail("");
         setPassword("");
     }
