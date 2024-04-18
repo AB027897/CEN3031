@@ -90,32 +90,82 @@ function CharityAccount() {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async()=> {
-    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    
     let account = await getAccount();
     account.account_type = "charity";
+
     account.email = getEmail;
+
+    // charity name error checking
     if(getName == "") {
-      setErrorText("Must have a valid name!");
-    }
-    account.name = getName;
-    account.charity_type = getType;
-    account.phone = phoneNumber;
-    account.account_number = getAccountNum;
-    if(getRoutingNum.length !== 9) {
-      setErrorText("Routing Number must be 9 digits!");
+      setErrorText("Valid organization name required");
       return;
     }
+    account.name = getName;
+
+    // phone number error checking
+    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    if(phoneNumber.length != 10) {
+      setErrorText("Phone number must be valid")
+      return;
+    }
+    account.phone = phoneNumber;
+
+    // charity type error checking
+    if(getType == "Select option...") {
+      setErrorText("Charity type must be selected")
+      return;
+    }
+    account.charity_type = getType;
+    
+    // banking information error checking
+    if(getConfigured) { // already configured. updating baking information
+      if(getAccountNum.length == 0 && getRoutingNum.length != 0) {
+        setErrorText("Account number is required when routing number is updated");
+        return;
+      }
+      if(getAccountNum.length != 0 && getRoutingNum.length != 9) {
+        setErrorText("Valid routing number (9 digits) is required when account number is updated");
+        return;
+      }
+    }
+    else { // first time configuration: account number and routing number required
+      if(getAccountNum.length == 0) {
+        setErrorText("Account number is required");
+        return;
+      }
+      if(getRoutingNum.length == 0) {
+        setErrorText("Routing number is required");
+        return;
+      }
+      if(getRoutingNum.length !== 9) {
+        setErrorText("Routing number must be 9 digits");
+        return;
+      }
+    }  
     account.routing_number = getRoutingNum;
+    account.account_number = getAccountNum;
+
+    // Country - no error checking needed (US by default)
     account.country = getCountry;
-    const message = await ajax(account, "/addaccountinfo");
 
     // check for error or all valid
-    if(message !== "") {
-      setErrorText(message);
-    } else {
-      localStorage.removeItem("newUser");
-      setConfigured(true);
+    const message = await ajax(account, "/addaccountinfo");
+    if(message !== "") { // handles errors such as from donation API or invalid email
+      if(message.includes("Invalid email address") || message.includes("INVALID_EMAIL")) {
+        setErrorText("Email address must be valid");
+        return;
+      }
+      else { // catch all for other errors (should only be banking)
+        setErrorText("Invalid banking information")
+        return;
+      }
     }
+
+    // no error if it reached this state
+    setErrorText("");
+    localStorage.removeItem("newUser");
+    setConfigured(true);
   }
   const logout = async ()=> {
     // route to home
