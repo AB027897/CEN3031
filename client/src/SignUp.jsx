@@ -21,7 +21,10 @@ function Signup() {
     useEffect(()=> {
         (async ()=> {
           if(checkToken()) {
-            navigate("/fyp");
+            // removed because we want creating a new account to override previous sign in.
+            // only sign in page should auto checks for token
+            
+            //navigate("/fyp");
           }
         })();
       }, []);
