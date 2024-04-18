@@ -98,7 +98,7 @@ function CharityAccount() {
 
     // charity name error checking
     if(getName == "") {
-      setErrorText("Valid organization name required");
+      setErrorText("Valid organization name is required");
       return;
     }
     account.name = getName;
