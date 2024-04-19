@@ -154,7 +154,7 @@ def get_all_posts(charity_type=None):
         for charity in all_charities.each():
             charity_type = charity.key()
             for uuid, post_data in charity.val().items():
-                if isinstance(post_data, dict):  # Check if post_data is a dictionary
+                if isinstance(post_data, dict):
                     preview_caption = post_data.get("preview_caption", "")
                     body = post_data.get("body", "")
                     typesense_data = {
