@@ -12,13 +12,14 @@ def init_database():
     storage = firebase_app.storage()
 
 
-def add_donor(user_id, account_type, name, email, phone, dob, token):
+def add_donor(user_id, account_type, name, email, phone, dob, preferences, token):
     data = {
         'account type' : account_type,
         'name': name,
         'email': email,
         'phone number': phone,
-        'dob': dob
+        'dob': dob,
+        'preferences': preferences
     }
     error = update_email(user_id, email)
     if type(error) != str:
@@ -54,9 +55,9 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, id, tok
         on_charity_change(typesense_data)
 
 
-def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type="", account_number="", routing_number="", country=""):
+def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type="", account_number="", routing_number="", country="", preferences=""):
     if account_type == "donor":
-        return add_donor(user_id, account_type, name, email, phone, dob, token)
+        return add_donor(user_id, account_type, name, email, phone, dob, preferences, token)
     else:
         account_info = get_account(user_id, token)
         id = ""
@@ -151,4 +152,37 @@ def get_images(uuid, charity_type, token):
         url = storage.child(path).get_url(token=token)
         arr.append(url)
     return arr
-    
+
+def get_all_posts(charity_type = None):
+    if charity_type != None:
+        charity_posts = db.child("posts/" + charity_type).get()
+        posts = []
+        for charity in charity_posts:
+            uuid = charity.key()
+            title = charity.val()["title"]
+            name = db.child("accounts/"+uuid+"/name").get().val()
+            preview_caption = charity.val()["preview_caption"]
+            data = {
+                "uuid": uuid,
+                "title": name,
+                "preview_caption": preview_caption
+            }
+            posts.append(data)
+        return posts
+    else:
+        all_charities = db.child("posts").get()
+        posts = []
+        for charity in all_charities:
+            uuids = charity.val().keys()
+            for uuid in uuids:
+                name = db.child("accounts/"+uuid+"/name").get().val()
+                preview_caption = charity.val()[uuid]["preview_caption"]
+                body = charity.val()[uuid]["body"]
+                typesense_data = {
+                    'post_id' : uuid,
+                    'charity_type': charity.key(),
+                    'charity_name': name,
+                    'preview_caption': preview_caption,
+                    'body': body
+                }    
+                on_post_change(typesense_data)

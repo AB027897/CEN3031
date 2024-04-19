@@ -27,12 +27,7 @@ function DonorAccount() {
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
   // charity preference vars
-  const [getPref_Hum, setPref_Hum] = useState("");
-  const [getPref_Med, setPref_Med] = useState("");
-  const [getPref_Env, setPref_Env] = useState("");
-  const [getPref_Edu, setPref_Edu] = useState("");
-  const [getPref_Soc, setPref_Soc] = useState("");
-  const [getPref_Other, setPref_Other] = useState("");
+  const [getPreference, setPreference] = useState(new Set());
 
   const [getLoading, setLoading] = useState(true);
 
@@ -50,6 +45,13 @@ function DonorAccount() {
       setName(accountInfo["name"]);
       const date = accountInfo["dob"].replace(/["]/g, "");
       setDate(Date.parse(date));
+      try {
+        for(let i=0; i < accountInfo["preferences"].length; i++) {
+          handlePreferences(accountInfo["preferences"][i]);
+        }
+      } catch(error) {
+        
+      }
 
       // set first time configure state
       if(localStorage.getItem('newUser')) {
@@ -96,6 +98,11 @@ function DonorAccount() {
 
     // Preferences error checking
     // if none selected prompt with "At least one preference option must be selected"
+    if(Array.from(getPreference).length === 0) {
+      setErrorText("At least one preference must be selected");
+      return;
+    }
+    account.preferences = Array.from(getPreference);
 
     // Email error checking AND account info updating
     const message = await ajax(account, "/addaccountinfo");
@@ -107,6 +114,9 @@ function DonorAccount() {
     // no error if it reached this state
     setErrorText("");
     localStorage.removeItem("newUser");
+    if(getConfigured == false) {
+      navigate("/fyp")
+    }
     setConfigured(true);
   }
   const logout = async ()=> {
@@ -120,6 +130,9 @@ function DonorAccount() {
     } else {
       setDisplayCalendar("none");
     }
+  }
+  const handlePreferences = (newPreference) => {
+    getPreference.has(newPreference) ? setPreference(prevPreference => {const newSet = new Set(prevPreference); newSet.delete(newPreference); return newSet;}) : setPreference(prevPreference => new Set(prevPreference).add(newPreference));
   }
   return (
     <div>
@@ -183,22 +196,22 @@ function DonorAccount() {
               <h2>Charity Preferences</h2>
               <form>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref1" checked={getPref_Hum} className={s.Checkbox} onClick={()=> setPref_Hum(!getPref_Hum)}/>
+                <input type = "checkbox" id="pref1" checked={getPreference.has("Humanitarian Aid")} className={s.Checkbox} onClick={()=> handlePreferences("Humanitarian Aid")}/>
                 <label className={s.PreferencesText} for="pref1">Humanitarian Aid</label>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref2" checked={getPref_Med} className={s.Checkbox} onClick={()=> setPref_Med(!getPref_Med)}/>
+                <input type = "checkbox" id="pref2" checked={getPreference.has("Medical")} className={s.Checkbox} onClick={()=> handlePreferences("Medical")}/>
                 <label className={s.PreferencesText} for="pref2">Medical</label>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref3" checked={getPref_Env} className={s.Checkbox} onClick={()=> setPref_Env(!getPref_Env)}/>
+                <input type = "checkbox" id="pref3" checked={getPreference.has("Environmental")} className={s.Checkbox} onClick={()=> handlePreferences("Environmental")}/>
                 <label className={s.PreferencesText} for="pref3">Environmental</label>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref4" checked={getPref_Edu} className={s.Checkbox} onClick={()=> setPref_Edu(!getPref_Edu)}/>
+                <input type = "checkbox" id="pref4" checked={getPreference.has("Education")} className={s.Checkbox} onClick={()=> handlePreferences("Education")}/>
                 <label className={s.PreferencesText} for="pref4">Education</label>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref5" checked={getPref_Soc} className={s.Checkbox} onClick={()=> setPref_Soc(!getPref_Soc)}/>
+                <input type = "checkbox" id="pref5" checked={getPreference.has("Social Justice")} className={s.Checkbox} onClick={()=> handlePreferences("Social Justice")}/>
                 <label className={s.PreferencesText} for="pref5">Social Justice</label>
                 <hr className={s.PrefSeparator}/>
-                <input type = "checkbox" id="pref6" checked={getPref_Other} className={s.Checkbox} onClick={()=> setPref_Other(!getPref_Other)}/>
+                <input type = "checkbox" id="pref6" checked={getPreference.has("Other")} className={s.Checkbox} onClick={()=> handlePreferences("Other")}/>
                 <label className={s.PreferencesText} for="pref6">Other</label>
               </form>
             </div>

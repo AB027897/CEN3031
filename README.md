@@ -19,6 +19,7 @@
     - MEASUREMENT_ID
     - DATABASE_URL
     - STRIPE_API_KEY
+    - TYPESENSE_API_KEY
 - Step 4: Put the json file downloaded from service accounts in the firebase settings and rename it serviceAccount.json and put it in the server folder
 - Step 5: Run the following command pip install -r requirements.txt
 - Step 6: Run the command: python app.py

@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import s from './css/Donate.module.css';
 import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js';
-import {checkToken} from './utilities/token.js';
-import loading from './images/loading.webp'
+import {checkToken, getToken} from './utilities/token.js';
+import loading from './images/loading.webp';
+import Card from './utilities/card.js';
 
 function Donate() {
   // header
@@ -38,7 +39,13 @@ function Donate() {
     })();
   }, [])
   const donate = async()=> {
-
+      const card = new Card(getCardNum, getExpMonth, getExpYear, getCVC, getDollarAmt, localStorage.getItem("Posts"), getToken());
+      const message = await ajax(card, "/donatecharity");
+      if(message !== "") {
+        setErrorText(message);
+      } else {
+        navigate("/fyp");
+      }
   }
   return (
     <div>

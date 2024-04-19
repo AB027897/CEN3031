@@ -165,6 +165,9 @@ function CharityAccount() {
     // no error if it reached this state
     setErrorText("");
     localStorage.removeItem("newUser");
+    if(getConfigured == false) {
+      navigate("/fyp");
+    }
     setConfigured(true);
   }
   const logout = async ()=> {
@@ -500,8 +503,8 @@ function CharityAccount() {
               <h2 className={s.CustomizeText}>Customize Charity Page</h2>
           </div>
           <div>
-              <button className={s.SmallButton} onClick={() => toPageViewer()}>Preview</button>
-              <button className={s.SmallButton} onClick={() => toPageCreator()}>Edit</button>
+              <button className={s.SmallButton} onClick={() => {localStorage.removeItem("Post"); navigate("/pageviewer")}}>Preview</button>
+              <button className={s.SmallButton} onClick={() => navigate("/pagecreator")}>Edit</button>
           </div>
           <hr className={s.BarSep}/>
           <button className={s.button2} onClick={() => logout()}>Log Out</button>

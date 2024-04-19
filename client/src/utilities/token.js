@@ -9,8 +9,13 @@ export const getToken = () => {
     return localStorage.getItem('token');
 };
 
-export const getUser = async () => {
-    let token = getToken();
+export const getUser = async (uuid="") => {
+    let token = "";
+    if(uuid === "") {
+        token = getToken();
+    } else {
+        token = uuid;
+    }
     return new Promise( (resolve, reject)=> {
         resolve(ajax(token, "/signintoken"));
     });
