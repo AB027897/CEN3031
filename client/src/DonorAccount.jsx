@@ -35,6 +35,10 @@ function DonorAccount() {
   const [getPref_Other, setPref_Other] = useState("");
 
   const [getLoading, setLoading] = useState(true);
+
+  // first Time Configure
+  const [getConfigured, setConfigured] = useState(false);
+
   useEffect(()=> {
     (async ()=> {
       if(!checkToken()) {
@@ -46,6 +50,14 @@ function DonorAccount() {
       setName(accountInfo["name"]);
       const date = accountInfo["dob"].replace(/["]/g, "");
       setDate(Date.parse(date));
+
+      // set first time configure state
+      if(localStorage.getItem('newUser')) {
+        setConfigured(false);
+      }
+      else setConfigured(true);
+
+      // exit loading state
       setLoading(false);
     })();
   }, [])
@@ -54,17 +66,48 @@ function DonorAccount() {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async ()=> {
-    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    
     let account = await getAccount();
     account.account_type = "donor";
+
     account.email = getEmail;
-    account.name = getName;
-    account.dob = JSON.stringify(getDate);
-    account.phone = phoneNumber;
-    const message = await ajax(account, "/addaccountinfo");
-    if(message !== "") {
-      setErrorText(message);
+
+    // Name error checking
+    if(getName.length == 0) {
+      setErrorText("Name is required");
+      return;
     }
+    account.name = getName;
+
+    // phone number error checking
+    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    if(phoneNumber.length != 10) {
+      setErrorText("Phone number must be valid");
+      return;
+    }
+    account.phone = phoneNumber;
+
+    // Date of Birth error checking
+    if(JSON.stringify(getDate) == "null") {
+      setErrorText("Date of birth is required");
+      return;
+    }
+    account.dob = JSON.stringify(getDate);
+
+    // Preferences error checking
+    // if none selected prompt with "At least one preference option must be selected"
+
+    // Email error checking AND account info updating
+    const message = await ajax(account, "/addaccountinfo");
+    if(message !== "") { // email is only error remaining/possible
+      setErrorText("Email address must be valid");
+      return;
+    }
+
+    // no error if it reached this state
+    setErrorText("");
+    localStorage.removeItem("newUser");
+    setConfigured(true);
   }
   const logout = async ()=> {
     // route to home
@@ -86,23 +129,27 @@ function DonorAccount() {
         </div> :
       <div className={s.App}>
         <header className={s.App_header}>
-        <hr className={s.Bar}/>
-        <div className={s.HeaderImageContainer}>
-          <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
-            <img src={search} alt="prop" className={s.HeaderImage}/>
+        {getConfigured ?
+          <>
+          <hr className={s.Bar}/>
+          <div className={s.HeaderImageContainer}>
+            <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
+              <img src={search} alt="prop" className={s.HeaderImage}/>
+            </div>
           </div>
-        </div>
-        <hr className={s.Bar}/>
-        <div className={s.HeaderImageContainer}>
-          <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
-              <img src={home} alt="prop" className={s.HeaderImage}/>
+          <hr className={s.Bar}/>
+          <div className={s.HeaderImageContainer}>
+            <div className={s.HeaderImageBG} onClick={()=> toFYP()}>
+                <img src={home} alt="prop" className={s.HeaderImage}/>
+            </div>
           </div>
-        </div>
-        <hr className={s.Bar}/>
-        <div className={s.MainImageBG}>
-          <img src={settings} alt="prop" className={s.MainImage}/>
-        </div>
-        <hr className={s.Bar}/>
+          <hr className={s.Bar}/>
+          <div className={s.MainImageBG}>
+            <img src={settings} alt="prop" className={s.MainImage}/>
+          </div>
+          <hr className={s.Bar}/>
+          </> :
+          <div className={s.HeaderText}>Account Configuration</div>}
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>
@@ -158,7 +205,7 @@ function DonorAccount() {
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
-            <button className={s.button} onClick={() => update()}>UPDATE</button>
+            <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
           <hr className={s.BarSep}/>
           <button className={s.button2} onClick={() => logout()}>Log Out</button>
