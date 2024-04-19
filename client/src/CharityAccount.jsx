@@ -13,16 +13,30 @@ import loading from './images/loading.webp'
 
 function CharityAccount() {
   const toSearchPage = ()=> { 
-    if(localStorage.getItem('newUser')) {
-      return;
+    if(getConfigured) { // redundant now
+      navigate("/search"); 
     }
-    navigate("/search"); 
   }
-  const toFYP = ()=> { 
-    if(localStorage.getItem('newUser')) {
-      return;
+  const toFYP = ()=> { // redundant now
+    if(getConfigured) {
+      navigate("/fyp"); 
     }
-    navigate("/fyp"); 
+  }
+  const toPageCreator = ()=> { 
+    if(getConfigured) {
+      navigate("/pagecreator"); 
+    }
+    else {
+      setErrorText("Must configure account before accessing page creator");
+    }
+  }
+  const toPageViewer = ()=> { 
+    if(getConfigured) {
+      navigate("/pageviewer"); 
+    }
+    else {
+      setErrorText("Must configure account before accessing page viewer"); 
+    }
   }
 
   const [getErrorText, setErrorText] = useState("");
@@ -37,6 +51,10 @@ function CharityAccount() {
   const [getCountry, setCountry] = useState("US");
 
   const [getLoading, setLoading] = useState(true);
+
+  // firstTimeConfigure
+  const [getConfigured, setConfigured] = useState(false);
+
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
@@ -47,13 +65,23 @@ function CharityAccount() {
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
+
       // I think these should be set below but I get an error when doing the country one so I'll keep it commented for now
       // setAccountNum(accountInfo["account_number"]);
       // setRoutingNum(accountInfo["routing_number"]);
       // setCountry(accountInfo["country"]);
+
       if(accountInfo["type"] !== "") {
         setType(accountInfo["type"]);
       }
+
+      // set first time configure state
+      if(localStorage.getItem('newUser')) {
+        setConfigured(false);
+      }
+      else setConfigured(true);
+
+      // exit loading state
       setLoading(false);
     })();
   }, [])
@@ -62,29 +90,85 @@ function CharityAccount() {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async()=> {
-    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    
     let account = await getAccount();
     account.account_type = "charity";
+
     account.email = getEmail;
+
+    // charity name error checking
     if(getName == "") {
-      setErrorText("Must have a valid name!");
-    }
-    account.name = getName;
-    account.charity_type = getType;
-    account.phone = phoneNumber;
-    account.account_number = getAccountNum;
-    if(getRoutingNum.length !== 9) {
-      setErrorText("Routing Number must be 9 digits!");
+      setErrorText("Valid organization name is required");
       return;
     }
-    account.routing_number = getRoutingNum;
-    account.country = getCountry;
-    const message = await ajax(account, "/addaccountinfo");
-    if(message !== "") {
-      setErrorText(message);
-    } else {
-      localStorage.removeItem("newUser");
+    account.name = getName;
+
+    // phone number error checking
+    const phoneNumber = getPhoneNumber.replace(/[-() ]/g, "");
+    if(phoneNumber.length != 10) {
+      setErrorText("Phone number must be valid")
+      return;
     }
+    account.phone = phoneNumber;
+
+    // charity type error checking
+    if(getType == "Select option...") {
+      setErrorText("Charity type must be selected")
+      return;
+    }
+    account.charity_type = getType;
+    
+    // banking information error checking
+    if(getConfigured) { // already configured. updating baking information
+      if(getAccountNum.length == 0 && getRoutingNum.length != 0) {
+        setErrorText("Account number is required when routing number is updated");
+        return;
+      }
+      if(getAccountNum.length != 0 && getRoutingNum.length != 9) {
+        setErrorText("Valid routing number (9 digits) is required when account number is updated");
+        return;
+      }
+    }
+    else { // first time configuration: account number and routing number required
+      if(getAccountNum.length == 0) {
+        setErrorText("Account number is required");
+        return;
+      }
+      if(getRoutingNum.length == 0) {
+        setErrorText("Routing number is required");
+        return;
+      }
+      if(getRoutingNum.length !== 9) {
+        setErrorText("Routing number must be 9 digits");
+        return;
+      }
+    }  
+    account.routing_number = getRoutingNum;
+    account.account_number = getAccountNum;
+
+    // Country - no error checking needed (US by default)
+    account.country = getCountry;
+
+    // check for error or all valid
+    const message = await ajax(account, "/addaccountinfo");
+    if(message !== "") { // handles errors such as from donation API or invalid email
+      if(message.includes("Invalid email address") || message.includes("INVALID_EMAIL")) {
+        setErrorText("Email address must be valid");
+        return;
+      }
+      else { // catch all for other errors (should only be banking)
+        setErrorText("Invalid banking information")
+        return;
+      }
+    }
+
+    // no error if it reached this state
+    setErrorText("");
+    localStorage.removeItem("newUser");
+    if(getConfigured == false) {
+      navigate("/fyp");
+    }
+    setConfigured(true);
   }
   const logout = async ()=> {
     // route to home
@@ -99,6 +183,8 @@ function CharityAccount() {
       </div> :
       <div className={s.App}>
         <header className={s.App_header}>
+        {getConfigured ?
+        <>
         <hr className={s.Bar}/>
         <div className={s.HeaderImageContainer}>
           <div className={s.HeaderImageBG} onClick={()=> toSearchPage()}>
@@ -116,6 +202,9 @@ function CharityAccount() {
           <img src={settings} alt="prop" className={s.MainImage}/>
         </div>
         <hr className={s.Bar}/>
+        </> :
+        <div className={s.HeaderText}>Account Configuration</div>
+        }
         </header>
         <body className={s.App_body}>
           <div className={s.ItemTitle}>
@@ -408,7 +497,7 @@ function CharityAccount() {
           </div>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
-            <button className={s.button} onClick={() => update()}>UPDATE</button>
+            <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
           <div className={s.Customize}>
               <h2 className={s.CustomizeText}>Customize Charity Page</h2>
