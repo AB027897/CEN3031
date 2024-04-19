@@ -106,8 +106,7 @@ def donate_charity():
 @app.route('/typesense')
 def search_handler():
     query = json.loads(request.headers["account"])
-    collection_names = ['charities', 'posts']
-    results = search_documents(collection_names, query)
+    results = search_documents(query)
     json_results = json.dumps(results)
     return Response(json_results, status=200, mimetype='application/json')
 

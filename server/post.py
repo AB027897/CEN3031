@@ -154,12 +154,13 @@ def get_all_posts(charity_type=None):
         for charity in all_charities.each():
             charity_type = charity.key()
             for uuid, post_data in charity.val().items():
-                preview_caption = post_data.get("preview_caption", "")
-                body = post_data.get("body", "")
-                typesense_data = {
-                    'id': uuid,
-                    'charity_type': charity_type,
-                    'preview_caption': preview_caption,
-                    'body': body
-                }
-                on_post_change(typesense_data)
+                if isinstance(post_data, dict):  # Check if post_data is a dictionary
+                    preview_caption = post_data.get("preview_caption", "")
+                    body = post_data.get("body", "")
+                    typesense_data = {
+                        'id': uuid,
+                        'charity_type': charity_type,
+                        'preview_caption': preview_caption,
+                        'body': body
+                    }
+                    on_post_change(typesense_data)

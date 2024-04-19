@@ -31,6 +31,7 @@ def init_typesense():
     # TODO: comment out below if do NOT want to delete collections!
     # delete_collection()
 
+
     existing_collections = client.collections.retrieve()
     existing_collection_names = [collection['name'] for collection in existing_collections]
 
@@ -42,9 +43,6 @@ def init_typesense():
 
     # TODO: comment out when don't want to print documents
     export_documents("posts")
-
-    # TODO: comment out when don't want to print size of collections
-    # get_collection_size("posts")
 
 
 def export_documents(collection_name):
@@ -63,23 +61,6 @@ def export_documents(collection_name):
     else:
         print(f"Failed to export documents for {collection_name}: {response.status_code}")   
 
-
-# def get_collection_size(collection_name):
-#     api_key = os.getenv("TYPESENSE_API_KEY")
-#     base_url = 'http://localhost:8108'
-
-#     url = f"{base_url}/collections/{collection_name}/documents"
-#     headers = {"Content-Type": "application/json", "X-TYPESENSE-API-KEY": api_key}
-
-#     response = requests.get(url, headers=headers)
-
-#     if response.status_code == 200:
-#         documents = response.json()
-#         collection_size = len(documents)
-#         print(f"Number of documents in collection '{collection_name}': {collection_size}")
-#         return collection_size
-#     else:
-#         print(f"Failed to fetch documents for collection '{collection_name}': {response.status_code}")
 
 def delete_collection():
     try:
@@ -144,15 +125,10 @@ def on_post_update(data):
 
 
 # we can search by query_by, meaning for fields like preview_caption, name, etc
-def search_documents(collection_names, search_value):
-    results = []
-
-    for collection_name in collection_names:
-        search_params = {
-            'q': search_value,
-            'query_by': "name",
-        }
-        search_results = client.collections[collection_name].documents.search(search_params)
-        results.extend(search_results)
-        print(search_results)    
-    return results
+def search_documents(search_value):
+    search_params = {
+        'q': search_value,
+        'query_by': 'body',
+    }
+    search_results = client.collections['posts'].documents.search(search_params)
+    return search_results
