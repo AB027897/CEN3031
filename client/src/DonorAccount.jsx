@@ -90,7 +90,7 @@ function DonorAccount() {
     account.phone = phoneNumber;
 
     // Date of Birth error checking
-    if(JSON.stringify(getDate) == "null") {
+    if(JSON.stringify(getDate) == "null" && !getConfigured) {
       setErrorText("Date of birth is required");
       return;
     }
