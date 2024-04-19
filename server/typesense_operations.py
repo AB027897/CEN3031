@@ -31,6 +31,17 @@ def init_typesense():
     # TODO: comment out below if do NOT want to delete collections!
     # delete_collection()
 
+    try:
+        # Check if 'posts' collection exists
+        existing_collection = client.collections['posts'].retrieve()
+        existing_schema = existing_collection['schema']
+        if existing_schema != posts_schema['fields']:
+            client.collections['posts'].delete()
+            print("Deleted 'posts' collection; schema mismatch")
+
+    except typesense.exceptions.ObjectNotFound:
+        # 'posts' collection doesn't exist
+        pass
 
     existing_collections = client.collections.retrieve()
     existing_collection_names = [collection['name'] for collection in existing_collections]
