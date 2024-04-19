@@ -98,6 +98,11 @@ function DonorAccount() {
 
     // Preferences error checking
     // if none selected prompt with "At least one preference option must be selected"
+    if(Array.from(getPreference).length === 0) {
+      setErrorText("At least one preference must be selected");
+      return;
+    }
+    account.preferences = Array.from(getPreference);
 
     // Email error checking AND account info updating
     const message = await ajax(account, "/addaccountinfo");
