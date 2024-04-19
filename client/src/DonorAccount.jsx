@@ -45,6 +45,7 @@ function DonorAccount() {
       setName(accountInfo["name"]);
       const date = accountInfo["dob"].replace(/["]/g, "");
       setDate(Date.parse(date));
+<<<<<<< HEAD
       try {
         for(let i=0; i < accountInfo["preferences"].length; i++) {
           handlePreferences(accountInfo["preferences"][i]);
@@ -52,6 +53,8 @@ function DonorAccount() {
       } catch(error) {
         
       }
+=======
+>>>>>>> 39248717a8237f507208c819b4356fbc3de22538
 
       // set first time configure state
       if(localStorage.getItem('newUser')) {
