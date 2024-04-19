@@ -25,8 +25,9 @@ function DonorAccount() {
         navigate("/login");
       }
       const account = await getAccount();
-      const recommended = await ajax(account, "/getrecs");
+      let recommended = await ajax(account, "/getrecs");
       setRecs(recommended);
+      getRecs = recommended;
       if(getRecs.length < getMax) {
         setShow("none");
       }
@@ -50,7 +51,7 @@ function DonorAccount() {
   }
   const loadMorePages = async ()=> {
     setMax(getMax + 10);
-    if(getRecs.length < setMax) {
+    if(getRecs.length < getMax) {
       setShow("none");
     }
   }
