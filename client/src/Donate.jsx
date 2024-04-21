@@ -39,7 +39,7 @@ function Donate() {
     })();
   }, [])
   const donate = async()=> {
-      const card = new Card(getCardNum, getExpMonth, getExpYear, getCVC, getDollarAmt, getToken());
+      const card = new Card(getCardNum, getExpMonth, getExpYear, getCVC, getDollarAmt, localStorage.getItem("Posts"), getToken());
       const message = await ajax(card, "/donatecharity");
       if(message !== "") {
         setErrorText(message);

@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
 import Account, {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax';
 import s from './css/PageViewer.module.css';
-import { checkToken } from './utilities/token';
+import { checkToken, getToken } from './utilities/token';
 import loading from './images/loading.webp';
 
 function Login() {
@@ -22,7 +22,11 @@ function Login() {
       if(!checkToken()) {
         navigate("/login");
       }
-      const user = await getAccount();
+      let uuid = "";
+      if(localStorage.getItem("Post") !== null) {
+        uuid = localStorage.getItem("Post");
+      }
+      const user = await getAccount(uuid);
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);
       const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);
@@ -34,6 +38,17 @@ function Login() {
       setLoading(false);
     })();
   }, []);
+  const handleDonate = async () => {
+    if(localStorage.getItem("Post") !== null) {
+      //navigate("/donate");
+      const data = {
+        "charity" : localStorage.getItem("Posts"),
+        "amount": 100, 
+        "token": getToken()
+      }
+      const message = await ajax(data, "/financial")
+    } 
+  }
   return (
     <div>
       {getLoading ? 
@@ -64,11 +79,9 @@ function Login() {
           <div className={s.DonateDiv}>
             <img className={s.HandsImage} src={hands} alt="two hands holding"/>
             <p className={s.TextAboveButton}>Show your support!</p>
-            <a href="/donate" rel="noopener noreferrer">
-              <button className={s.DonateButton}>
-                <p className={s.DonateText}>DONATE</p>
-              </button>
-            </a>
+            <button className={s.DonateButton} onClick={() => handleDonate()}>
+              <p className={s.DonateText}>DONATE</p>
+            </button>
           </div>
           <div className={s.CommentsBG}>
             <div className={s.CommentsDiv}>
