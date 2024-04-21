@@ -146,36 +146,24 @@ def get_images(uuid, charity_type, token):
         arr.append(url)
     return arr
 
-def get_all_posts(charity_type = None):
-    if charity_type != None:
-        charity_posts = db.child("posts/" + charity_type).get()
-        posts = []
-        for charity in charity_posts:
-            uuid = charity.key()
-            title = charity.val()["title"]
-            name = db.child("accounts/"+uuid+"/name").get().val()
-            preview_caption = charity.val()["preview_caption"]
-            data = {
-                "uuid": uuid,
-                "title": name,
-                "preview_caption": preview_caption
-            }
-            posts.append(data)
-        return posts
+def get_all_posts(charity_type=None):
+    if charity_type is not None:
+        posts = db.child("posts/" + charity_type).get()
     else:
         all_charities = db.child("posts").get()
         posts = []
-        for charity in all_charities:
-            uuids = charity.val().keys()
-            for uuid in uuids:
-                name = db.child("accounts/"+uuid+"/name").get().val()
-                preview_caption = charity.val()[uuid]["preview_caption"]
-                body = charity.val()[uuid]["body"]
-                typesense_data = {
-                    'post_id' : uuid,
-                    'charity_type': charity.key(),
-                    'charity_name': name,
-                    'preview_caption': preview_caption,
-                    'body': body
-                }    
-                on_post_change(typesense_data)
+        for charity in all_charities.each():
+            charity_type = charity.key()
+            for uuid, post_data in charity.val().items():
+                if isinstance(post_data, dict):
+                    name = db.child("accounts/"+uuid+"/name").get().val()
+                    preview_caption = post_data.get("preview_caption", "")
+                    body = post_data.get("body", "")
+                    typesense_data = {
+                        'id': uuid,
+                        'charity_type': charity_type,
+                        'charity_name': name,
+                        'preview_caption': preview_caption,
+                        'body': body
+                    }
+                    on_post_change(typesense_data)
