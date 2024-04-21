@@ -189,7 +189,7 @@ function DonorAccount() {
                   background: none;
                 }`}
             </style>
-            <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> setDate(value)}/>
+            <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> {setDate(value); console.log(value)}}/>
           </div>
           <div className={s.ItemTitle}>
             <div className={s.PreferencesDiv}>
