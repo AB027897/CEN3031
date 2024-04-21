@@ -6,7 +6,7 @@ import requests
 posts_schema = {
     'name': 'posts',
     'fields': [
-        {'name': 'id', 'type': 'string'},
+        # {'name': 'id', 'type': 'string'},
         {'name': 'charity_name', 'type': 'string'},  # NEW: name of the charity
         {'name': 'body', 'type': 'string'},
         {'name': 'preview_caption', 'type': 'string'},
@@ -28,17 +28,20 @@ def init_typesense():
         'connection_timeout_seconds': 2
     })
 
-    # TODO: comment out below if do NOT want to delete collections!
-    # delete_collection()
-
     try:
-        # Check if 'posts' collection exists
+        # check if 'posts' collection exists & all fields are matching
         existing_collection = client.collections['posts'].retrieve()
-        existing_schema = existing_collection['schema']
-        if existing_schema != posts_schema['fields']:
+        existing_fields = existing_collection.get('fields', [])
+        existing_field_names = [field['name'] for field in existing_fields]
+
+        print("Existing schema fields:", existing_field_names)
+        print("Posts schema fields:", [field['name'] for field in posts_schema['fields']])
+
+        if all(field['name'] in existing_field_names for field in posts_schema['fields']):
+            print("Schema match, posts collection already exists!")
+        else:
             client.collections['posts'].delete()
             print("Deleted 'posts' collection; schema mismatch")
-
     except typesense.exceptions.ObjectNotFound:
         # 'posts' collection doesn't exist
         pass
@@ -52,7 +55,7 @@ def init_typesense():
     else:
         print("Posts collection already exists!")
 
-    # TODO: comment out when don't want to print documents
+    # TODO: comment out when don't want to print documents in terminal
     export_documents("posts")
 
 
