@@ -27,7 +27,6 @@ function DonorAccount() {
       }
       const account = await getAccount();
       let recommended = await ajax(account, "/getrecs");
-      console.log(recommended);
       let imageUrls = []
       for(let i=0; i < recommended.length; i++) {
         const charityAccount = new Account(recommended[i]["uuid"], getToken(), "", "", "", "", "", recommended[i]["type"]);

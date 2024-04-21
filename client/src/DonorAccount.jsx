@@ -23,7 +23,7 @@ function DonorAccount() {
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
-  const [getDisplayCalendar, setDisplayCalendar] = useState("none")
+  const [getDisplayCalendar, setDisplayCalendar] = useState("flex")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
   // charity preference vars
@@ -58,9 +58,9 @@ function DonorAccount() {
         setConfigured(false);
       }
       else setConfigured(true);
-
       // exit loading state
       setLoading(false);
+      displayCalendar();
     })();
   }, [])
 
@@ -88,7 +88,7 @@ function DonorAccount() {
       return;
     }
     account.phone = phoneNumber;
-
+    console.log(getDate);
     // Date of Birth error checking
     if(JSON.stringify(getDate) == "null") {
       setErrorText("Date of birth is required");
@@ -189,7 +189,7 @@ function DonorAccount() {
                   background: none;
                 }`}
             </style>
-            <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> {setDate(value); console.log(value)}}/>
+            <Calender className={s.CalendarSize} calendarType='gregory' value={getDate} onClickDay={(value)=> setDate(value)}/>
           </div>
           <div className={s.ItemTitle}>
             <div className={s.PreferencesDiv}>
