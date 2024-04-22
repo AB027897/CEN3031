@@ -12,6 +12,7 @@ CORS(app)
 init_app()
 init_database()
 init_typesense()
+get_all_posts()
 
 @app.route('/signupvalidation')
 def validateSignup():
@@ -111,12 +112,8 @@ def donate_charity():
 
 @app.route('/typesense')
 def search_handler():
-    #get_all_posts()
     query = json.loads(request.headers["account"])
-    collection_names = ['charities', 'posts']
-
-    results = search_documents(collection_names, query)
-
+    results = search_documents(query)
     json_results = json.dumps(results)
     return Response(json_results, status=200, mimetype='application/json')
 
