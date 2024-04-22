@@ -29,15 +29,18 @@ def init_typesense():
     })
 
     try:
-        # check if 'posts' collection exists & all fields are matching
+        # Check if 'posts' collection exists & all fields are matching
         existing_collection = client.collections['posts'].retrieve()
         existing_fields = existing_collection.get('fields', [])
-        existing_field_names = [field['name'] for field in existing_fields]
+        existing_field_names = [field['name'] for field in existing_fields if field['name'] != 'id']
 
         print("Existing schema fields:", existing_field_names)
         print("Posts schema fields:", [field['name'] for field in posts_schema['fields']])
 
-        if all(field['name'] in existing_field_names for field in posts_schema['fields']):
+        # Exclude 'id' field from the comparison
+        posts_field_names = [field['name'] for field in posts_schema['fields'] if field['name'] != 'id']
+
+        if all(field in existing_field_names for field in posts_field_names):
             print("Schema match, posts collection already exists!")
         else:
             client.collections['posts'].delete()
