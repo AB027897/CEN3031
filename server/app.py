@@ -6,6 +6,7 @@ from firebase import *
 from post import *
 from financial import *
 from typesense_operations import *
+from datetime import datetime
 
 app = Flask(__name__, static_folder="../client/build")
 CORS(app)
@@ -55,7 +56,7 @@ def add_donor_info():
 @app.route('/getaccountinfo')
 def get_account_info():
     account = json.loads(request.headers["account"])
-    account_info = get_account(account['uuid'], account['token'])
+    account_info = get_account('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', account['token'])
     return Response(json.dumps(account_info), status=200, mimetype="application/json")
 
 @app.route('/signintoken')
@@ -69,13 +70,13 @@ def signin():
 @app.route('/addpost')
 def post_add():
     post_info = json.loads(request.headers["account"])
-    add_post(post_info["uuid"], post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
+    add_post('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
     return Response("", status=200, mimetype="text/plain")
 
 @app.route('/getpost')
 def post_get():
     user_info = json.loads(request.headers["account"])
-    post = get_post(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    post = get_post('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', user_info["charity_type"], user_info["token"])
     if post != "":
         return Response(json.dumps(post), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
@@ -92,13 +93,13 @@ def add_image():
     user_info = json.loads(request.headers["account"])
     for label in request.files:
         image = request.files[label]
-        upload_image(user_info["uuid"], user_info["charity_type"], user_info["token"], image.read())
+        upload_image('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', user_info["charity_type"], user_info["token"], image.read())
     return Response("", status=200, mimetype="text/plain")
 
 @app.route('/getimage')
 def get_image():
     user_info = json.loads(request.headers["account"])
-    urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
+    urls = get_images('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', user_info["charity_type"], user_info["token"])
     return Response(json.dumps(urls), status=200, mimetype="application/json")
 
 @app.route('/donatecharity')
@@ -121,7 +122,7 @@ def search_handler():
 @app.route('/getrecs')
 def get_recommended():
     account = json.loads(request.headers["account"])
-    account_info = get_account(account["uuid"], account["token"])
+    account_info = get_account('1e8WxQbxnvRbzUEuQPl7RyAXtyK2', account["token"])
     preferences = ""
     if account_info["account type"] == "donor":
         preferences = account_info["preferences"]
@@ -141,6 +142,28 @@ def serve_file(file):
     else:
         return send_file(os.path.join(app.static_folder, 'index.html'))
 
+
+@app.route('/add_comment')
+def route_add_comment():
+    data = json.loads(request.data)
+    charity_type = data['charity_type']
+    post_id = data['post_id']
+    comment = data['comment']
+    user_info = json.loads(request.headers["account"])
+    current_date = datetime.now().strfttime("%Y-%m-%d")
+    add_comment(charity_type, post_id, '1e8WxQbxnvRbzUEuQPl7RyAXtyK2', current_date, comment)
+    return Response("", status=200, mimetype="text/plain")
+
+@app.route('/get_comments')
+def route_get_comments():
+    data = json.loads(request.data)
+    charity_type = data['charity_type']
+    post_id = data['post_id']
+    try:
+        comments = get_comments(charity_type, post_id)
+    except Exception :
+        return Response(json.dumps([]), status=200, mimetype="application/json")
+    return Response(json.dumps(comments), status=200, mimetype="application/json")
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3000, debug=True)
