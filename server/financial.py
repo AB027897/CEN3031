@@ -32,27 +32,12 @@ def create_bank_account(id, account_number, routing_number, country):
         stripe.Account.create_external_account(id, external_account=account)
     except Exception as e:
         return str(e)
-        
-def create_card_token(number, exp_month, exp_year, cvc):
-    card = {
-        "number": number,
-        "exp_month": exp_month,
-        "exp_year": exp_year,
-        "cvc": cvc
-    }
-    return stripe.Token.create(card=card)
 
 def charge_card(amount, token):
-    stripe.Charge.create(amount=amount, currency="usd", source=token, description="Donation")
-
-def payment_intent(amount):
-    id = stripe.PaymentIntent.create(
-        amount= amount,
-        currency="usd",
-        payment_method="pm_card_visa"
-
-    )
-    stripe.PaymentIntent.confirm(id, payment_method="pm_card_visa", return_url="https://www.example.com")
+    try:
+        stripe.Charge.create(amount=amount, currency="usd", source=token, description="Donation")
+    except Exception as e:
+        return str(e)
 
 def transfer_money(amount, charity):
     stripe.Transfer.create(amount=amount, currency="usd", destination=charity)
