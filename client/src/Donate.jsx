@@ -17,14 +17,6 @@ function Donate() {
   const [getName, setName] = useState("");
   // input variables
   const [getDollarAmt, setDollarAmt] = useState("");
-  const [getCardName, setCardName] = useState("");
-  const [getCardNum, setCardNum] = useState("");
-  const [getCVC, setCVC] = useState("");
-  const [getExpMonth, setExpMonth] = useState("");
-  const [getExpYear, setExpYear] = useState("");
-  const [getBillingAddress1, setBillingAddress1] = useState("");
-  const [getBillingAddress2, setBillingAddress2] = useState("");
-  const [getBillingAddress3, setBillingAddress3] = useState("");
   const stripe = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
   // error
   const [getErrorText, setErrorText] = useState("");
@@ -44,13 +36,17 @@ function Donate() {
     })();
   }, [])
   const donate = async(cardToken)=> { 
-      const card = new Card(cardToken, getDollarAmt, localStorage.getItem("Post"), getToken());
-      const message = await ajax(card, "/donatecharity");
-      if(message !== "") {
-        setErrorText(message);
-      } else {
-        navigate("/fyp");
-      }
+    const regex = /^\d*\.?\d*$/;
+    if(getDollarAmt === "" || Number(getDollarAmt) < 0.5 || !regex.test(getDollarAmt)) {
+      setErrorText("Must have a valid dollar amount.")
+    }
+    const card = new Card(cardToken, Number(getDollarAmt)*100, localStorage.getItem("Post"), getToken());
+    const message = await ajax(card, "/donatecharity");
+    if(message !== "") {
+      setErrorText(message);
+    } else {
+      navigate("/fyp");
+    }
   }
   return (
     <div>
