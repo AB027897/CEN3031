@@ -15,29 +15,31 @@ function Login() {
   const [getImageURLs, setImageURLS] = useState([]);
   const [getNewComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [getLoading, setLoading] = useState(true);
+  const [getLoading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=> {
-    (async ()=> {
+  useEffect(()=> {(async ()=> {
       if(!checkToken()) {
         navigate("/login");
       }
-      let uuid = "";
-      if(localStorage.getItem("Post") !== null) {
-        uuid = localStorage.getItem("Post");
-      }
-      const user = await getAccount(uuid);
-      const userInfo = await getAccountInfo(user);
-      setName(userInfo["name"]);
-      const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);
+      let uuid = "1e8WxQbxnvRbzUEuQPl7RyAXtyK2";
+      //if(localStorage.getItem("Post") !== null) {
+      //  uuid = localStorage.getItem("Post");
+      //}
+      //const user = await getAccount(uuid);
+      //const userInfo = await getAccountInfo(user);
+      //setName(userInfo["name"]);
+      const account = new Account(uuid, getToken(),"","", "", "", "", "Humanitarian Aid");
+      
       const post = await ajax(account, "/getpost");
+      
       setTitle(post["title"]);
       setBody(post["body"]);
       const images = await ajax(account, "/getimage");
       setImageURLS(images);
-      setLoading(false);
       getComments();
+      setLoading(false)
+      //console.log(comments)
     })();
   }, []);
 
@@ -72,6 +74,7 @@ function Login() {
   };
 
   return (
+   
     <div>
       {getLoading ? 
       <div className={s.Loading}>
