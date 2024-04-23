@@ -1,0 +1,26 @@
+.BarSep {
+    width: 95%;
+    margin-top: 0.9vmin;
+}
+.ButtonDiv {
+    padding-top: 1.5vmin;
+    padding-bottom: 1vmin;
+}
+.button {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 1.6vmin 22vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: 0vmin;
+    border-radius: 5px;
+}
+.button:hover {
+    opacity: 0.8;
+}
+.button:active {
+    opacity: 0.6;
+}

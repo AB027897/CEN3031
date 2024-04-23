@@ -1,4 +1,7 @@
 import React from 'react';
+import {Elements, useElements} from "@stripe/react-stripe-js";
+import {loadStripe} from "@stripe/stripe-js";
+import StripeComponent from './utilities/stripeComponent.jsx';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './css/Donate.module.css';
@@ -7,6 +10,7 @@ import ajax from './utilities/ajax.js';
 import {checkToken, getToken} from './utilities/token.js';
 import loading from './images/loading.webp';
 import Card from './utilities/card.js';
+
 
 function Donate() {
   // header
@@ -21,6 +25,7 @@ function Donate() {
   const [getBillingAddress1, setBillingAddress1] = useState("");
   const [getBillingAddress2, setBillingAddress2] = useState("");
   const [getBillingAddress3, setBillingAddress3] = useState("");
+  const stripe = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
   // error
   const [getErrorText, setErrorText] = useState("");
   // loading
@@ -38,8 +43,8 @@ function Donate() {
       setLoading(false);
     })();
   }, [])
-  const donate = async()=> {
-      const card = new Card(getCardNum, getExpMonth, getExpYear, getCVC, getDollarAmt, localStorage.getItem("Posts"), getToken());
+  const donate = async(cardToken)=> { 
+      const card = new Card(cardToken, getDollarAmt, localStorage.getItem("Post"), getToken());
       const message = await ajax(card, "/donatecharity");
       if(message !== "") {
         setErrorText(message);
@@ -73,7 +78,7 @@ function Donate() {
                 </div>
             </div>
           </div>
-          <div className={s.ItemTitle}>
+          {/*<div className={s.ItemTitle}>
               <h2>Name on Card</h2>
               <input className={s.TextField} type="text" placeholder="Enter Name..." value={getCardName} onChange={(event) => setCardName(event.target.value)}/>
           </div>
@@ -98,7 +103,11 @@ function Donate() {
                 <input className={s.TextField} type="text" placeholder="Address Line 1..." value={getBillingAddress1} onChange={(event) => setBillingAddress1(event.target.value)}/>
                 <input className={s.TextField} type="text" placeholder="Address Line 2..." value={getBillingAddress2} onChange={(event) => setBillingAddress2(event.target.value)}/>
                 <input className={s.TextField} type="text" placeholder="Address Line 3..." value={getBillingAddress3} onChange={(event) => setBillingAddress3(event.target.value)}/>
-            </div>      
+          </div>     */}
+  
+          <Elements stripe={stripe}>
+            <StripeComponent donation={donate}/>
+          </Elements>
           <hr className={s.BarSep}/>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>

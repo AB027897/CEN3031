@@ -10,10 +10,6 @@ import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
 
-// temporary placeholder images before actual images are implemented from pages
-import globe from './images/Logo_Earth.png';
-
-
 function DonorAccount() {
   const navigate = useNavigate();
   const [getRecs, setRecs] = useState([]);

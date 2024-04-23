@@ -1,9 +1,6 @@
 class Card {
-    constructor(number, expMonth, expYear, cvc, dollarAmt, charity, token) {
-        this.number = number;
-        this.exp_month = expMonth;
-        this.exp_year = expYear;
-        this.cvc = cvc;
+    constructor(cardToken, dollarAmt, charity, token) {
+        this.card_token = cardToken;
         this.amount = dollarAmt;
         this.charity = charity;
         this.token = token;
