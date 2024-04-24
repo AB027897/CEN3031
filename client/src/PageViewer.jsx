@@ -13,44 +13,33 @@ function Login() {
   const [getTitle, setTitle] = useState("");
   const [getBody, setBody] = useState("");
   const [getImageURLs, setImageURLS] = useState([]);
+  const [comments, setComments] = useState([])
   const [getNewComment, setNewComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const [getLoading, setLoading] = useState(false);
+  const [getLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(()=> {(async ()=> {
+  useEffect(()=> {
+    (async ()=> {
       if(!checkToken()) {
         navigate("/login");
       }
-      let uuid = "1e8WxQbxnvRbzUEuQPl7RyAXtyK2";
-      //if(localStorage.getItem("Post") !== null) {
-      //  uuid = localStorage.getItem("Post");
-      //}
-      //const user = await getAccount(uuid);
-      //const userInfo = await getAccountInfo(user);
-      //setName(userInfo["name"]);
-      const account = new Account(uuid, getToken(),"","", "", "", "", "Humanitarian Aid");
-      
+      let uuid = "";
+      if(localStorage.getItem("Post") !== null) {
+        uuid = localStorage.getItem("Post");
+      }
+      const user = await getAccount(uuid);
+      const userInfo = await getAccountInfo(user);
+      setName(userInfo["name"]);
+      const account = new Account(user["uuid"], user["token"], "", "", "", "", "", userInfo["type"]);
       const post = await ajax(account, "/getpost");
-      
       setTitle(post["title"]);
       setBody(post["body"]);
       const images = await ajax(account, "/getimage");
       setImageURLS(images);
-      getComments();
-      setLoading(false)
-      //console.log(comments)
+      setLoading(false);
     })();
   }, []);
-
-  const getComments = async () => {
-    const data = {
-      "token": getToken()
-    }
-    const response = await ajax(data, "/get_comments");
-    setComments(response);
-  }
-
+  
   const handleDonate = async () => {
     if(localStorage.getItem("Post") !== null) {
       navigate("/donate");
@@ -61,20 +50,27 @@ function Login() {
       }
       const message = await ajax(data, "/financial") */
     } 
-  };
+  }
 
-  const handleSubmit = async() => {
-    const data = {
-      "comment": getNewComment.trim(),
-      "token": getToken()
-    }
-    setNewComment("")
-    await ajax(data, "/add_comment");
-    getComments()
-  };
-
+  const handleSubmit = async (event) => {
+    if (getNewComment.trim() === "") {
+        return;
+        }
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-US', {
+      year: '2-digit',
+      month: 'numeric',
+      day: '2-digit'
+    });
+    const newComment = {
+        name: "Anonymous Charity",
+        date: formattedDate,
+        text: getNewComment.trim()
+    };
+    setComments([...comments, newComment]);
+    setNewComment("");
+  }
   return (
-   
     <div>
       {getLoading ? 
       <div className={s.Loading}>
@@ -111,22 +107,38 @@ function Login() {
           <div className={s.CommentsBG}>
             <div className={s.CommentsDiv}>
               <p className={s.CommentsHeader}>Comments</p>
-              {comments.map((comment, index) => (
-                <div className = {s.CommentEntry} key={index}>
-                  <p className = {s.CommentDate}> {comment.date} </p>
-                  <p className = {s.CommentText}>
-                    <b>{comment.name}</b>: <br />
-                    {comment.text}
-                  </p>
-                </div>
+              <div className={s.CommentEntry}>
+                <p className={s.CommentDate}>3/20/24</p>
+                <p className={s.CommentText}><b>Name</b>:<br/> Comment from user with name shown on the left</p>
+            </div>
+            {comments.map((comment, index) => (
+              <div className={s.CommentEntry} key={index}>
+                <p className={s.CommentDate}>{comment.date}</p>
+                <p className={s.CommentText}>
+                  <b>{comment.name}</b>:<br/>
+                  {comment.text}
+                </p>
+              </div>
             ))}
-              
               <div>
-              <form onSubmit={handleSubmit} style={{ flex: 5 }}>
-                  <textarea className={s.TextField} placeholder="New Comment..." onChange={(event) => setNewComment(event.target.value)} value={getNewComment} />
-                  <input style={{ flex: 1 }} className={s.SubmitButton} type="submit" value="Post Comment" />
+                <form style={{flex: 5}}>
+                  <textarea 
+                    className={s.TextField} 
+                    placeholder="New Comment..." 
+                    onChange={(event) => setNewComment(event.target.value)} 
+                    value={getNewComment}
+                  />
+                  <button 
+                    style={{flex: 1}} 
+                    className={s.SubmitButton} 
+                    type="button" 
+                    onClick={handleSubmit} 
+                  >
+                    Submit
+                  </button>
                 </form>
               </div>
+
               <br/>
               <br/>
             </div>

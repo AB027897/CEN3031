@@ -182,14 +182,3 @@ def get_all_posts(charity_type = None):
                         'body': body
                     }
                     on_post_change(typesense_data)
-
-def add_comment(charity_type, post_id, uuid, time, comment):
-    data = {
-        'user_id': uuid,
-        'data': time,
-        'comment': comment
-    }
-    db.child("posts").child(charity_type).child(post_id).child("comments").push(data)
-
-def get_comments(charity_type, post_id):
-    return db.child("posts").child(charity_type).child(post_id).get("comments").get().val()
