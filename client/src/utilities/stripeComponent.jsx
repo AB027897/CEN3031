@@ -12,9 +12,9 @@ const StripeComponent = ({donation}) => {
     }
     return (
         <div>
-            <CardNumberElement/>
-            <CardExpiryElement/>
-            <CardCvcElement/>
+            <CardNumberElement className={s.TextField}/>
+            <CardExpiryElement className={s.TextField}/>
+            <CardCvcElement className={s.TextField}/>
             <hr className={s.BarSep}/>
             <div className={s.ButtonDiv}>
                 <button className={s.button} onClick={() => donate()}>CONFIRM</button>

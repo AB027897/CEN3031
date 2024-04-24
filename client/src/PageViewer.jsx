@@ -41,12 +41,6 @@ function Login() {
   const handleDonate = async () => {
     if(localStorage.getItem("Post") !== null) {
       navigate("/donate");
-      /*const data = {
-        "charity" : localStorage.getItem("Posts"),
-        "amount": 100, 
-        "token": getToken()
-      }
-      const message = await ajax(data, "/financial") */
     } 
   }
   return (

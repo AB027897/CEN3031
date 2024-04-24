@@ -2,6 +2,20 @@
     width: 95%;
     margin-top: 0.9vmin;
 }
+.TextField {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 55vmin;
+    height: 5.8vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 1vmin;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+    box-sizing: border-box;
+}
 .ButtonDiv {
     padding-top: 1.5vmin;
     padding-bottom: 1vmin;
