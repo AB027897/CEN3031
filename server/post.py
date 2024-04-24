@@ -122,7 +122,6 @@ def upload_image(uuid, charity_type, token, local_file_path):
         data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
         n = data.get("n")
         file_name = "image{}".format(n)
-
         path = "{}/{}".format(uuid, file_name)
         # Need to fix the security of firebase storage to allow for tokens
         storage.child("images/"+path+".png").put(local_file_path, content_type=filetype.guess(local_file_path).mime)
