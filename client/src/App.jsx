@@ -1,3 +1,6 @@
+// home page, including spinning logo globe with hands and title
+// right side includes buttons for creating an account or signing in
+
 import logo_e from './images/Logo_Earth.png';
 import logo_h from './images/Logo_Hands.png';
 import s from './css/App.module.css';

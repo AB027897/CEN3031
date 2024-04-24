@@ -1,3 +1,6 @@
+// The sign up page is used by both charities and donors to make a new account.
+// includes inputs for email, password (re-enter password), and phone number - with proper accompanying error checking
+
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +12,7 @@ import Account from './utilities/account.js'
 import {setToken, checkToken} from './utilities/token.js';
 
 function Signup() {
+    // input fields for signing up
     const [getDonorStatus, setDonorStatus] = useState(false);
     const [getCharityStatus, setCharityStatus] = useState(false);
     const [getErrorText, setErrorText] = useState("");
@@ -16,6 +20,7 @@ function Signup() {
     const [getPassword, setPassword] = useState("");
     const [getConfirmPassword, setConfirmPassword] = useState("");
     const [getPhoneNumber, setPhoneNumber] = useState("");
+
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -29,6 +34,7 @@ function Signup() {
         })();
       }, []);
 
+    // toggles whether the account type is a donor or a charity (used by buttons)
     const changeState = (type) => {
         if(type === "donor") {
             setDonorStatus(true);
@@ -38,9 +44,12 @@ function Signup() {
             setDonorStatus(false);
         }
     }
+    // ensures phone number is formatted properly with parentheses and dashes
     const formatPhoneNumber = (phoneNumber) => {
         setPhoneNumber(phoneNumberFormat(phoneNumber));
       }; 
+
+    // handles input validation and error checking and then makes new account
     const handleSignup = async () => {
         // verify account type is selected
         let accountType = 'donor';

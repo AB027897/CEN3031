@@ -1,27 +1,38 @@
+// This is the place where charity users configure and update account information which is used elsewhere in the application.
+// this includes email, charity name, charity type, and banking information (routing number, account number, country)
+
+// React
 import React from 'react';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+// CSS
 import s from './css/CharityAccount.module.css';
 import phoneNumberFormat from './utilities/phoneNumberFormat.js';
+// images
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
+// utilities
 import {getAccount, getAccountInfo} from './utilities/account';
 import ajax from './utilities/ajax.js';
 import {checkToken} from './utilities/token.js';
+// loading
 import loading from './images/loading.webp'
 
 function CharityAccount() {
+  // navigates to search page (used by navbar)
   const toSearchPage = ()=> { 
     if(getConfigured) { // redundant now
       navigate("/search"); 
     }
   }
+  // navigates to for-you page (used by navbar)
   const toFYP = ()=> { // redundant now
     if(getConfigured) {
       navigate("/fyp"); 
     }
   }
+  // navigates to page creator (used by button)
   const toPageCreator = ()=> { 
     if(getConfigured) {
       navigate("/pagecreator"); 
@@ -30,6 +41,7 @@ function CharityAccount() {
       setErrorText("Must configure account before accessing page creator");
     }
   }
+  // navigates to page viewer (used by button)
   const toPageViewer = ()=> { 
     if(getConfigured) {
       navigate("/pageviewer"); 
@@ -39,38 +51,40 @@ function CharityAccount() {
     }
   }
 
+  // error text
   const [getErrorText, setErrorText] = useState("");
+  
+  // configurable account data
   const [getPhoneNumber, setPhoneNumber] = useState("");
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
   const [getType, setType] = useState("Select option...");
-
   // banking information variables
   const [getAccountNum, setAccountNum] = useState("");
   const [getRoutingNum, setRoutingNum] = useState("");
   const [getCountry, setCountry] = useState("US");
 
+  // loading data
   const [getLoading, setLoading] = useState(true);
 
-  // firstTimeConfigure
+  // firstTimeConfigure state - used to hide navbar and other functionality
   const [getConfigured, setConfigured] = useState(false);
 
   const navigate = useNavigate();
   useEffect(()=> {
     (async ()=> {
+      // route to login by default if not signed in to a user
       if(!checkToken()) {
         navigate("/login");
       }
+
+      // fetch account data (phone number, email, name)
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
 
-      // I think these should be set below but I get an error when doing the country one so I'll keep it commented for now
-      // setAccountNum(accountInfo["account_number"]);
-      // setRoutingNum(accountInfo["routing_number"]);
-      // setCountry(accountInfo["country"]);
-
+      // set charity type
       if(accountInfo["type"] !== "") {
         setType(accountInfo["type"]);
       }
@@ -86,12 +100,15 @@ function CharityAccount() {
     })();
   }, [])
 
+  // for making the phone number have parentheses and dashes like a standard phone number format
   const formatPhoneNumber = (phoneNumber) => {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async()=> {
     
     let account = await getAccount();
+
+    // acount type is always charity
     account.account_type = "charity";
 
     account.email = getEmail;
@@ -170,6 +187,7 @@ function CharityAccount() {
     }
     setConfigured(true);
   }
+  // clears saved sign in token (used by logout button)
   const logout = async ()=> {
     // route to home
     localStorage.clear();

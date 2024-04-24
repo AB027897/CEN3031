@@ -1,3 +1,6 @@
+// the search page is used by users to search through the database of charity pages
+// search queries use typesense to detect any instances of the text search or something similar in the charity's page.
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
@@ -12,6 +15,7 @@ import settings from './images/SettingsIcon.png';
 
 function DonorAccount() {
   const navigate = useNavigate();
+  // used for fetching more pages
   const [getMax, setMax] = useState(10);
   const [getQuery, setQuery] = useState([]);
   const [getImageURLS, setImageURLS] = useState([]);
@@ -20,10 +24,13 @@ function DonorAccount() {
 
   useEffect(()=> {
     (async ()=> {
+      // automatically route to login if no login token detected
       if(!checkToken()) {
         navigate("/login");
       }
+      // detch account data
       const account = await getAccount();
+      // fetch recommendations based on account prefs/type - used to generate pages like for-you page before search query is sent
       let recommended = await ajax(account, "/getrecs");
       let imageUrls = []
       for(let i=0; i < recommended.length; i++) {
@@ -34,12 +41,14 @@ function DonorAccount() {
       setImageURLS(imageUrls);
       setQuery(recommended);
       getQuery = recommended;
+      // hide show more button if there are no more pages to show
       if(getQuery.length < getMax) {
         setShow("none");
       }
     })();
   }, []);
 
+  // routes to account page (used in navbar)
   const toAccountPage = async ()=> {
     let accountInfo = await getAccountInfo();
     if(accountInfo['account type'] === 'charity') {
@@ -48,13 +57,16 @@ function DonorAccount() {
       navigate("/donoraccount");
     }
   }
+  // routes to for-you page (used in navbar)
   const toFYP = ()=> { navigate("/fyp"); }
 
+  // used to open a specific charity page that resulted from the search query
   const openPage = async (uuid)=> {
     const token = await ajax(uuid, "/setposttoken");
     localStorage.setItem("Post", token);
     navigate("/pageviewer");
   }
+  // loads up to 10 more pages that fit the search query (used by button)
   const loadMorePages = async ()=> {
     setMax(getMax + 10);
     if(getQuery.length < getMax) {
@@ -62,9 +74,10 @@ function DonorAccount() {
     }
   }
 
+  // search text data
   const [getSearchText, setSearchText] = useState("");
   const searchQuery = async ()=> {
-    // somehow interface here with backend search functionality
+    // waits for repsonse from typesense
     const response = await ajax(getSearchText, "/typesense");
     setQuery(response["hits"]);
     let imageUrls = [];
@@ -74,6 +87,7 @@ function DonorAccount() {
       const images = await ajax(charityAccount, "/getimage");
       imageUrls.push(images[0]);
     } 
+    // updates images based on results
     setImageURLS(imageUrls);
     setSearch(true);
   }
