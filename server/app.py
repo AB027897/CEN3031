@@ -104,11 +104,12 @@ def get_image():
 @app.route('/donatecharity')
 def donate_charity():
     user_info = json.loads(request.headers["account"])
-    charity_info = get_account(user_info["charity"], user_info["token"])
-    card = create_card_token(user_info["number"], user_info["exp_month"], user_info["exp_year"], user_info["cvc"])
-    charge_card(user_info["amount"], card)
-    transfer_money(user_info["amount"], charity_info["id"])
-    return Response("", status=200, mimetype="text/plain")
+    uuid = signin_token(user_info["charity"])["localId"]
+    charity_info = get_account(uuid, user_info["token"])
+    error = charge_card(user_info["amount"], user_info["card_token"]["token"]["id"])
+    # Not transferring because no account is verified since verification needs SSN
+    #transfer_money(user_info["amount"], charity_info["id"])
+    return Response(json.dumps(error), status=200, mimetype="application/json")
 
 @app.route('/typesense')
 def search_handler():
@@ -130,15 +131,6 @@ def get_recommended():
     for preference in preferences:
         recs = recs + get_all_posts(preference)
     return Response(json.dumps(recs), status=200, mimetype="application/json")
-
-@app.route('/financial')
-def finance():
-    user_info = json.loads(request.headers["account"])
-    payment_intent(user_info["amount"])
-    charity_info = signin_token(user_info["charity"])
-    print(charity_info)
-    transfer_money(user_info["amount"], charity_info["id"])
-    return Response("", status=200, mimetype="text/plain")
 
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')

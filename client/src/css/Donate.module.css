@@ -18,9 +18,9 @@
     background-size: 50vmin;
     background-attachment: fixed;
 
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
 }
 
 
@@ -72,14 +72,13 @@
         font-size: calc(7vw);
 }
 
-
-
 /* BODY */
 .App_body {
     background-color: white;
     border: 0.3vmin solid #000000;
     border-radius: 2vmin;
     width: 60vmin;
+    margin-left: calc(50vw - 30vmin);
 
     margin-top: 1.5vmin;
     margin-bottom: 1.5vmin;

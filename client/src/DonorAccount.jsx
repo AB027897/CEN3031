@@ -23,7 +23,7 @@ function DonorAccount() {
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
-  const [getDisplayCalendar, setDisplayCalendar] = useState("none")
+  const [getDisplayCalendar, setDisplayCalendar] = useState("flex")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
   // charity preference vars
@@ -58,9 +58,9 @@ function DonorAccount() {
         setConfigured(false);
       }
       else setConfigured(true);
-
       // exit loading state
       setLoading(false);
+      displayCalendar();
     })();
   }, [])
 
@@ -88,9 +88,9 @@ function DonorAccount() {
       return;
     }
     account.phone = phoneNumber;
-
+    console.log(getDate);
     // Date of Birth error checking
-    if(JSON.stringify(getDate) == "null") {
+    if(JSON.stringify(getDate) == "null" && !getConfigured) {
       setErrorText("Date of birth is required");
       return;
     }
@@ -220,8 +220,10 @@ function DonorAccount() {
           <div className={s.ButtonDiv}>
             <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
-          <hr className={s.BarSep}/>
-          <button className={s.button2} onClick={() => logout()}>Log Out</button>
+          {getConfigured ? 
+          <><hr className={s.BarSep}/>
+          <button className={s.button2} onClick={() => logout()}>Log Out</button></> 
+          : <></>}
         </body> 
       </div> }
     </div>

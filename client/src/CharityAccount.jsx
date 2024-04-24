@@ -499,15 +499,19 @@ function CharityAccount() {
           <div className={s.ButtonDiv}>
             <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
-          <div className={s.Customize}>
+          {getConfigured ?
+          <>
+            <div className={s.Customize}>
               <h2 className={s.CustomizeText}>Customize Charity Page</h2>
-          </div>
-          <div>
+            </div>
+            <div>
               <button className={s.SmallButton} onClick={() => {localStorage.removeItem("Post"); navigate("/pageviewer")}}>Preview</button>
               <button className={s.SmallButton} onClick={() => navigate("/pagecreator")}>Edit</button>
-          </div>
-          <hr className={s.BarSep}/>
-          <button className={s.button2} onClick={() => logout()}>Log Out</button>
+            </div>
+            <hr className={s.BarSep}/>
+            <button className={s.button2} onClick={() => logout()}>Log Out</button>
+          </> 
+          : <></>}
         </body>
       </div>}
     </div>

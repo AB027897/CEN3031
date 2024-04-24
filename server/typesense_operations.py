@@ -145,7 +145,7 @@ def on_post_update(data):
 def search_documents(search_value):
     search_params = {
         'q': search_value,
-        'query_by': 'body',
+        'query_by': 'body, charity_name, preview_caption',
     }
     search_results = client.collections['posts'].documents.search(search_params)
     return search_results

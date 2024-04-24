@@ -2,6 +2,7 @@ from firebase import get_firebase
 from admin import *
 from financial import *
 from typesense_operations import *
+import filetype
 
 def init_database():
     global firebase_app
@@ -121,10 +122,9 @@ def upload_image(uuid, charity_type, token, local_file_path):
         data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
         n = data.get("n")
         file_name = "image{}".format(n)
-
         path = "{}/{}".format(uuid, file_name)
         # Need to fix the security of firebase storage to allow for tokens
-        storage.child("images/"+path+".png").put(local_file_path, content_type="image/png")
+        storage.child("images/"+path+".png").put(local_file_path, content_type=filetype.guess(local_file_path).mime)
         db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path}, token=token)
         db.child("posts").child(charity_type).child(uuid).update({"n": n + 1}, token=token)
     except Exception as e:
@@ -146,9 +146,23 @@ def get_images(uuid, charity_type, token):
         arr.append(url)
     return arr
 
-def get_all_posts(charity_type=None):
-    if charity_type is not None:
-        posts = db.child("posts/" + charity_type).get()
+def get_all_posts(charity_type = None):
+    if charity_type != None:
+        charity_posts = db.child("posts/" + charity_type).get()
+        posts = []
+        for charity in charity_posts:
+            uuid = charity.key()
+            charity_type = get_account(uuid, "")["type"]
+            name = db.child("accounts/"+uuid+"/name").get().val()
+            preview_caption = charity.val()["preview_caption"]
+            data = {
+                "uuid": uuid,
+                "title": name,
+                "preview_caption": preview_caption,
+                "type": charity_type
+            }
+            posts.append(data)
+        return posts
     else:
         all_charities = db.child("posts").get()
         posts = []

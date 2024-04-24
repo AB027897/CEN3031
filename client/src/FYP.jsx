@@ -2,23 +2,20 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { getAccount, getAccountInfo } from './utilities/account.js'
-import { checkToken } from './utilities/token.js';
+import { checkToken, getToken } from './utilities/token.js';
 import ajax from './utilities/ajax.js';
-
+import Account from './utilities/account.js';
 import s from './css/FYP.module.css';
 import home from './images/HomeIcon.png';
 import search from './images/SearchIcon.png';
 import settings from './images/SettingsIcon.png';
-
-// temporary placeholder images before actual images are implemented from pages
-import globe from './images/Logo_Earth.png';
-
 
 function DonorAccount() {
   const navigate = useNavigate();
   const [getRecs, setRecs] = useState([]);
   const [getMax, setMax] = useState(10);
   const [getShow, setShow] = useState("inline-block");
+  const [getImageURLs, setImageURLS] = useState([]);
   useEffect(()=> {
     (async ()=> {
       if(!checkToken()) {
@@ -26,6 +23,13 @@ function DonorAccount() {
       }
       const account = await getAccount();
       let recommended = await ajax(account, "/getrecs");
+      let imageUrls = []
+      for(let i=0; i < recommended.length; i++) {
+        const charityAccount = new Account(recommended[i]["uuid"], getToken(), "", "", "", "", "", recommended[i]["type"]);
+        const images = await ajax(charityAccount, "/getimage");
+        imageUrls.push(images[0]);
+      } 
+      setImageURLS(imageUrls);
       setRecs(recommended);
       getRecs = recommended;
       if(getRecs.length < getMax) {
@@ -82,7 +86,7 @@ function DonorAccount() {
           i < getMax ? (
           <div className={s.PageItem} onClick={()=>openPage(rec["uuid"])}>
             <div className={s.PageItemImageDiv}>
-              <img className={s.PageItemImage} src={globe}/>
+              <img className={s.PageItemImage} src={getImageURLs[i]}/>
             </div>
             <div className={s.PageItemTextDiv}>
               <div className={s.PageItemTitle}>{rec["title"]}</div>

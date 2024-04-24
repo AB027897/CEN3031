@@ -1,0 +1,40 @@
+.BarSep {
+    width: 95%;
+    margin-top: 0.9vmin;
+}
+.TextField {
+    font-size: calc(2.75vmin);
+    color: black;
+    width: 55vmin;
+    height: 5.8vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 1vmin;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #f1f1f1;
+    border-color: black;
+    box-sizing: border-box;
+}
+.ButtonDiv {
+    padding-top: 1.5vmin;
+    padding-bottom: 1vmin;
+}
+.button {
+    background-color: rgb(101, 153, 221);
+    border: none;
+    color: black;
+    padding: 1.6vmin 22vmin;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(3.2vmin);
+    margin-top: 0vmin;
+    border-radius: 5px;
+}
+.button:hover {
+    opacity: 0.8;
+}
+.button:active {
+    opacity: 0.6;
+}
