@@ -1,3 +1,5 @@
+// the page creator is where charity's go to add data to their page, including the preview blurb, body text, and images.
+
 import React from 'react';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,14 +10,18 @@ import {getToken, checkToken} from './utilities/token';
 import {getAccount, getAccountInfo} from './utilities/account.js';
 
 function Login() {
+  // error for improper use of input fields
   const [getErrorText, setErrorText] = useState("");
+  // locally stored data for input fields
   const [getCaption, setCaption] = useState("");
   const [getBody, setBody] = useState("");
   const [getFiles, setFiles] = useState([]);
+
   const navigate = useNavigate();
   
   useEffect(()=> {
     (async ()=> {
+      // automatically route to login if login token is not found
       if(!checkToken()) {
         navigate("/login");
       }
@@ -23,13 +29,16 @@ function Login() {
   }, []);
 
   const createPosts = async () => {
+    // fetch account
     const user = await getAccount();
     const userInfo = await getAccountInfo(user);
+    // upload image data
     const imageData = new FormData();
     for(let i=0; i < getFiles.length; i++) {
       imageData.append("files"+i, getFiles[i]);
 
     }
+    // upload text data
     const post = new Post(user["uuid"], userInfo["type"], getToken(), "title (remove)", getCaption, getBody);
     await ajax(post, "/addpost");
     await ajax(post, "/addimage", "post", imageData, "multipart/form-data");

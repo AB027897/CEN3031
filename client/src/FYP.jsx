@@ -1,3 +1,5 @@
+// The for-you page displays page recommendations based on selected preferences (for donor users) or the charity's own charity type (for charity users)
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
@@ -12,16 +14,20 @@ import settings from './images/SettingsIcon.png';
 
 function DonorAccount() {
   const navigate = useNavigate();
+  // variables for showing pages
   const [getRecs, setRecs] = useState([]);
   const [getMax, setMax] = useState(10);
   const [getShow, setShow] = useState("inline-block");
   const [getImageURLs, setImageURLS] = useState([]);
   useEffect(()=> {
     (async ()=> {
+      // automatically route to login if no sign in token is detected
       if(!checkToken()) {
         navigate("/login");
       }
+      // account data
       const account = await getAccount();
+      // determine pages to display based on fetched account preferences/type
       let recommended = await ajax(account, "/getrecs");
       let imageUrls = []
       for(let i=0; i < recommended.length; i++) {
@@ -32,12 +38,13 @@ function DonorAccount() {
       setImageURLS(imageUrls);
       setRecs(recommended);
       getRecs = recommended;
+      // hide load more button if there is no more to load
       if(getRecs.length < getMax) {
         setShow("none");
       }
     })();
   }, []);
-
+  // routes to account page (used by navbar)
   const toAccountPage = async ()=> {
     let accountInfo = await getAccountInfo();
     if(accountInfo['account type'] === 'charity') {
@@ -46,13 +53,16 @@ function DonorAccount() {
       navigate("/donoraccount");
     }
   }
+  // routes to search page (used by navbar)
   const toSearchPage = ()=> { navigate("/search"); }
 
+  // used to open a specific charity page option result
   const openPage = async (uuid)=> {
     const token = await ajax(uuid, "/setposttoken");
     localStorage.setItem("Post", token);
     navigate("/pageviewer");
   }
+  // generates up to 10 more pages based on preferences/type (used by button)
   const loadMorePages = async ()=> {
     setMax(getMax + 10);
     if(getRecs.length < getMax) {

@@ -1,3 +1,6 @@
+// The login page is where users go to sign in to an existing donor/charity account.
+// this page includes error checking but will not indicate whether password or email was incorrect for security reasons.
+
 import React from 'react';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,13 +11,18 @@ import Account from './utilities/account.js'
 import {setToken, checkToken} from './utilities/token.js';
 
 function Login() {
+  // error text
   const [getErrorText, setErrorText] = useState("");
+  // local data for entry fields
   const [getEmail, setEmail] = useState("");
   const [getPassword, setPassword] = useState("");
+
   const navigate = useNavigate();
   
   useEffect(()=> {
     (async ()=> {
+      // automatically routes to for-you page if a log-in token is already detected.
+      // this allows users who recently signed in to quickly sign back in
       if(checkToken()) {
         navigate("/fyp");
       }
@@ -22,15 +30,18 @@ function Login() {
   }, []);
 
   const handleLogin = async () => {
+    // attempt login
     let user = new User(getEmail, getPassword);
     let text = await ajax(user, "/loginvalidation");
-    if(typeof(text) !== "string") {
+    
+
+    if(typeof(text) !== "string") { // valid signin attempt
         setErrorText("");
         setToken(text['token']);
         let account = new Account(text['localId'], text['token']);
         let accountInfo = await ajax(account, "/getaccountinfo");
         navigate("/fyp");
-    } else {
+    } else { // invalid sign in attempt - yields an error message which is formatted to be better readable to users
         if(text=="INVALID_EMAIL")
         {
           setErrorText("Email address must be valid");
@@ -42,6 +53,7 @@ function Login() {
         else {
           setErrorText(text);
         }
+        // clear email and password fields after failed sign in attempt
         setEmail("");
         setPassword("");
     }

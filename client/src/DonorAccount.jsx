@@ -1,3 +1,5 @@
+// This is the page where donor users configure or update their account data, including email, name, phone number, date of birth, and charity type preferences.
+
 import React from 'react';
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,36 +18,42 @@ import loading from './images/loading.webp';
 
 
 function DonorAccount() {
+  // navigate functions used by buttons in navbar
   const navigate = useNavigate();
   const toSearchPage = ()=> { navigate("/search"); }
   const toFYP = ()=> { navigate("/fyp"); }
 
+  // locally stored account data
   const [getDate, setDate] = useState(new Date());
   const [getErrorText, setErrorText] = useState("");
   const [getPhoneNumber, setPhoneNumber] = useState("");
   const [getDisplayCalendar, setDisplayCalendar] = useState("flex")
   const [getEmail, setEmail] = useState("");
   const [getName, setName] = useState("");
-  // charity preference vars
+  // charity preference - list of preferences (1 or more)
   const [getPreference, setPreference] = useState(new Set());
 
+  // loading state
   const [getLoading, setLoading] = useState(true);
 
-  // first Time Configure
+  // first Time Configure - used to hide navbar and some other functionality until account is configured
   const [getConfigured, setConfigured] = useState(false);
 
   useEffect(()=> {
     (async ()=> {
+      // re-routes user to login page if no login token is detected
       if(!checkToken()) {
         navigate("/login");
       }
+
+      // read account information
       const accountInfo = await getAccountInfo();
       setPhoneNumber(phoneNumberFormat(accountInfo["phone number"]));
       setEmail(accountInfo["email"]);
       setName(accountInfo["name"]);
       const date = accountInfo["dob"].replace(/["]/g, "");
       setDate(Date.parse(date));
-      try {
+      try { // try catch is necessary to prevent infinite loading in some cases
         for(let i=0; i < accountInfo["preferences"].length; i++) {
           handlePreferences(accountInfo["preferences"][i]);
         }
@@ -64,12 +72,14 @@ function DonorAccount() {
     })();
   }, [])
 
+  // ensure phone number is formatted properly with parentheses and dashes
   const formatPhoneNumber = (phoneNumber) => {
     setPhoneNumber(phoneNumberFormat(phoneNumber));
   }; 
   const update = async ()=> {
     
     let account = await getAccount();
+    // account type is always donor on donor account page
     account.account_type = "donor";
 
     account.email = getEmail;
@@ -119,11 +129,13 @@ function DonorAccount() {
     }
     setConfigured(true);
   }
+  // deletes sign in token and returns to home (used by logout button)
   const logout = async ()=> {
     // route to home
     localStorage.clear();
     navigate("/");
   }
+  // used to open or close the calendar widget
   const displayCalendar = () => {
     if(getDisplayCalendar === "none") {
       setDisplayCalendar("flex");
@@ -131,6 +143,7 @@ function DonorAccount() {
       setDisplayCalendar("none");
     }
   }
+  // updates preferences UI based on button presses
   const handlePreferences = (newPreference) => {
     getPreference.has(newPreference) ? setPreference(prevPreference => {const newSet = new Set(prevPreference); newSet.delete(newPreference); return newSet;}) : setPreference(prevPreference => new Set(prevPreference).add(newPreference));
   }

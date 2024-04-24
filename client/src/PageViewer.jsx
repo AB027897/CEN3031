@@ -1,3 +1,5 @@
+// the page viewer is used both so that the charity accounts may preview their own page or so that any account may view a different charity's page form the search or for-you page
+
 import hands from './images/Logo_Hands_Crop.png';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,23 +11,30 @@ import { checkToken, getToken } from './utilities/token';
 import loading from './images/loading.webp';
 
 function Login() {
+  // local data fields for configured page data
   const [getName, setName] = useState("")
   const [getTitle, setTitle] = useState("");
   const [getBody, setBody] = useState("");
   const [getImageURLs, setImageURLS] = useState([]);
+  // comments - never fully implemented
   const [getNewComment, setNewComment] = useState("");
+  // loading state
   const [getLoading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(()=> {
     (async ()=> {
+      // automatically route to login if no login token is detected
       if(!checkToken()) {
         navigate("/login");
       }
+      // fetch post
       let uuid = "";
       if(localStorage.getItem("Post") !== null) {
         uuid = localStorage.getItem("Post");
       }
+      // update data on page
       const user = await getAccount(uuid);
       const userInfo = await getAccountInfo(user);
       setName(userInfo["name"]);
@@ -35,9 +44,12 @@ function Login() {
       setBody(post["body"]);
       const images = await ajax(account, "/getimage");
       setImageURLS(images);
+
+      // set loading state to false once all data fetching is completed
       setLoading(false);
     })();
   }, []);
+  // navigates to donate page (used by donate button)
   const handleDonate = async () => {
     if(localStorage.getItem("Post") !== null) {
       navigate("/donate");

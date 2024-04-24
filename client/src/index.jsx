@@ -1,3 +1,5 @@
+// this file is used to determine which hyperlink routes navigate to which created jsx pages.
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
