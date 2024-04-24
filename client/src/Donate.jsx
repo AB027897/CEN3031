@@ -42,6 +42,9 @@ function Donate() {
     }
     const card = new Card(cardToken, Number(getDollarAmt)*100, localStorage.getItem("Post"), getToken());
     const message = await ajax(card, "/donatecharity");
+    if(message === null) {
+      navigate("/fyp");
+    }
     if(message !== "") {
       setErrorText(message);
     } else {
