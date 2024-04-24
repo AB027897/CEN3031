@@ -104,11 +104,11 @@ function Donate() {
           <Elements stripe={stripe}>
             <StripeComponent donation={donate}/>
           </Elements>
-          <hr className={s.BarSep}/>
+          {/* <hr className={s.BarSep}/>
           <p className={s.ErrorText}>{getErrorText}</p>
           <div className={s.ButtonDiv}>
             <button className={s.button} onClick={() => donate()}>CONFIRM</button>
-          </div>
+          </div> */}
         </body>
       </div>}
     </div>
