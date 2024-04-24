@@ -14,6 +14,7 @@ init_database()
 init_typesense()
 get_all_posts()
 
+#route to validate signup
 @app.route('/signupvalidation')
 def validateSignup():
     account = json.loads(request.headers["account"])
@@ -28,6 +29,7 @@ def validateSignup():
     result['token'] = token
     return Response(json.dumps(result), status=200, mimetype="application/json")
 
+#route to validate login
 @app.route('/loginvalidation')
 def login():
     account = json.loads(request.headers["account"])
@@ -42,7 +44,7 @@ def login():
     result['token'] = token
     return Response(json.dumps(result), status=200, mimetype="application/json")
 
-
+#adding account of donor to firebase
 @app.route('/addaccountinfo')
 def add_donor_info():
     account = json.loads(request.headers["account"])
@@ -52,12 +54,14 @@ def add_donor_info():
         return Response(json.dumps(response), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
 
+#accessing account of charity to firebase
 @app.route('/getaccountinfo')
 def get_account_info():
     account = json.loads(request.headers["account"])
     account_info = get_account(account['uuid'], account['token'])
     return Response(json.dumps(account_info), status=200, mimetype="application/json")
 
+#signing in to account
 @app.route('/signintoken')
 def signin():
     token = json.loads(request.headers["account"])
@@ -66,12 +70,14 @@ def signin():
         return Response(user, status=200, mimetype="text/plain")
     return Response(json.dumps(user), status=200, mimetype="application/json")
 
+# adding a post
 @app.route('/addpost')
 def post_add():
     post_info = json.loads(request.headers["account"])
     add_post(post_info["uuid"], post_info["charity_type"], post_info["title"], post_info["preview_caption"], post_info["body"], post_info["token"])
     return Response("", status=200, mimetype="text/plain")
 
+# retreiving the post of user
 @app.route('/getpost')
 def post_get():
     user_info = json.loads(request.headers["account"])
@@ -80,6 +86,7 @@ def post_get():
         return Response(json.dumps(post), status=200, mimetype="application/json")
     return Response("", status=200, mimetype="text/plain")
 
+# setting the token for the post
 @app.route('/setposttoken')
 def post_set_token():
     uuid = json.loads(request.headers["account"])
@@ -87,20 +94,24 @@ def post_set_token():
     token = create_token(account)
     return Response(token, status=200, mimetype="text/plain")
 
+# adding images to a post
 @app.route('/addimage', methods=['POST'])
 def add_image():
     user_info = json.loads(request.headers["account"])
     for label in request.files:
         image = request.files[label]
+        # uploading image to firebase storage 
         upload_image(user_info["uuid"], user_info["charity_type"], user_info["token"], image.read())
     return Response("", status=200, mimetype="text/plain")
 
+# getting all the images from a particular post
 @app.route('/getimage')
 def get_image():
     user_info = json.loads(request.headers["account"])
     urls = get_images(user_info["uuid"], user_info["charity_type"], user_info["token"])
     return Response(json.dumps(urls), status=200, mimetype="application/json")
 
+# donating to charity
 @app.route('/donatecharity')
 def donate_charity():
     user_info = json.loads(request.headers["account"])
@@ -111,13 +122,16 @@ def donate_charity():
     #transfer_money(user_info["amount"], charity_info["id"])
     return Response(json.dumps(error), status=200, mimetype="application/json")
 
+# integrating typesense
 @app.route('/typesense')
 def search_handler():
     query = json.loads(request.headers["account"])
+    # using typesense to query
     results = search_documents(query)
     json_results = json.dumps(results)
     return Response(json_results, status=200, mimetype='application/json')
 
+# getting the for you page recommendations based on account_type and preferences
 @app.route('/getrecs')
 def get_recommended():
     account = json.loads(request.headers["account"])
@@ -132,6 +146,7 @@ def get_recommended():
         recs = recs + get_all_posts(preference)
     return Response(json.dumps(recs), status=200, mimetype="application/json")
 
+# serving the static files
 @app.route('/', defaults={'file': ''})
 @app.route('/<path:file>')
 def serve_file(file):

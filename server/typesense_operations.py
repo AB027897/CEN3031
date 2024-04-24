@@ -3,6 +3,7 @@ from typesense import Client
 import os
 import requests
 
+# scheme of the post 
 posts_schema = {
     'name': 'posts',
     'fields': [
@@ -13,6 +14,7 @@ posts_schema = {
     ]
 }
 
+# initializing necessary typesense variables
 def init_typesense():
     global client
 
@@ -61,7 +63,7 @@ def init_typesense():
     # TODO: comment out when don't want to print documents in terminal
     export_documents("posts")
 
-
+# exporting documents from typesense
 def export_documents(collection_name):
     api_key = os.getenv("TYPESENSE_API_KEY")
     headers = {
@@ -78,7 +80,7 @@ def export_documents(collection_name):
     else:
         print(f"Failed to export documents for {collection_name}: {response.status_code}")   
 
-
+# delete all the posts from the collectoin
 def delete_collection():
     try:
         client.collections['posts'].delete()
@@ -86,6 +88,7 @@ def delete_collection():
     except Exception as e:
         print("Error deleting 'posts' collection:", e)
 
+# edit typesense collections
 def on_post_change(data):
     post_id = data.get('id')
     charity_type = data.get('charity_type')
@@ -108,7 +111,7 @@ def on_post_change(data):
     else:
         on_post_create(document)
 
-        
+# check if posts exists in typesense
 def post_exists_in_typesense(document_id):
     try:
         client.collections['posts'].documents[document_id].retrieve()
@@ -116,7 +119,7 @@ def post_exists_in_typesense(document_id):
     except typesense.exceptions.ObjectNotFound:
         return False
 
-
+# adding data to typesense
 def on_post_create(data):
     document = {
         'id': data.get('id', ''),
@@ -128,7 +131,7 @@ def on_post_create(data):
     
     client.collections['posts'].documents.create(document)
 
-
+# update data in typesense
 def on_post_update(data):
     document = {
         'id': data.get('id', ''),

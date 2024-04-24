@@ -4,6 +4,7 @@ from financial import *
 from typesense_operations import *
 import filetype
 
+# initialize the database
 def init_database():
     global firebase_app
     global db
@@ -12,7 +13,7 @@ def init_database():
     db = firebase_app.database()
     storage = firebase_app.storage()
 
-
+# adding donor using account information
 def add_donor(user_id, account_type, name, email, phone, dob, preferences, token):
     data = {
         'account type' : account_type,
@@ -22,14 +23,15 @@ def add_donor(user_id, account_type, name, email, phone, dob, preferences, token
         'dob': dob,
         'preferences': preferences
     }
+    # update using firebase_admin
     error = update_email(user_id, email)
     if type(error) != str:
+        # add to firebase database
         db.child("accounts").child(user_id).set(data, token = token)
     else:
         return error
    
-
-
+# adding charity using account information
 def add_charity(user_id, account_type, name, email, phone, charity_type, id, token):
     data = {
         'account type' : account_type,
@@ -39,13 +41,15 @@ def add_charity(user_id, account_type, name, email, phone, charity_type, id, tok
         'type': charity_type,
         'id': id
     }
+    # update user's email using firebase_admin
     error = update_email(user_id, email)
     if type(error) != str:
+        # add to firebase database
         db.child("accounts").child(user_id).set(data, token=token)
     else:
         return error
 
-
+# adding account in general using account information
 def add_account(user_id, token, account_type, name="", email="", phone="", dob="", charity_type="", account_number="", routing_number="", country="", preferences=""):
     if account_type == "donor":
         return add_donor(user_id, account_type, name, email, phone, dob, preferences, token)
@@ -58,21 +62,24 @@ def add_account(user_id, token, account_type, name="", email="", phone="", dob="
                 if id == "":
                     raise Exception("Invalid id")
             except:
+                # create charity account based on country
                 account = create_charity_account(email, country)
                 if type(account) == str:
                     return account
                 id = account["id"]
+                # create bank account based on country
                 bank_account = create_bank_account(id, account_number, routing_number, country)
                 print(bank_account)
                 if type(bank_account) == str:
                     return bank_account
         return add_charity(user_id, account_type, name, email, phone, charity_type, id, token)
 
+# access account using user_id
 def get_account(user_id, token):
     user_info = db.child("accounts").child(user_id).get(token=token)
     return user_info.val()
 
-
+# adding posts to the charity
 def add_post(uuid, charity_type, title, preview_caption, body, token):
     data = {
         'title': title,
@@ -80,12 +87,16 @@ def add_post(uuid, charity_type, title, preview_caption, body, token):
         'body': body,
         'n': 0,
     }
+    # reference to the post 
     post_ref = db.child("posts").child(charity_type).child(uuid)
     posts = post_ref.get().val()
     if posts:
+        # if there already is one, remove the previous post 
         remove_post(uuid, charity_type, token)
+        # adding post to firebase database
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
     else:
+        # adding post to firebase database
         db.child("posts").child(charity_type).child(uuid).set(data, token=token)
 
     charity_info = get_account(uuid, token)
@@ -98,15 +109,17 @@ def add_post(uuid, charity_type, title, preview_caption, body, token):
         'preview_caption': preview_caption,
         'body': body
     }    
+    # update the typesense database
     on_post_change(typesense_data)
 
+# retrieve post of user
 def get_post(uuid, charity_type, token):
     posts = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
     if posts:
         return posts
     return ""
 
-
+# removing posts and corresponding images of user
 def remove_post(uuid, charity_type, token):
     data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
     n = data.get("n")
@@ -116,7 +129,7 @@ def remove_post(uuid, charity_type, token):
     data_ref = db.child("posts").child(charity_type).child(uuid)
     data_ref.remove(token=token)
 
-
+# upload image to the charity post using firebase storage
 def upload_image(uuid, charity_type, token, local_file_path):
     try:
         data = db.child("posts").child(charity_type).child(uuid).get(token=token).val()
@@ -125,19 +138,21 @@ def upload_image(uuid, charity_type, token, local_file_path):
 
         path = "{}/{}".format(uuid, file_name)
         # Need to fix the security of firebase storage to allow for tokens
+        # update firebase storage
         storage.child("images/"+path+".png").put(local_file_path, content_type=filetype.guess(local_file_path).mime)
         db.child("posts").child(charity_type).child(uuid).update({"image{}".format(str(n)):path}, token=token)
         db.child("posts").child(charity_type).child(uuid).update({"n": n + 1}, token=token)
     except Exception as e:
         print("Error:", e)
 
-
+# removing image from firebase storage
 def remove_image(path, token):
     try:
         storage.delete("images/" + path, token)
     except Exception as e:
         print("Error removing image from storage:", e)
 
+# get all the images of a particular post
 def get_images(uuid, charity_type, token):
     arr = []
     post = get_post(uuid, charity_type, token)
@@ -147,6 +162,7 @@ def get_images(uuid, charity_type, token):
         arr.append(url)
     return arr
 
+# get all the posts of a charity type
 def get_all_posts(charity_type = None):
     if charity_type != None:
         charity_posts = db.child("posts/" + charity_type).get()
@@ -181,4 +197,5 @@ def get_all_posts(charity_type = None):
                         'preview_caption': preview_caption,
                         'body': body
                     }
+                    # also update the typesense database
                     on_post_change(typesense_data)
