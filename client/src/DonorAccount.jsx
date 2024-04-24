@@ -90,7 +90,7 @@ function DonorAccount() {
     account.phone = phoneNumber;
     console.log(getDate);
     // Date of Birth error checking
-    if(JSON.stringify(getDate) == "null") {
+    if(JSON.stringify(getDate) == "null" && !getConfigured) {
       setErrorText("Date of birth is required");
       return;
     }
@@ -220,8 +220,10 @@ function DonorAccount() {
           <div className={s.ButtonDiv}>
             <button className={s.button} onClick={() => update()}>{getConfigured ? <>UPDATE</> : <>SUBMIT</>}</button>
           </div>
-          <hr className={s.BarSep}/>
-          <button className={s.button2} onClick={() => logout()}>Log Out</button>
+          {getConfigured ? 
+          <><hr className={s.BarSep}/>
+          <button className={s.button2} onClick={() => logout()}>Log Out</button></> 
+          : <></>}
         </body> 
       </div> }
     </div>
